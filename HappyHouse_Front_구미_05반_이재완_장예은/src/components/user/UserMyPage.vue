@@ -25,7 +25,9 @@
             <b-row>
               <b-col cols="2"></b-col>
               <b-col cols="2" align-self="end">이름</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.username }}</b-col>
+              ><b-col cols="4" align-self="start">{{
+                userInfo.username
+              }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
             <b-row>
@@ -37,7 +39,9 @@
             <b-row>
               <b-col cols="2"></b-col>
               <b-col cols="2" align-self="end">가입일</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.joindate }}</b-col>
+              ><b-col cols="4" align-self="start">{{
+                userInfo.joindate
+              }}</b-col>
               <b-col cols="2"></b-col>
             </b-row>
           </b-container>

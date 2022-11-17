@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.vue.model.MemberDto;
 import com.ssafy.vue.model.mapper.MemberMapper;
@@ -17,17 +18,39 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSession sqlSession;
 
 	@Override
-	public MemberDto login(MemberDto memberDto) throws Exception {
+	public MemberDto loginUser(MemberDto memberDto) throws Exception {
 		if (memberDto.getUserid() == null || memberDto.getUserpwd() == null)
 			return null;
-		return sqlSession.getMapper(MemberMapper.class).login(memberDto);
+		return sqlSession.getMapper(MemberMapper.class).loginUser(memberDto);
 	}
 
 	@Override
-	public MemberDto userInfo(String userid) throws Exception {
-		return sqlSession.getMapper(MemberMapper.class).userInfo(userid);
+	public MemberDto getUserinfo(String userid) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).getUserinfo(userid);
 	}
 
+	@Override
+	public boolean registUser(MemberDto memberDto) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).registUser(memberDto) == 1;
+	}
+
+	@Override
+	@Transactional
+	public boolean updateUser(MemberDto memberDto) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).updateUser(memberDto) == 1;		
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteUser(String userid) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).deleteUser(userid) == 1;
+	}
+
+	@Override
+	public int idCheck(String userid) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).idCheck(userid);
+	}
+	
 	@Override
 	public void saveRefreshToken(String userid, String refreshToken) throws Exception {
 		Map<String, String> map = new HashMap<String, String>();
