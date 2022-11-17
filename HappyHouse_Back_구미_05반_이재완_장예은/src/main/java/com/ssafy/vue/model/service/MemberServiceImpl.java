@@ -30,20 +30,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean joinMember(MemberDto memberDto) throws Exception {
-		return sqlSession.getMapper(MemberMapper.class).joinMember(memberDto) == 1;
+	public boolean registUser(MemberDto memberDto) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).registUser(memberDto) == 1;
 	}
 
 	@Override
 	@Transactional
-	public boolean updateMember(MemberDto memberDto) throws Exception {
-		return sqlSession.getMapper(MemberMapper.class).updateMember(memberDto) == 1;		
+	public boolean updateUser(MemberDto memberDto) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).updateUser(memberDto) == 1;		
 	}
 
 	@Override
 	@Transactional
-	public boolean deleteMember(String userid) throws Exception {
-		return sqlSession.getMapper(MemberMapper.class).deleteMember(userid) == 1;
+	public boolean deleteUser(String userid) throws Exception {
+		return sqlSession.getMapper(MemberMapper.class).deleteUser(userid) == 1;
 	}
 
 	@Override

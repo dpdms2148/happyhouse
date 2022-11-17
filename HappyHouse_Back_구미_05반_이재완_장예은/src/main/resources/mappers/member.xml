@@ -17,17 +17,17 @@
 	</select>
 	
 	<insert id="registUser" parameterType="memberDto">
-		insert into members (userid, username, userpw, email, joindate)
-		values (#{userid}, #{username}, #{userpw}, #{email}, now())
+		insert into member (userid, username, userpwd, email, joindate)
+		values (#{userid}, #{username}, #{userpwd}, #{email}, now())
 	</insert>
 	
 	<update id="updateUser" parameterType="memberDto">
 		update member
-		set userpw = #{userpw}, email = #{email}
+		set userpwd = #{userpwd}, email = #{email}
 		where userid = #{userid}
 	</update>
 	
-	<delete id="deleteMember" parameterType="String">
+	<delete id="deleteUser" parameterType="String">
 		delete from member
 		where userid = #{userId}
 	</delete>
