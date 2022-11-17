@@ -6,23 +6,23 @@
       </b-col>
       <qna-view-content :qna="qna"></qna-view-content>
       <qna-answer-view v-if="qna.answer != null" :qna="qna"></qna-answer-view>
-      <router-view v-else></router-view>
+      <qna-answer-write v-else></qna-answer-write>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import {getQna} from "@/api/qna";
+import { getQna } from "@/api/qna";
 import QnaViewContent from "@/components/qna/QnaViewContent";
 import QnaAnswerView from "@/components/qna/answer/QnaAnswerView";
-// import QnaAnswerWrite from "@/components/qna/answer/QnaAnswerWrite";
+import QnaAnswerWrite from "@/components/qna/answer/QnaAnswerWrite";
 
 export default {
   name: "QnaView",
   components: {
     QnaViewContent,
     QnaAnswerView,
-    // QnaAnswerWrite,
+    QnaAnswerWrite,
   },
   data() {
     return {
