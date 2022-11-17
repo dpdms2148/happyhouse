@@ -46,4 +46,5 @@ public class SidoGugunCodeDto {
 	public void setGugunName(String gugunName) {
 		this.gugunName = gugunName;
 	}
+	
 }
