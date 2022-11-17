@@ -16,6 +16,15 @@
 		where userid = #{userid}
 	</select>
 	
+	
+	
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(userid)
+		from member
+		where userid = #{userid}
+	</select>
+	
 	<select id="getRefreshToken" parameterType="string" resultType="string">
 		select token
 		from member
