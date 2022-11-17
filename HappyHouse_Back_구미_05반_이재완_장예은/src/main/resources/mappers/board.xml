@@ -59,11 +59,6 @@
 		where articleno = #{articleno}
 	</update>
 	
-	<delete id="deleteMemo" parameterType="int">
-		delete from memo
-		where articleno = #{articleno}
-	</delete>
-	
 	<delete id="deleteArticle" parameterType="int">
 		delete from board
 		where articleno = #{articleno}

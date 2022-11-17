@@ -78,9 +78,15 @@ public class QnaController {
 	@DeleteMapping("/{qnano}")
 	public ResponseEntity<String> deleteQna(@PathVariable("qnano") @ApiParam(value = "살제할 qna의 글번호.", required = true) int qnano) throws Exception {
 		logger.info("deleteQna - 호출");
+		try {
 		if (qnaService.deleteQna(qnano)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 }

@@ -58,12 +58,7 @@
 		set subject = #{subject}, content = #{content}
 		where qnano = #{qnano}
 	</update>
-	
-	<delete id="deleteMemo" parameterType="int">
-		delete from qna
-		where qnano = #{qnano}
-	</delete>
-	
+
 	<delete id="deleteQna" parameterType="int">
 		delete from qna
 		where qnano = #{qnano}
