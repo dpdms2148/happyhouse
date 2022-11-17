@@ -58,7 +58,7 @@ import { mapState } from "vuex";
 const memberStore = "memberStore";
 
 export default {
-  name: "UserMyPage",
+  name: "User",
   components: {},
   computed: {
     ...mapState(memberStore, ["userInfo"]),
