@@ -57,6 +57,7 @@ public class HouseMapController {
 	@ApiOperation(value = "동 정보", notes = "전국의 동을 반환한다.", response = List.class)
 	@GetMapping("/dong")
 	public ResponseEntity<List<HouseInfoDto>> dong(@RequestParam("gugun") String gugun) throws Exception {
+		logger.info("dong - 호출");
 		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getDongInGugun(gugun), HttpStatus.OK);
 	}
 	
