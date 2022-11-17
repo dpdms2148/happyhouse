@@ -27,25 +27,25 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
-	public List<QnaDto> listQna(ParameterDto qnaParameterDto) throws Exception {
-		int start = qnaParameterDto.getPg() == 0 ? 0 : (qnaParameterDto.getPg() - 1) * qnaParameterDto.getSpp();
-		qnaParameterDto.setStart(start);
-		return sqlSession.getMapper(QnaMapper.class).listQna(qnaParameterDto);
+	public List<QnaDto> listQna(ParameterDto ParameterDto) throws Exception {
+		int start = ParameterDto.getPg() == 0 ? 0 : (ParameterDto.getPg() - 1) * ParameterDto.getSpp();
+		ParameterDto.setStart(start);
+		return sqlSession.getMapper(QnaMapper.class).listQna(ParameterDto);
 	}
 
 	@Override
-	public PageNavigation makePageNavigation(ParameterDto qnaParameterDto) throws Exception {
+	public PageNavigation makePageNavigation(ParameterDto ParameterDto) throws Exception {
 		int naviSize = 5;
 		PageNavigation pageNavigation = new PageNavigation();
-		pageNavigation.setCurrentPage(qnaParameterDto.getPg());
+		pageNavigation.setCurrentPage(ParameterDto.getPg());
 		pageNavigation.setNaviSize(naviSize);
-		int totalCount = sqlSession.getMapper(QnaMapper.class).getTotalCount(qnaParameterDto);//총글갯수  269
+		int totalCount = sqlSession.getMapper(QnaMapper.class).getTotalCount(ParameterDto);//총글갯수  269
 		pageNavigation.setTotalCount(totalCount);  
-		int totalPageCount = (totalCount - 1) / qnaParameterDto.getSpp() + 1;//27
+		int totalPageCount = (totalCount - 1) / ParameterDto.getSpp() + 1;//27
 		pageNavigation.setTotalPageCount(totalPageCount);
-		boolean startRange = qnaParameterDto.getPg() <= naviSize;
+		boolean startRange = ParameterDto.getPg() <= naviSize;
 		pageNavigation.setStartRange(startRange);
-		boolean endRange = (totalPageCount - 1) / naviSize * naviSize < qnaParameterDto.getPg();
+		boolean endRange = (totalPageCount - 1) / naviSize * naviSize < ParameterDto.getPg();
 		pageNavigation.setEndRange(endRange);
 		pageNavigation.makeNavigator();
 		return pageNavigation;

@@ -46,11 +46,6 @@ const routes = [
     component: AppHouse,
   },
   {
-    path: "/todo",
-    name: "todo",
-    component: () => import("@/views/AppTodo"),
-  },
-  {
     path: "/user",
     name: "user",
     component: () => import("@/views/AppUser"),
@@ -107,6 +102,50 @@ const routes = [
         name: "boarddelete",
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/board/BoardDelete"),
+      },
+    ],
+  },
+  {
+    path: "/qna",
+    name: "qna",
+    component: () => import("@/views/AppQna"),
+    redirect: "/qna/list",
+    children: [
+      {
+        path: "list",
+        name: "qnalist",
+        component: () => import("@/components/qna/QnaList"),
+      },
+      {
+        path: "write",
+        name: "qnawrite",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/qna/QnaWrite"),
+      },
+      {
+        path: "view/:qnano",
+        name: "qnaview",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/qna/QnaView"),
+        children: [
+          {
+            path: "answerwrite",
+            name: "answerwrite",
+            component: () => import("@/components/qna/answer/QnaAnswerWrite.vue"),
+          },
+        ],
+      },
+      {
+        path: "modify",
+        name: "qnamodify",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/qna/QnaModify"),
+      },
+      {
+        path: "delete/:qnano",
+        name: "qnadelete",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/components/qna/QnaDelete"),
       },
     ],
   },
