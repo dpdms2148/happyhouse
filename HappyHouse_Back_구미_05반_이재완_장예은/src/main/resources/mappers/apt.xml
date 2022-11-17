@@ -24,7 +24,7 @@
 		order by dongName
 	</select>
 	
-	<select id="getAptInDong" parameterType="string" resultType="houseInfoDto">
+	<!-- <select id="getAptInDong" parameterType="string" resultType="houseInfoDto">
 		select h.aptCode, h.aptName, h.buildyear, h.dongCode, h.dongName, h.jibun, h.lat, h.lng, si.sidoname, gu.gugunname,
 				(select dealAmount from housedeal where aptCode = h.aptCode and no = (select max(no) from housedeal where aptCode = h.aptCode)) recentPrice
 		from houseinfo h
@@ -34,6 +34,15 @@
 		on left(h.dongcode,5) = left(gu.guguncode,5)
 		where dongCode = #{dong} 
 		order by aptName
+	</select> -->
+	
+	<!-- 아파트 정보 불러오기 -->
+	<select id="getAptInDong" parameterType="houseInfoDto" resultType="houseInfoDto">
+		<![CDATA[
+		select * from houseinfo 
+			left join housedeal on houseinfo.aptCode=housedeal.aptCode
+			where houseinfo.dongCode=#{dongCode} and housedeal.dealYear=#{dealYear} and housedeal.dealMonth=#{dealMonth}
+	]]>
 	</select>
 	
 </mapper>
