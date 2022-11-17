@@ -84,11 +84,12 @@ const houseStore = {
       );
     },
     getHouseList: ({ commit }, dongCode) => {
-      const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
+      //const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
       const params = {
-        LAWD_CD: dongCode,
-        DEAL_YMD: "202207",
-        serviceKey: decodeURIComponent(SERVICE_KEY),
+        lawd_cd: dongCode,
+        deal_year: "2022",
+        deal_month: "7",
+        //serviceKey: decodeURIComponent(SERVICE_KEY),
       };
       houseList(
         params,

@@ -30,6 +30,40 @@ public class HouseInfoDto {
 	private String img;
 	@ApiModelProperty(value = "매매가격")
 	private String recentPrice;
+	@ApiModelProperty(value = "거래년도")
+	private String dealYear;
+	@ApiModelProperty(value = "거래월")
+	private String dealMonth;
+	
+	public HouseInfoDto() {
+		super();
+	}
+
+	public HouseInfoDto(String dongCode, String dealYear, String dealMonth) {
+		this.dongCode=dongCode;
+		this.dealYear=dealYear;
+		this.dealMonth=dealMonth;
+	}
+
+	public HouseInfoDto(int aptCode, String aptName, String dongCode, String dongName, String sidoName,
+			String gugunName, int buildYear, String jibun, String lat, String lng, String img, String recentPrice,
+			String dealYear, String dealMonth) {
+		super();
+		this.aptCode = aptCode;
+		this.aptName = aptName;
+		this.dongCode = dongCode;
+		this.dongName = dongName;
+		this.sidoName = sidoName;
+		this.gugunName = gugunName;
+		this.buildYear = buildYear;
+		this.jibun = jibun;
+		this.lat = lat;
+		this.lng = lng;
+		this.img = img;
+		this.recentPrice = recentPrice;
+		this.dealYear = dealYear;
+		this.dealMonth = dealMonth;
+	}
 
 	public int getAptCode() {
 		return aptCode;
@@ -126,4 +160,22 @@ public class HouseInfoDto {
 	public void setRecentPrice(String recentPrice) {
 		this.recentPrice = recentPrice;
 	}
+
+	public String getDealYear() {
+		return dealYear;
+	}
+
+	public void setDealYear(String dealYear) {
+		this.dealYear = dealYear;
+	}
+
+	public String getDealMonth() {
+		return dealMonth;
+	}
+
+	public void setDealMonth(String dealMonth) {
+		this.dealMonth = dealMonth;
+	}
+	
+	
 }
