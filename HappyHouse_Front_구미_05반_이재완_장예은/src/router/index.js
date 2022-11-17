@@ -46,11 +46,6 @@ const routes = [
     component: AppHouse,
   },
   {
-    path: "/todo",
-    name: "todo",
-    component: () => import("@/views/AppTodo"),
-  },
-  {
     path: "/user",
     name: "user",
     component: () => import("@/views/AppUser"),

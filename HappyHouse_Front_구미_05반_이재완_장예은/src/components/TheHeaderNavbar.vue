@@ -18,27 +18,24 @@
         <b-navbar-nav>
           <b-nav-item href="#">
             <router-link :to="{ name: 'main' }" class="link">
-              <b-icon icon="house-door" animation="fade" font-scale="2"></b-icon>
+              <b-icon icon="house-door" font-scale="2"></b-icon>
               메인
             </router-link>
-            <router-link :to="{ name: 'insta' }" class="m-2 link">
-              <b-icon icon="instagram" animation="fade" font-scale="2"></b-icon>
-              인스타그램
-            </router-link>
-            <router-link :to="{ name: 'board' }" class="m-2 link">
-              <b-icon icon="journal" animation="fade" font-scale="2"></b-icon>
-              게시판
-            </router-link>
             <router-link :to="{ name: 'house' }" class="m-2 link">
-              <b-icon icon="house-fill" animation="fade" font-scale="2"></b-icon>
+              <b-icon icon="house-fill" font-scale="2"></b-icon>
               아파트정보
             </router-link>
-            <router-link :to="{ name: 'todo' }" class="link">
-              <b-icon icon="calendar-check" animation="fade" font-scale="2"></b-icon>
-              TodoList
+            <router-link :to="{ name: 'board' }" class="m-2 link">
+              <b-icon icon="list-ul" font-scale="2"></b-icon>
+              공지사항
+            </router-link>
+            <router-link :to="{ name: 'qna' }" class="link">
+              <b-icon icon="patch-question" font-scale="2"></b-icon>
+              QnA
             </router-link>
           </b-nav-item>
         </b-navbar-nav>
+
 
         <!-- after login -->
         <b-navbar-nav class="ml-auto" v-if="userInfo">
