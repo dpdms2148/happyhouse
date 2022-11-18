@@ -2,16 +2,17 @@
   <b-container>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button
+        <!-- <b-button
           variant="outline-info"
           size="sm"
-          @click="moveModifyQna"
+          @click="moveModifyQnaAns"
           class="mr-2"
-          >답변수정</b-button
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteQna"
-          >답변삭제</b-button
-        >
+          답변수정
+        </b-button> -->
+        <b-button variant="outline-danger" size="sm" @click="deleteQnaAns">
+          답변삭제
+        </b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -35,39 +36,51 @@
 </template>
 
 <script>
+import { deleteQnaAnswer } from '@/api/qna'
 export default {
-  name: "QnaViewContent",
+  name: 'QnaViewContent',
   props: {
     qna: Object,
   },
   computed: {
     message() {
-      if (this.qna.answer) return this.qna.answer.split("\n").join("<br>");
-      return "";
+      if (this.qna.answer) return this.qna.answer.split('\n').join('<br>')
+      return ''
     },
   },
   methods: {
-    moveModifyQna() {
-      this.$router.replace({
-        name: "qnamodify",
-        params: { qnano: this.qna.qnano },
-      });
-      //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
-    },
-    deleteQna() {
-      if (confirm("정말로 삭제?")) {
-        this.$router.replace({
-          name: "qnadelete",
-          params: { qnano: this.qna.qnano },
-        });
+    // moveModifyQnaAns() {
+    //   this.$router.replace({
+    //     name: 'qnamodify',
+    //     params: { qnano: this.qna.qnano },
+    //   })
+    //   //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
+    // },
+    deleteQnaAns() {
+      if (confirm('정말로 삭제?')) {
+        let param = this.$route.params.qnano
+        deleteQnaAnswer(
+          param,
+          ({ data }) => {
+            let msg = '삭제 처리시 문제가 발생했습니다.'
+            if (data === 'success') {
+              msg = '삭제가 완료되었습니다.'
+            }
+            alert(msg)
+            // 현재 route를 /list로 변경.
+            this.$router.push({ name: 'qnalist' })
+          },
+          (error) => {
+            console.log(error)
+          },
+        )
       }
     },
     moveList() {
-      this.$router.push({ name: "qnalist" });
+      this.$router.push({ name: 'qnalist' })
     },
   },
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>

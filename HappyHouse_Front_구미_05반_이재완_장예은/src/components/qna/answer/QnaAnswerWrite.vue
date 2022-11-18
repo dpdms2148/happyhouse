@@ -3,18 +3,24 @@
     <b-row class="mb-1">
       <b-col style="text-align: left;">
         <b-form @submit="onSubmit" @reset="onReset">
-          <b-form-group id="content-group" label="답변:" label-for="content">
+          <b-form-group id="answer-group" label="답변:" label-for="answer">
             <b-form-textarea
-              id="content"
+              id="answer"
               placeholder="답변 입력..."
+              v-model="qna.answer"
               rows="10"
               max-rows="15"
             ></b-form-textarea>
           </b-form-group>
-          <b-button type="submit" variant="outline-primary" class="m-1">
+          <b-button
+            type="submit"
+            variant="primary"
+            class="m-1"
+            v-if="this.type === 'register'"
+          >
             답변등록
           </b-button>
-          <b-button type="reset" variant="outline-danger" class="m-1">
+          <b-button type="reset" variant="danger" class="m-1">
             초기화
           </b-button>
         </b-form>
@@ -24,12 +30,17 @@
 </template>
 
 <script>
-import { getQnaAnswer, writeQnaAnswer, modifyQnaAnswer } from '@/api/qna'
+import { writeQnaAnswer, modifyQnaAnswer } from '@/api/qna'
+
 export default {
   name: 'QnaAnswerWrite',
   data() {
     return {
       qna: {
+        //       qnano: 0,
+        //       userid: '',
+        //       subject: '',
+        //       content: '',
         answer: '',
       },
     }
@@ -37,22 +48,8 @@ export default {
   props: {
     type: { type: String },
   },
-  created(){
-    if (this.type === 'modify') {
-      let param = this.$route.params.qnano
-      getQnaAnswer(
-        param,
-        ({ data }) => {
-          this.qna = data
-        },
-        (error) => {
-          console.log(error)
-        },
-      )
-    }
-  },
-  methods:{
-    onsubmit(event){
+  methods: {
+    onSubmit(event) {
       event.preventDefault()
       this.type === 'register' ? this.registQnaAnswer() : this.modifyQnaAnswer()
     },
@@ -60,8 +57,9 @@ export default {
       event.preventDefault()
       this.qna.answer = ''
     },
-    registQnaAnswer(){
-      let param={
+    registQnaAnswer() {
+      let param = {
+        qnano: this.$route.params.qnano,
         answer: this.qna.answer,
       }
       writeQnaAnswer(
@@ -79,8 +77,9 @@ export default {
         },
       )
     },
-    modifyQnaAnswer(){
-      let param={
+    modifyQnaAnswer() {
+      let param = {
+        qnano: this.$route.params.qnano,
         answer: this.qna.answer,
       }
       modifyQnaAnswer(
