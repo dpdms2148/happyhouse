@@ -6,19 +6,21 @@
       </b-col>
       <qna-view-content :qna="qna"></qna-view-content>
       <qna-answer-view v-if="qna.answer != null" :qna="qna"></qna-answer-view>
-      <qna-answer-write v-else></qna-answer-write>
+      <qna-answer-write v-else-if="userInfo.userid==='admin'"></qna-answer-write>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import { getQna } from "@/api/qna";
-import QnaViewContent from "@/components/qna/QnaViewContent";
-import QnaAnswerView from "@/components/qna/answer/QnaAnswerView";
-import QnaAnswerWrite from "@/components/qna/answer/QnaAnswerWrite";
+import { getQna } from '@/api/qna'
+import { mapState } from 'vuex'
+import QnaViewContent from '@/components/qna/QnaViewContent'
+import QnaAnswerView from '@/components/qna/answer/QnaAnswerView'
+import QnaAnswerWrite from '@/components/qna/answer/QnaAnswerWrite'
 
+const memberStore = 'memberStore'
 export default {
-  name: "QnaView",
+  name: 'QnaView',
   components: {
     QnaViewContent,
     QnaAnswerView,
@@ -27,21 +29,24 @@ export default {
   data() {
     return {
       qna: {},
-    };
+    }
+  },
+  computed: {
+    ...mapState(memberStore, ['userInfo']),
   },
   created() {
-    let param = this.$route.params.qnano;
+    let param = this.$route.params.qnano
     getQna(
       param,
       ({ data }) => {
-        this.qna = data;
+        this.qna = data
       },
       (error) => {
-        console.log(error);
-      }
-    );
+        console.log(error)
+      },
+    )
   },
-};
+}
 </script>
 
 <style></style>

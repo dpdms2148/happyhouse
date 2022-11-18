@@ -8,48 +8,49 @@
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
-        <b-jumbotron>
-          <template #header>My Page</template>
+        <b-table-simple hover>
+          <b-tbody>
+            <b-tr>
+              <b-th>아이디</b-th>
+              <b-td>{{ userInfo.userid }}</b-td>
+              <b-td colspan="2"></b-td>
+            </b-tr>
 
-          <template #lead> 내 정보 확인페이지입니다. </template>
+            <b-tr>
+              <b-th scope="row">이름</b-th>
+              <b-td>{{ userInfo.username }}</b-td>
+              <b-td colspan="2">
+                <b-button variant="outline-dark" size="sm">이름 변경</b-button>
+              </b-td>
+            </b-tr>
 
-          <hr class="my-4" />
+            <b-tr>
+              <b-th scope="row">비밀번호</b-th>
+              <b-td>********</b-td>
+              <b-td colspan="2">
+                <b-button variant="outline-dark" size="sm">
+                  비밀번호 변경
+                </b-button>
+              </b-td>
+            </b-tr>
 
-          <b-container class="mt-4">
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">아이디</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.userid }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이름</b-col
-              ><b-col cols="4" align-self="start">{{
-                userInfo.username
-              }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">이메일</b-col
-              ><b-col cols="4" align-self="start">{{ userInfo.email }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-            <b-row>
-              <b-col cols="2"></b-col>
-              <b-col cols="2" align-self="end">가입일</b-col
-              ><b-col cols="4" align-self="start">{{
-                userInfo.joindate
-              }}</b-col>
-              <b-col cols="2"></b-col>
-            </b-row>
-          </b-container>
-          <hr class="my-4" />
+            <b-tr>
+              <b-th scope="row">이메일</b-th>
+              <b-td>{{ userInfo.email }}</b-td>
+              <b-td colspan="2">
+                <b-button variant="outline-dark" size="sm">
+                  이메일 변경
+                </b-button>
+              </b-td>
+            </b-tr>
 
-          <b-button variant="primary" href="#" class="mr-1">정보수정</b-button>
-          <b-button variant="danger" href="#">회원탈퇴</b-button>
-        </b-jumbotron>
+            <b-tr>
+              <b-th scope="row">가입일</b-th>
+              <b-td>{{ userInfo.joindate }}</b-td>
+              <b-td colspan="2"></b-td>
+            </b-tr>
+          </b-tbody>
+        </b-table-simple>
       </b-col>
       <b-col></b-col>
     </b-row>
@@ -57,17 +58,22 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
-const memberStore = "memberStore";
+const memberStore = 'memberStore'
 
 export default {
-  name: "UserMyPage",
+  name: 'UserMyPage',
   components: {},
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(memberStore, ['userInfo']),
   },
-};
+}
 </script>
 
-<style></style>
+<style>
+table {
+  text-align: left;
+  border: 20px;
+}
+</style>
