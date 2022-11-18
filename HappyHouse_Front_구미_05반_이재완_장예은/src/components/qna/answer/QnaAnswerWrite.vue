@@ -15,8 +15,6 @@
           <b-button type="submit" variant="primary" class="m-1"
             >글작성</b-button
           >
-          <b-button type="submit" variant="primary" class="m-1">수정</b-button>
-          <b-button type="reset" variant="danger" class="m-1">삭제</b-button>
         </b-form>
       </b-col>
     </b-row>

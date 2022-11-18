@@ -99,7 +99,6 @@ export default {
       this.article.articleno = 0
       this.article.subject = ''
       this.article.content = ''
-      this.moveList()
     },
     registArticle() {
       let param = {

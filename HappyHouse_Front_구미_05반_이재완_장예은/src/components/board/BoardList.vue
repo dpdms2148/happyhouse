@@ -8,7 +8,7 @@
     <b-row class="mb-1">
       <b-col class="text-right">
         <b-button
-          v-if="userInfo.userid == 'admin'"
+          v-if="userInfo.userid === 'admin'"
           variant="outline-primary"
           @click="moveWrite()"
         >

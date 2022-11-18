@@ -4,17 +4,18 @@
       <b-col class="text-left">
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
-      <b-col class="text-right">
+      <b-col class="text-right" v-if="userInfo.userid === qna.userid">
         <b-button
           variant="outline-info"
           size="sm"
           @click="moveModifyQna"
           class="mr-2"
-          >글수정</b-button
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteQna"
-          >글삭제</b-button
-        >
+          글수정
+        </b-button>
+        <b-button variant="outline-danger" size="sm" @click="deleteQna">
+          글삭제
+        </b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -36,40 +37,43 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+const memberStore = 'memberStore'
 
 export default {
-  name: "QnaViewContent",
+  name: 'QnaViewContent',
   props: {
     qna: Object,
   },
   computed: {
+    ...mapState(memberStore, ['userInfo']),
     message() {
-      if (this.qna.content) return this.qna.content.split("\n").join("<br>");
-      return "";
+      if (this.qna.content) return this.qna.content.split('\n').join('<br>')
+      return ''
     },
   },
   methods: {
     moveModifyQna() {
       this.$router.replace({
-        name: "qnamodify",
+        name: 'qnamodify',
         params: { qnano: this.qna.qnano },
-      });
+      })
       //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
     },
     deleteQna() {
-      if (confirm("정말로 삭제?")) {
+      if (confirm('정말로 삭제?')) {
         this.$router.replace({
-          name: "qnadelete",
+          name: 'qnadelete',
           params: { qnano: this.qna.qnano },
-        });
+        })
       }
     },
     moveList() {
-      this.$router.push({ name: "qnalist" });
+      this.$router.push({ name: 'qnalist' })
     },
   },
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>

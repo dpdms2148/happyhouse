@@ -5,8 +5,7 @@
         <b-form-group id="userid-group" label="작성자:" label-for="userid">
           <b-form-input
             id="userid"
-            v-model="qna.userid"
-            :disabled="isUserid"
+            v-model="userInfo.userid"
             type="text"
             readonly
           ></b-form-input>
@@ -65,7 +64,6 @@ export default {
         subject: '',
         content: '',
       },
-      isUserid: true,
     }
   },
   props: {
@@ -86,35 +84,35 @@ export default {
           console.log(error)
         },
       )
-      this.isUserid = true
     }
   },
   methods: {
     onSubmit(event) {
       event.preventDefault()
+      console.log(this.qna.userid)
+      // let err = true
+      // let msg = ''
+      // !this.qna.userid &&
+      //   ((msg = '작성자 입력해주세요'),
+      //   (err = false),
+      //   this.$refs.userid.focus())
+      // err &&
+      //   !this.qna.subject &&
+      //   ((msg = '제목 입력해주세요'), (err = false), this.$refs.subject.focus())
+      // err &&
+      //   !this.qna.content &&
+      //   ((msg = '내용 입력해주세요'), (err = false), this.$refs.content.focus())
 
-      let err = true
-      let msg = ''
-      !this.qna.userid &&
-        ((msg = '작성자 입력해주세요'),
-        (err = false),
-        this.$refs.userid.focus())
-      err &&
-        !this.qna.subject &&
-        ((msg = '제목 입력해주세요'), (err = false), this.$refs.subject.focus())
-      err &&
-        !this.qna.content &&
-        ((msg = '내용 입력해주세요'), (err = false), this.$refs.content.focus())
-
-      if (!err) alert(msg)
-      else this.type === 'register' ? this.registQna() : this.modifyQna()
+      // if (!err) alert(msg)
+      // else this.type === 'register' ? this.registQna() : this.modifyQna()
+      this.qna.userid = this.userInfo.userid;
+      this.type === 'register' ? this.registQna() : this.modifyQna()
     },
     onReset(event) {
       event.preventDefault()
       this.qna.qnano = 0
       this.qna.subject = ''
       this.qna.content = ''
-      this.moveList()
     },
     registQna() {
       let param = {
