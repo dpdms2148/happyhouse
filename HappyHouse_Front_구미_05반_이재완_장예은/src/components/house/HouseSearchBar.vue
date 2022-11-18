@@ -19,6 +19,12 @@
     <b-col class="sm-3">
       <b-form-select v-model="dongCode" :options="dongs" @change="searchApt"></b-form-select>
     </b-col>
+    <!-- <b-col class="sm-3">
+      <b-form-select v-model="dealYear" :options="years" @change="monthList"></b-form-select>
+    </b-col>
+    <b-col class="sm-3">
+      <b-form-select v-model="dealMonth" :options="monthes" @change="searchApt"></b-form-select>
+    </b-col> -->
   </b-row>
 </template>
 

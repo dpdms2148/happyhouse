@@ -58,6 +58,11 @@ public class HouseMapController {
 	@GetMapping("/dong")
 	public ResponseEntity<List<HouseInfoDto>> dong(@RequestParam("gugun") String gugun) throws Exception {
 		logger.info("dong - 호출");
+		List<HouseInfoDto> list=haHouseMapService.getDongInGugun(gugun);
+		for(HouseInfoDto dto:list)
+		{
+			System.out.println(dto.getDongCode()+" "+dto.getdong());
+		}
 		System.out.println("gugun: "+gugun);
 		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getDongInGugun(gugun), HttpStatus.OK);
 	}
@@ -75,7 +80,7 @@ public class HouseMapController {
 		System.out.println("list Size: "+list.size());
 		for(HouseInfoDto d:list)
 		{
-			System.out.println(d.getDongCode()+d.getDealYear()+d.getDealMonth());
+			System.out.println(d.getAptCode()+" "+d.getDealYear()+" "+d.getDealMonth());
 		}
 		return new ResponseEntity<List<HouseInfoDto>>(list, HttpStatus.OK);
 	}

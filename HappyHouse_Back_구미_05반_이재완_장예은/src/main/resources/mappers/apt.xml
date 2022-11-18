@@ -18,10 +18,10 @@
 	</select>
 	
 	<select id="getDongInGugun" parameterType="string" resultType="houseInfoDto">
-		select distinct dongName, dongCode
+		select distinct dong, dongCode
 		from houseinfo
 		where left(dongCode, 5) = #{gugun}
-		order by dongName
+		order by dong
 	</select>
 	
 	<!-- <select id="getAptInDong" parameterType="string" resultType="houseInfoDto">
