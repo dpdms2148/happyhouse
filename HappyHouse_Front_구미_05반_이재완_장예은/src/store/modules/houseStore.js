@@ -1,4 +1,4 @@
-import { sidoList, gugunList, dongList, houseList } from "@/api/house.js";
+import { sidoList, gugunList, dongList, yearList, monthList, houseList } from "@/api/house.js";
 
 const houseStore = {
   namespaced: true,
@@ -8,6 +8,8 @@ const houseStore = {
     dongs: [{ value: null, text: "선택하세요" }],
     houses: [],
     house: null,
+    years:[{ value: null, text: "선택하세요" }],
+    monthes:[{ value: null, text: "선택하세요" }],
   },
   getters: {},
   mutations: {
@@ -19,6 +21,12 @@ const houseStore = {
     },
     CLEAR_DONG_LIST(state) {
       state.dongs = [{ value: null, text: "선택하세요" }];
+    },
+    CLEAR_YEAR_LIST(state) {
+      state.years = [{ value: null, text: "선택하세요" }];
+    },
+    CLEAR_MONTH_LIST(state) {
+      state.monthes = [{ value: null, text: "선택하세요" }];
     },
     CLEAR_APT_LIST(state) {
       state.houses = [];
@@ -37,6 +45,16 @@ const houseStore = {
     SET_DONG_LIST(state, dongs) {
       dongs.forEach((dong) => {
         state.dongs.push({ value: dong.dongCode, text: dong.dong });
+      });
+    },
+    SET_YEAR_LIST(state, years) {
+      years.forEach((year) => {
+        state.years.push({ value: year, text: year });
+      });
+    },
+    SET_MONTH_LIST(state, monthes) {
+      monthes.forEach((month) => {
+        state.monthes.push({ value: month, text: month });
       });
     },
     SET_HOUSE_LIST(state, houses) {
@@ -83,21 +101,42 @@ const houseStore = {
         }
       );
     },
-    getHouseList: ({ commit }, dongCode) => {
-      //const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
+    getYear: ({ commit },dongCode) => {
+      const params={dong:dongCode};
+      yearList(
+        params,
+        ({ data }) => {
+          commit("SET_YEAR_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    getMonth: ({ commit },dealYear) => {
+      const params={
+        dong:dealYear.dongCode,
+        deal_year:dealYear.dealYear,
+      };
+      monthList(
+        params,
+        ({ data }) => {
+          commit("SET_MONTH_LIST", data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    getHouseList: ({ commit }, house) => {
       const params = {
-        lawd_cd: dongCode,
-        deal_year: "2019",
-        deal_month: "4",
-        //serviceKey: decodeURIComponent(SERVICE_KEY),
+        lawd_cd: house.dongCode,
+        deal_year: house.dealYear,
+        deal_month: house.dealMonth,
       };
       houseList(
         params,
         ({ data }) => {
-          //commit("SET_HOUSE_LIST", data.response.body.items.item);
-          //data.forEach((house) => {
-            //console.log(house.aptCode+" "+house.apartmentName);
-          //});
           commit("SET_HOUSE_LIST", data);
         },
         (error) => {
@@ -107,7 +146,6 @@ const houseStore = {
     },
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출
-      console.log(house.aptCode+" "+house.apartmentName);
       commit("SET_DETAIL_HOUSE", house);
     },
   },

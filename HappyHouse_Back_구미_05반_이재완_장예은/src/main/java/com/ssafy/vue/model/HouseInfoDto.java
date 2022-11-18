@@ -68,27 +68,11 @@ public class HouseInfoDto {
 		this.floor=floor;
 	}
 
-	String getApartmentName() {
-		return apartmentName;
-	}
-
-	void setApartmentName(String apartmentName) {
-		this.apartmentName = apartmentName;
-	}
-
-	String getDong() {
-		return dong;
-	}
-
-	void setDong(String dong) {
-		this.dong = dong;
-	}
-
-	String getFloor() {
+	public String getFloor() {
 		return floor;
 	}
 
-	void setFloor(String floor) {
+	public void setFloor(String floor) {
 		this.floor = floor;
 	}
 

@@ -16,8 +16,16 @@ function dongList(params, success, fail) {
   api.get(`/map/dong`, { params: params }).then(success).catch(fail);
 }
 
+function yearList(params, success, fail) {
+  api.get(`/map/year`, { params: params }).then(success).catch(fail);
+}
+
+function monthList(params, success, fail) {
+  api.get(`/map/month`, { params: params }).then(success).catch(fail);
+}
+
 function houseList(params, success, fail) {
   api.get(`/map/apt`, { params: params }).then(success).catch(fail);
 }
 
-export { sidoList, gugunList, dongList, houseList };
+export { sidoList, gugunList, dongList, yearList, monthList, houseList };

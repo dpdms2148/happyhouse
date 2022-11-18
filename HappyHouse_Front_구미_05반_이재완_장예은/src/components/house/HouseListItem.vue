@@ -10,7 +10,6 @@
       <b-img thumbnail src="https://picsum.photos/250/250/?image=58" alt="Image 1"></b-img>
     </b-col>
     <b-col cols="10" class="align-self-center"> {{ house.apartmentName }} </b-col>
-    <!-- <b-col cols="10" class="align-self-center"> [1] ddd </b-col> -->
   </b-row>
 </template>
 

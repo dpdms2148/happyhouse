@@ -17,14 +17,14 @@
       <b-form-select v-model="gugunCode" :options="guguns" @change="dongList"></b-form-select>
     </b-col>
     <b-col class="sm-3">
-      <b-form-select v-model="dongCode" :options="dongs" @change="searchApt"></b-form-select>
+      <b-form-select v-model="dongCode" :options="dongs" @change="yearList"></b-form-select>
     </b-col>
-    <!-- <b-col class="sm-3">
+    <b-col class="sm-3">
       <b-form-select v-model="dealYear" :options="years" @change="monthList"></b-form-select>
     </b-col>
     <b-col class="sm-3">
       <b-form-select v-model="dealMonth" :options="monthes" @change="searchApt"></b-form-select>
-    </b-col> -->
+    </b-col>
   </b-row>
 </template>
 
@@ -50,10 +50,12 @@ export default {
       sidoCode: null,
       gugunCode: null,
       dongCode: null,
+      dealYear:null,
+      dealMonth:null,
     };
   },
   computed: {
-    ...mapState(houseStore, ["sidos", "guguns", "dongs","houses"]),
+    ...mapState(houseStore, ["sidos", "guguns", "dongs","years","monthes","houses"]),
     // sidos() {
     //   return this.$store.state.sidos;
     // },
@@ -66,8 +68,8 @@ export default {
     this.getSido();
   },
   methods: {
-    ...mapActions(houseStore, ["getSido", "getGugun", "getDong","getHouseList"]),
-    ...mapMutations(houseStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_DONG_LIST", "CLEAR_APT_LIST"]),
+    ...mapActions(houseStore, ["getSido", "getGugun", "getDong","getYear","getMonth","getHouseList"]),
+    ...mapMutations(houseStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_DONG_LIST", "CLEAR_YEAR_LIST","CLEAR_MONTH_LIST", "CLEAR_APT_LIST"]),
     // sidoList() {
     //   this.getSido();
     // },
@@ -83,8 +85,21 @@ export default {
       this.dongCode = null;
       if (this.gugunCode) this.getDong(this.gugunCode);
     },
+    yearList()
+    {
+      this.CLEAR_YEAR_LIST();
+      this.dealYear = null;
+      if (this.dongCode) this.getYear(this.dongCode);
+    },
+    monthList()
+    {
+      this.CLEAR_MONTH_LIST();
+      this.dealMonth = null;
+      if (this.dealYear) this.getMonth({dongCode: this.dongCode,dealYear: this.dealYear});
+    },
     searchApt() {
-      if (this.dongCode) this.getHouseList(this.dongCode);
+      console.log(this.dealYear+" "+this.dealMonth)
+      if (this.dealMonth) this.getHouseList({dongCode: this.dongCode ,dealYear: this.dealYear, dealMonth: this.dealMonth});
     },
   },
 };

@@ -25,6 +25,7 @@
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseList from "@/components/house/HouseList.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
+import {mapState} from "vuex";
 
 export default {
   name: "AppHouse",
@@ -43,6 +44,10 @@ export default {
       infowindows:[],
       locPosition:null,
     };
+  },
+  computed:
+  {
+    ...mapState("houseStore",{house: "house"})
   },
   methods:
   {

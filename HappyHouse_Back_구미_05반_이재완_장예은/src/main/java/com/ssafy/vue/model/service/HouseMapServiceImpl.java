@@ -36,4 +36,14 @@ public class HouseMapServiceImpl implements HouseMapService {
 		return sqlSession.getMapper(HouseMapMapper.class).getAptInDong(dto);
 	}
 
+	@Override
+	public List<String> getYear(String dongCode) throws Exception {
+		return sqlSession.getMapper(HouseMapMapper.class).getYear(dongCode);
+	}
+
+	@Override
+	public List<String> getMonth(HouseInfoDto dto) throws Exception {
+		return sqlSession.getMapper(HouseMapMapper.class).getMonth(dto);
+	}
+
 }

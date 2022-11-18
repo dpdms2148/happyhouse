@@ -67,10 +67,31 @@ public class HouseMapController {
 		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getDongInGugun(gugun), HttpStatus.OK);
 	}
 	
-	/*@GetMapping("/apt")
-	public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("dong") String dong) throws Exception {
-		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getAptInDong(dong), HttpStatus.OK);
-	}*/
+	@ApiOperation(value = "연도 정보", notes = "DB에 저장된 연도를 반환한다.", response = List.class)
+	@GetMapping("/year")
+	public ResponseEntity<List<String>> year(@RequestParam("dong") String dongCode) throws Exception {
+		logger.info("year - 호출");
+		List<String> list=haHouseMapService.getYear(dongCode);
+		for(String year:list)
+		{
+			System.out.println(year);
+		}
+		return new ResponseEntity<List<String>>(haHouseMapService.getYear(dongCode), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "월 정보", notes = "연도에 저장된 월을 반환한다.", response = List.class)
+	@GetMapping("/month")
+	public ResponseEntity<List<String>> month(@RequestParam("dong") String dongCode,@RequestParam("deal_year") String dealYear) throws Exception {
+		logger.info("month - 호출");
+		HouseInfoDto dto=new HouseInfoDto(dongCode,dealYear,"0");
+		List<String> list=haHouseMapService.getMonth(dto);
+		for(String month:list)
+		{
+			System.out.println(month);
+		}
+		return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+	}
+
 	@GetMapping(value="/apt")
 	public ResponseEntity<List<HouseInfoDto>> apt(@RequestParam("lawd_cd") String dongCode,@RequestParam("deal_year") String dealYear,@RequestParam("deal_month") String dealMonth) throws Exception {
 		logger.info("apt - 호출");
@@ -80,7 +101,7 @@ public class HouseMapController {
 		System.out.println("list Size: "+list.size());
 		for(HouseInfoDto d:list)
 		{
-			System.out.println(d.getAptCode()+" "+d.getDealYear()+" "+d.getDealMonth());
+			System.out.println(d.getAptCode()+" "+d.getDealYear()+" "+d.getDealMonth()+" "+d.getFloor());
 		}
 		return new ResponseEntity<List<HouseInfoDto>>(list, HttpStatus.OK);
 	}
