@@ -14,13 +14,13 @@
           </b-form-group>
           <b-button
             type="submit"
-            variant="outline-primary"
+            variant="primary"
             class="m-1"
             v-if="this.type === 'register'"
           >
             답변등록
           </b-button>
-          <b-button type="reset" variant="outline-danger" class="m-1">
+          <b-button type="reset" variant="danger" class="m-1">
             초기화
           </b-button>
         </b-form>
@@ -31,6 +31,7 @@
 
 <script>
 import { writeQnaAnswer, modifyQnaAnswer } from '@/api/qna'
+
 export default {
   name: 'QnaAnswerWrite',
   data() {

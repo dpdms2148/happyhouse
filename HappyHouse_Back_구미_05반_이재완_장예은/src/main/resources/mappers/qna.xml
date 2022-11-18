@@ -64,11 +64,11 @@
 		where qnano = #{qnano}
 	</delete>
 
-	<insert id="writeQnaAns" parameterType="qnaDto">
+	<update id="writeQnaAns" parameterType="qnaDto">
 		update qna
 		set answer = #{answer}, anstime=now()
 		where qnano = #{qnano}
-	</insert>
+	</update>
 	
 	<update id="modifyQnaAns" parameterType="qnaDto">
 		update qna

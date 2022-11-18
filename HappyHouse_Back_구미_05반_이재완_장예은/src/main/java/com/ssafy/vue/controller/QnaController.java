@@ -107,7 +107,7 @@ public class QnaController {
 	@ApiOperation(value = "qnaans 글삭제", notes = "삭제할 qnaans 정보를 입력한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("/ans/{qnano}")
 	public ResponseEntity<String> deleteQnaAns(@PathVariable("qnano") @ApiParam(value = "살제할 qna의 글번호.", required = true) int qnano) throws Exception {
-		logger.info("deleteQna - 호출");
+		logger.info("deleteQnaAns - 호출");
 		QnaDto qnaDto = qnaService.getQna(qnano);
 		if (qnaService.deleteQnaAns(qnaDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

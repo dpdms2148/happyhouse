@@ -30,8 +30,8 @@ function modifyQnaAnswer(qna, success, fail) {
   api.put(`/qna/ans`, JSON.stringify(qna)).then(success).catch(fail);
 }
 
-// function deleteQnaAnswer(qnano, success, fail) {
-//   api.delete(`/qna/ans/${qnano}`).then(success).catch(fail);
-// }
+function deleteQnaAnswer(qnano, success, fail) {
+  api.delete(`/qna/ans/${qnano}`).then(success).catch(fail);
+}
 
-export { listQna, writeQna, getQna, modifyQna, deleteQna, writeQnaAnswer, modifyQnaAnswer };
+export { listQna, writeQna, getQna, modifyQna, deleteQna, writeQnaAnswer, modifyQnaAnswer, deleteQnaAnswer };
