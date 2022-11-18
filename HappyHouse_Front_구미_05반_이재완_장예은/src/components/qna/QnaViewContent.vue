@@ -5,15 +5,10 @@
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
       <b-col class="text-right" v-if="userInfo.userid === qna.userid">
-        <b-button
-          variant="outline-info"
-          size="sm"
-          @click="moveModifyQna"
-          class="mr-2"
-        >
+        <b-button variant="outline-info" @click="moveModifyQna" class="mr-2">
           글수정
         </b-button>
-        <b-button variant="outline-danger" size="sm" @click="deleteQna">
+        <b-button variant="outline-danger" @click="deleteQna">
           글삭제
         </b-button>
       </b-col>

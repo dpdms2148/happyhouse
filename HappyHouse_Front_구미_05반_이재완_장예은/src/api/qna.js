@@ -22,4 +22,20 @@ function deleteQna(qnano, success, fail) {
   api.delete(`/qna/${qnano}`).then(success).catch(fail);
 }
 
-export { listQna, writeQna, getQna, modifyQna, deleteQna };
+function writeQnaAnswer(answer, success, fail) {
+  api.post(`/qnaans`, JSON.stringify(answer)).then(success).catch(fail);
+}
+
+function getQnaAnswer(qnano, success, fail) {
+  api.get(`/qnaans${qnano}`).then(success).catch(fail);
+}
+
+function modifyQnaAnswer(answer, success, fail) {
+  api.put(`/qnaans`, JSON.stringify(answer)).then(success).catch(fail);
+}
+
+function deleteQnaAnswer(qnano, success, fail) {
+  api.delete(`/qnaans/${qnano}`).then(success).catch(fail);
+}
+
+export { listQna, writeQna, getQna, modifyQna, deleteQna, writeQnaAnswer, getQnaAnswer, modifyQnaAnswer, deleteQnaAnswer };

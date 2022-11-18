@@ -89,22 +89,6 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      console.log(this.qna.userid)
-      // let err = true
-      // let msg = ''
-      // !this.qna.userid &&
-      //   ((msg = '작성자 입력해주세요'),
-      //   (err = false),
-      //   this.$refs.userid.focus())
-      // err &&
-      //   !this.qna.subject &&
-      //   ((msg = '제목 입력해주세요'), (err = false), this.$refs.subject.focus())
-      // err &&
-      //   !this.qna.content &&
-      //   ((msg = '내용 입력해주세요'), (err = false), this.$refs.content.focus())
-
-      // if (!err) alert(msg)
-      // else this.type === 'register' ? this.registQna() : this.modifyQna()
       this.qna.userid = this.userInfo.userid;
       this.type === 'register' ? this.registQna() : this.modifyQna()
     },
