@@ -64,5 +64,15 @@
 		where qnano = #{qnano}
 	</delete>
 
+	<insert id="writeQnaAns" parameterType="qnaDto">
+		insert into qna (answer, anstime)
+		values (#{answer}, now())
+	</insert>
+	
+	<update id="modifyQnaAns" parameterType="qnaDto">
+		update qna
+		set answer = #{answer}
+		where qnano = #{qnano}
+	</update>
 </mapper>
 

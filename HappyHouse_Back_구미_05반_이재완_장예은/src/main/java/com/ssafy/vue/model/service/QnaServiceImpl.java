@@ -72,4 +72,18 @@ public class QnaServiceImpl implements QnaService {
 	public boolean deleteQna(int qnano) throws Exception {
 		return sqlSession.getMapper(QnaMapper.class).deleteQna(qnano) == 1;
 	}
+	
+	@Override
+	public boolean writeQnaAns(QnaDto qnaDto) throws Exception {
+		if(qnaDto.getAnswer() == null) {
+			throw new Exception();
+		}
+		return sqlSession.getMapper(QnaMapper.class).writeQnaAns(qnaDto) == 1;
+	}
+	
+	@Override
+	@Transactional
+	public boolean modifyQnaAns(QnaDto qnaDto) throws Exception {
+		return sqlSession.getMapper(QnaMapper.class).modifyQnaAns(qnaDto) == 1;
+	}
 }

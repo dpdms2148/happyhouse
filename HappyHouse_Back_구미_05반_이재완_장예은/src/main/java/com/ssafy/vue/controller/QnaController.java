@@ -37,6 +37,13 @@ public class QnaController {
 
 	@Autowired
 	private QnaService qnaService;
+	
+	@ApiOperation(value = "qna 글목록", notes = "모든 qna의 정보를 반환한다.", response = List.class)
+	@GetMapping
+	public ResponseEntity<List<QnaDto>> listQna(@ApiParam(value = "qna을 얻기위한 부가정보.", required = true) ParameterDto ParameterDto) throws Exception {
+		logger.info("listQna - 호출");
+		return new ResponseEntity<List<QnaDto>>(qnaService.listQna(ParameterDto), HttpStatus.OK);
+	}
 
 	@ApiOperation(value = "qna 글작성", notes = "새로운 qna 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
@@ -46,13 +53,6 @@ public class QnaController {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-	}
-	
-	@ApiOperation(value = "qna 글목록", notes = "모든 qna의 정보를 반환한다.", response = List.class)
-	@GetMapping
-	public ResponseEntity<List<QnaDto>> listQna(@ApiParam(value = "qna을 얻기위한 부가정보.", required = true) ParameterDto ParameterDto) throws Exception {
-		logger.info("listQna - 호출");
-		return new ResponseEntity<List<QnaDto>>(qnaService.listQna(ParameterDto), HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "qna 글보기", notes = "qna번호에 해당하는 qna의 정보를 반환한다.", response = QnaDto.class)
@@ -87,6 +87,26 @@ public class QnaController {
 			e.printStackTrace();
 			return new ResponseEntity<String>(FAIL, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 	}
+	//===================================================================ANSWER===================================================================
+	@ApiOperation(value = "qnaans 글작성", notes = "새로운 qnaans 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PostMapping("/ans")
+	public ResponseEntity<String> writeQnaAns(@RequestBody @ApiParam(value = "qnaans 정보.", required = true) QnaDto qnaDto) throws Exception {
+		logger.info("writeQnaAns - 호출");
+		if (qnaService.writeQnaAns(qnaDto)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+	
+	@ApiOperation(value = "qnaans 글수정", notes = "수정할 qnaans 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PutMapping("/ans")
+	public ResponseEntity<String> modifyQnaAns(@RequestBody @ApiParam(value = "수정할 qnaans정보.", required = true) QnaDto qnaDto) throws Exception {
+		logger.info("modifyQnaAns - 호출 {}", qnaDto);
+		if (qnaService.modifyQnaAns(qnaDto)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+
 }

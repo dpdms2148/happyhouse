@@ -24,12 +24,13 @@
 </template>
 
 <script>
-import { getQnaAnswer, writeQnaAnswer, modifyQnaAnswer } from '@/api/qna'
+import { getQna, writeQnaAnswer, modifyQnaAnswer } from '@/api/qna'
 export default {
   name: 'QnaAnswerWrite',
   data() {
     return {
       qna: {
+        qnano: 0,
         answer: '',
       },
     }
@@ -37,13 +38,13 @@ export default {
   props: {
     type: { type: String },
   },
-  created(){
+  created() {
     if (this.type === 'modify') {
       let param = this.$route.params.qnano
-      getQnaAnswer(
+      getQna(
         param,
         ({ data }) => {
-          this.qna = data
+          this.qna = data.answer
         },
         (error) => {
           console.log(error)
@@ -51,17 +52,18 @@ export default {
       )
     }
   },
-  methods:{
-    onsubmit(event){
+  methods: {
+    onsubmit(event) {
       event.preventDefault()
       this.type === 'register' ? this.registQnaAnswer() : this.modifyQnaAnswer()
     },
     onReset(event) {
       event.preventDefault()
+      this.qna.qnano = 0
       this.qna.answer = ''
     },
-    registQnaAnswer(){
-      let param={
+    registQnaAnswer() {
+      let param = {
         answer: this.qna.answer,
       }
       writeQnaAnswer(
@@ -79,8 +81,9 @@ export default {
         },
       )
     },
-    modifyQnaAnswer(){
-      let param={
+    modifyQnaAnswer() {
+      let param = {
+        qnano: this.qna.qnano,
         answer: this.qna.answer,
       }
       modifyQnaAnswer(
