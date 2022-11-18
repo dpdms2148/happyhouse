@@ -74,10 +74,8 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	@Override
+	@Transactional
 	public boolean writeQnaAns(QnaDto qnaDto) throws Exception {
-		if(qnaDto.getAnswer() == null) {
-			throw new Exception();
-		}
 		return sqlSession.getMapper(QnaMapper.class).writeQnaAns(qnaDto) == 1;
 	}
 	
@@ -85,5 +83,11 @@ public class QnaServiceImpl implements QnaService {
 	@Transactional
 	public boolean modifyQnaAns(QnaDto qnaDto) throws Exception {
 		return sqlSession.getMapper(QnaMapper.class).modifyQnaAns(qnaDto) == 1;
+	}
+	
+	@Override
+	@Transactional
+	public boolean deleteQnaAns(QnaDto qnaDto) throws Exception {
+		return sqlSession.getMapper(QnaMapper.class).deleteQnaAns(qnaDto) == 1;
 	}
 }

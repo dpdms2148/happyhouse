@@ -18,4 +18,5 @@ public interface QnaService {
 	
 	public boolean writeQnaAns(QnaDto qnaDto) throws Exception;
 	public boolean modifyQnaAns(QnaDto qnaDto) throws Exception;
+	public boolean deleteQnaAns(QnaDto qnaDto) throws Exception;
 }

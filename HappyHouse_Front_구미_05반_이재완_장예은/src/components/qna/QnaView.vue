@@ -6,7 +6,10 @@
       </b-col>
       <qna-view-content :qna="qna"></qna-view-content>
       <qna-answer-view v-if="qna.answer != null" :qna="qna"></qna-answer-view>
-      <qna-answer-write v-else-if="userInfo.userid==='admin'"></qna-answer-write>
+      <qna-answer-write
+        v-else-if="userInfo.userid === 'admin'"
+        type="register"
+      ></qna-answer-write>
     </b-row>
   </b-container>
 </template>

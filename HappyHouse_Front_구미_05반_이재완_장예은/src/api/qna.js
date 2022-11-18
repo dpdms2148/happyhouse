@@ -22,16 +22,12 @@ function deleteQna(qnano, success, fail) {
   api.delete(`/qna/${qnano}`).then(success).catch(fail);
 }
 
-function writeQnaAnswer(answer, success, fail) {
-  api.post(`/qna/ans`, JSON.stringify(answer)).then(success).catch(fail);
+function writeQnaAnswer(qna, success, fail) {
+  api.post(`/qna/ans`, JSON.stringify(qna)).then(success).catch(fail);
 }
 
-// function getQnaAnswer(qnano, success, fail) {
-//   api.get(`/qna/ans/${qnano}`).then(success).catch(fail);
-// }
-
-function modifyQnaAnswer(answer, success, fail) {
-  api.put(`/qna/ans`, JSON.stringify(answer)).then(success).catch(fail);
+function modifyQnaAnswer(qna, success, fail) {
+  api.put(`/qna/ans`, JSON.stringify(qna)).then(success).catch(fail);
 }
 
 // function deleteQnaAnswer(qnano, success, fail) {

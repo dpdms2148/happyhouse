@@ -22,5 +22,6 @@ public interface QnaMapper {
 	
 	public int writeQnaAns(QnaDto qnaDto) throws SQLException;
 	public int modifyQnaAns(QnaDto qnaDto) throws SQLException;
+	public int deleteQnaAns(QnaDto qnaDto) throws SQLException;
 	
 }

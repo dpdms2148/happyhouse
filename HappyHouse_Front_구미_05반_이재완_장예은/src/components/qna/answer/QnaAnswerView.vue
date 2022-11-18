@@ -43,7 +43,7 @@ export default {
   computed: {
     message() {
       if (this.qna.answer) return this.qna.answer.split("\n").join("<br>");
-      return "";
+      return '';
     },
   },
   methods: {
