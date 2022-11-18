@@ -31,16 +31,6 @@ public class HouseMapServiceImpl implements HouseMapService {
 		return sqlSession.getMapper(HouseMapMapper.class).getDongInGugun(gugun);
 	}
 
-//	@Override
-//	public List<HouseInfoDto> getAptInDong(String dong) throws Exception {
-//		return sqlSession.getMapper(HouseMapMapper.class).getAptInDong(dong);
-//	}
-
-//	@Override
-//	public List<HouseInfoDto> getAptInDong(String dongCode, String dealYear, String dealMonth) {
-//		return sqlSession.getMapper(HouseMapMapper.class).getAptInDong(dongCode,dealYear,dealMonth);
-//	}
-
 	@Override
 	public List<HouseInfoDto> getAptInDong(HouseInfoDto dto) throws Exception {
 		return sqlSession.getMapper(HouseMapMapper.class).getAptInDong(dto);

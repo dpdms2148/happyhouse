@@ -7,13 +7,13 @@ import io.swagger.annotations.ApiModelProperty;
 public class HouseInfoDto {
 
 	@ApiModelProperty(value = "아파트일련번호")
-	private int aptCode;
+	private String aptCode;
 	@ApiModelProperty(value = "아파트이름")
-	private String aptName;
+	private String apartmentName;
 	@ApiModelProperty(value = "동코드")
 	private String dongCode;
 	@ApiModelProperty(value = "동이름")
-	private String dongName;
+	private String dong;
 	@ApiModelProperty(value = "시도이름")
 	private String sidoName;
 	@ApiModelProperty(value = "구군이름")
@@ -29,30 +29,32 @@ public class HouseInfoDto {
 	@ApiModelProperty(value = "아파트이미지")
 	private String img;
 	@ApiModelProperty(value = "매매가격")
-	private String recentPrice;
+	private String dealAmount;
 	@ApiModelProperty(value = "거래년도")
 	private String dealYear;
 	@ApiModelProperty(value = "거래월")
 	private String dealMonth;
+	@ApiModelProperty(value = "층")
+	private String floor;
 	
 	public HouseInfoDto() {
 		super();
 	}
-
+	
 	public HouseInfoDto(String dongCode, String dealYear, String dealMonth) {
 		this.dongCode=dongCode;
 		this.dealYear=dealYear;
 		this.dealMonth=dealMonth;
 	}
 
-	public HouseInfoDto(int aptCode, String aptName, String dongCode, String dongName, String sidoName,
-			String gugunName, int buildYear, String jibun, String lat, String lng, String img, String recentPrice,
-			String dealYear, String dealMonth) {
+	public HouseInfoDto(String aptCode, String apartmentName, String dongCode, String dong, String sidoName,
+			String gugunName, int buildYear, String jibun, String lat, String lng, String img, String dealAmount,
+			String dealYear, String dealMonth, String floor) {
 		super();
 		this.aptCode = aptCode;
-		this.aptName = aptName;
+		this.apartmentName = apartmentName;
 		this.dongCode = dongCode;
-		this.dongName = dongName;
+		this.dong = dong;
 		this.sidoName = sidoName;
 		this.gugunName = gugunName;
 		this.buildYear = buildYear;
@@ -60,25 +62,50 @@ public class HouseInfoDto {
 		this.lat = lat;
 		this.lng = lng;
 		this.img = img;
-		this.recentPrice = recentPrice;
+		this.dealAmount = dealAmount;
 		this.dealYear = dealYear;
 		this.dealMonth = dealMonth;
+		this.floor=floor;
 	}
 
-	public int getAptCode() {
+	String getApartmentName() {
+		return apartmentName;
+	}
+
+	void setApartmentName(String apartmentName) {
+		this.apartmentName = apartmentName;
+	}
+
+	String getDong() {
+		return dong;
+	}
+
+	void setDong(String dong) {
+		this.dong = dong;
+	}
+
+	String getFloor() {
+		return floor;
+	}
+
+	void setFloor(String floor) {
+		this.floor = floor;
+	}
+
+	public String getAptCode() {
 		return aptCode;
 	}
 
-	public void setAptCode(int aptCode) {
+	public void setAptCode(String aptCode) {
 		this.aptCode = aptCode;
 	}
 
-	public String getAptName() {
-		return aptName;
+	public String getapartmentName() {
+		return apartmentName;
 	}
 
-	public void setAptName(String aptName) {
-		this.aptName = aptName;
+	public void setapartmentName(String apartmentName) {
+		this.apartmentName = apartmentName;
 	}
 
 	public String getDongCode() {
@@ -89,12 +116,12 @@ public class HouseInfoDto {
 		this.dongCode = dongCode;
 	}
 
-	public String getDongName() {
-		return dongName;
+	public String getdong() {
+		return dong;
 	}
 
-	public void setDongName(String dongName) {
-		this.dongName = dongName;
+	public void setdong(String dong) {
+		this.dong = dong;
 	}
 
 	public String getSidoName() {
@@ -153,12 +180,12 @@ public class HouseInfoDto {
 		this.img = img;
 	}
 
-	public String getRecentPrice() {
-		return recentPrice;
+	public String getdealAmount() {
+		return dealAmount;
 	}
 
-	public void setRecentPrice(String recentPrice) {
-		this.recentPrice = recentPrice;
+	public void setdealAmount(String dealAmount) {
+		this.dealAmount = dealAmount;
 	}
 
 	public String getDealYear() {

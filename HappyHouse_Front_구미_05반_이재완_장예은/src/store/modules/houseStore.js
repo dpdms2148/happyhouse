@@ -36,7 +36,7 @@ const houseStore = {
     },
     SET_DONG_LIST(state, dongs) {
       dongs.forEach((dong) => {
-        state.dongs.push({ value: dong.dongCode, text: dong.dongName });
+        state.dongs.push({ value: dong.dongCode, text: dong.dong });
       });
     },
     SET_HOUSE_LIST(state, houses) {
@@ -87,14 +87,18 @@ const houseStore = {
       //const SERVICE_KEY = process.env.VUE_APP_APT_DEAL_API_KEY;
       const params = {
         lawd_cd: dongCode,
-        deal_year: "2022",
-        deal_month: "7",
+        deal_year: "2019",
+        deal_month: "4",
         //serviceKey: decodeURIComponent(SERVICE_KEY),
       };
       houseList(
         params,
         ({ data }) => {
-          commit("SET_HOUSE_LIST", data.response.body.items.item);
+          //commit("SET_HOUSE_LIST", data.response.body.items.item);
+          //data.forEach((house) => {
+            //console.log(house.aptCode+" "+house.apartmentName);
+          //});
+          commit("SET_HOUSE_LIST", data);
         },
         (error) => {
           console.log(error);
@@ -103,6 +107,7 @@ const houseStore = {
     },
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출
+      console.log(house.aptCode+" "+house.apartmentName);
       commit("SET_DETAIL_HOUSE", house);
     },
   },
