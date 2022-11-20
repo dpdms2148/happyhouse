@@ -1,4 +1,6 @@
 import { sidoList, gugunList, dongList, yearList, monthList, houseList } from "@/api/house.js";
+//import Flatted from 'flatted';
+import {parse, stringify, toJSON, fromJSON} from 'flatted';
 
 const houseStore = {
   namespaced: true,
@@ -10,6 +12,13 @@ const houseStore = {
     house: null,
     years:[{ value: null, text: "선택하세요" }],
     monthes:[{ value: null, text: "선택하세요" }],
+    kakao: null,
+    map: null,
+    marker: null,
+    markers: [],
+    infowindow: null,
+    infowindows: [],
+    locPosition: null,
   },
   getters: {},
   mutations: {
@@ -36,6 +45,7 @@ const houseStore = {
       sidos.forEach((sido) => {
         state.sidos.push({ value: sido.sidoCode, text: sido.sidoName });
       });
+      console.log(state.sidos);
     },
     SET_GUGUN_LIST(state, guguns) {
       guguns.forEach((gugun) => {
@@ -63,6 +73,33 @@ const houseStore = {
     SET_DETAIL_HOUSE(state, house) {
       state.house = house;
     },
+    SET_MARKER_AND_INFO(state, data)
+    {
+      console.log(data);
+      //state.kakao=data["kakao"];
+      //console.log(JSON.parse(JSON.stringify(state.kakao)));
+      //state.map=data["map"];
+      //console.log(JSON.parse(JSON.stringify(state.map)));
+      //state.locPosition=data["locPosition"];
+      // Object.keys(data).forEach((key)=>{ 
+      //   if(key=="marker")
+      //   {
+      //     state.marker=data[key];
+      //   }
+      // });
+      //state.marker=Object.assign({},data.marker);
+      //JSON.parse(JSON.stringify(data.marker));
+      console.log(data.marker);
+      var k=null;
+      console.log(parse(stringify(data.marker)));
+      k=parse(stringify(data.marker));
+      console.log(k);
+      state.marker=parse(stringify(toJSON((k))));
+      console.log(state.marker);
+      //console.log(JSON.parse(JSON.stringify(state.marker)));
+      //state.markers.push(state.marker);
+      //state.infowindow=data["infowindow"];
+    }
   },
   actions: {
     getSido: ({ commit }) => {
@@ -148,6 +185,38 @@ const houseStore = {
       // 나중에 house.일련번호를 이용하여 API 호출
       commit("SET_DETAIL_HOUSE", house);
     },
+    displayMarker({commit},params)
+    {
+      console.log("displayMarker");
+      var data=
+          {
+            kakao: params.kakao,
+            map: params.map,
+            locPosition:params.locPosition,
+            marker: null,
+            infowindow: null,
+          };
+
+      console.log(data.locPosition);
+      // 마커를 생성합니다
+        //var markers=[];
+        data.marker = new data.kakao.maps.Marker({
+          map: data.map,
+          position: data.locPosition,
+        });
+        //var infowindows=[];
+        data.infowindow = new data.kakao.maps.InfoWindow({
+          content: '<div style="width:150px;text-align:center;padding:6px 0;">내 위치</div>',
+        });
+        data.infowindow.open(data.map, data.marker);
+        //infowindows.push(infowindow);
+        //markers.push(marker);
+        // 지도 중심좌표를 접속위치로 변경합니다
+        data.map.setCenter(data.locPosition);
+        console.log(data);
+
+        commit("SET_MARKER_AND_INFO",data);
+    }
   },
 };
 

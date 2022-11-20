@@ -2,7 +2,7 @@
   <b-container class="bv-example-row mt-3 text-center">
     <h3 class="underline-orange"><b-icon icon="house-fill"></b-icon> House Service</h3>
     <b-row>
-      <b-col>
+      <b-col>      
         <div id="map"></div>
       </b-col>
     </b-row>
@@ -25,7 +25,7 @@
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseList from "@/components/house/HouseList.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
-import {mapState} from "vuex";
+import {mapState, mapActions} from "vuex";
 
 export default {
   name: "AppHouse",
@@ -37,59 +37,62 @@ export default {
     data()
   {
     return{
-      map:null,
-      marker:null,
-      markers:[],
-      infowindow:null,
-      infowindows:[],
-      locPosition:null,
+      // map:null,
+      // marker:null,
+      // markers:[],
+      // infowindow:null,
+      // infowindows:[],
+      // locPosition:null,
+      // kakao:null,
     };
   },
   computed:
   {
-    ...mapState("houseStore",{house: "house"})
+    ...mapState("houseStore",{
+      house: "house",
+      map: "map",
+      locPosition: "locPosition",
+      //kakao: "kakao",
+    })
   },
   methods:
   {
+    ...mapActions("houseStore",{
+      //initMap: "initMap",
+      displayMarker: "displayMarker",
+    }),
     initMap()
     {
-        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-        navigator.geolocation.getCurrentPosition((position)=>{
-          var lat = position.coords.latitude, // 위도
-            lon = position.coords.longitude; // 경도
-
-          this.locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를
+            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+            console.log("init map");
+            navigator.geolocation.getCurrentPosition((position)=>
+            {
+              var data=
+              {
+                kakao: kakao,
+                map: null,
+                locPosition:null,
+              };
+              var lat = position.coords.latitude, // 위도
+              lon = position.coords.longitude; // 경도
+              data.locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를
 															// geolocation으로 얻어온
 															// 좌표로 생성합니다 
-          const container=document.getElementById("map");
-          const options={
-            center: this.locPosition,
-            level:5,
-          };
-          this.map=new kakao.maps.Map(container, options);
-          this.displayMarker(this.locPosition);
-        });
-    },
-    displayMarker(locPosition)
-    {
-      console.log("displayMarker");
-      console.log(locPosition);
-      // 마커를 생성합니다
-        this.marker = new kakao.maps.Marker({
-          map: this.map,
-          position: locPosition,
-        });
+              const container=document.getElementById("map");
+              const options={
+                center: data.locPosition,
+                level:5,
+              };
+              data.map=new kakao.maps.Map(container, options);
+              console.log(data.map);
 
-        this.infowindow = new kakao.maps.InfoWindow({
-          content: '<div style="width:150px;text-align:center;padding:6px 0;">내 위치</div>',
-        });
-        this.infowindow.open(this.map, this.marker);
-        this.infowindows.push(this.infowindow);
-        this.markers.push(this.marker);
-        // 지도 중심좌표를 접속위치로 변경합니다
-        this.map.setCenter(locPosition);
-    }
-    
+              this.displayMarker({
+                  map: data.map,
+                  kakao: kakao, 
+                  locPosition: data.locPosition
+              });
+            });
+      }
   },
   
   mounted() {
@@ -99,18 +102,21 @@ export default {
       const AppKey=decodeURIComponent(process.env.VUE_APP_KAKAOMAP_KEY);
 
       script.src=`//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${AppKey}`;
-    
+
       /* global kakao */
       script.addEventListener("load",()=>
       {
         kakao.maps.load(this.initMap);
-        console.log("loaded",kakao);
+          
+        
+        console.log("loaded",kakao);  
       });
       document.head.appendChild(script);
     }
     else{
       console.log("이미 로딩됨: ",window.kakao);
       this.initMap();
+      
     }
   },
 };
