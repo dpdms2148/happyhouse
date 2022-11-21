@@ -1,4 +1,6 @@
 <template>
+<!-- <div style="width:100%; height:20px; overflow:auto"> -->
+<!-- <b-table :sticky-header="true">  -->
   <b-row
     class="m-2"
     @click="selectHouse"
@@ -7,10 +9,12 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
     <b-col cols="2" class="text-center align-self-center">
-      <b-img thumbnail src="https://picsum.photos/250/250/?image=58" alt="Image 1"></b-img>
+      <b-img thumbnail src="https://picsum.photos/250/250/?image=299" alt="Image 1"></b-img>
     </b-col>
-    <b-col cols="10" class="align-self-center"> {{ house.apartmentName }} </b-col>
+    <b-col cols="10" class="test-center align-self-center"> {{ house.apartmentName }} </b-col>
   </b-row>
+<!-- </b-table> -->
+<!-- </div> -->
 </template>
 
 <script>
@@ -29,11 +33,12 @@ export default {
     house: Object,
   },
   methods: {
-    ...mapActions(houseStore, ["detailHouse"]),
+    ...mapActions(houseStore, ["detailHouse","displayMarker2"]),
     selectHouse() {
       // console.log("listRow : ", this.house);
       // this.$store.dispatch("getHouse", this.house);
       this.detailHouse(this.house);
+      this.displayMarker2(this.house);
     },
     colorChange(flag) {
       this.isColor = flag;

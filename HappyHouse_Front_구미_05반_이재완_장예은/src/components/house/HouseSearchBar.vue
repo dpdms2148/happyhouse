@@ -68,7 +68,7 @@ export default {
     this.getSido();
   },
   methods: {
-    ...mapActions(houseStore, ["getSido", "getGugun", "getDong","getYear","getMonth","getHouseList"]),
+    ...mapActions(houseStore, ["getSido", "getGugun", "getDong","getYear","getMonth","getHouseList","displayMarker3"]),
     ...mapMutations(houseStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_DONG_LIST", "CLEAR_YEAR_LIST","CLEAR_MONTH_LIST", "CLEAR_APT_LIST"]),
     // sidoList() {
     //   this.getSido();
@@ -99,7 +99,10 @@ export default {
     },
     searchApt() {
       console.log(this.dealYear+" "+this.dealMonth)
-      if (this.dealMonth) this.getHouseList({dongCode: this.dongCode ,dealYear: this.dealYear, dealMonth: this.dealMonth});
+      if (this.dealMonth) 
+      {
+        this.getHouseList({dongCode: this.dongCode ,dealYear: this.dealYear, dealMonth: this.dealMonth});
+      }
     },
   },
 };
