@@ -10,23 +10,18 @@
       <b-col cols="8">
         <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
           <b-form class="text-left" @submit="onSubmit" @reset="onReset">
-            <b-form-group
-              id="userid-group"
-              label="아이디:"
-              label-for="userid"
-              label-cols-lg="3"
-            >
+            <b-form-group label="아이디:" label-for="userid" label-cols-lg="3">
               <b-form-input
                 id="userid"
                 v-model="user.userid"
                 required
-                placeholder="Enter your id"
+                placeholder="아이디 입력"
+                :state="idState"
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
 
             <b-form-group
-              id="userpwd-group"
               label="비밀번호:"
               label-for="userpwd"
               label-cols-lg="3"
@@ -35,53 +30,44 @@
                 id="userpwd"
                 v-model="user.userpwd"
                 required
-                placeholder="Enter your password"
+                placeholder="비밀번호 입력"
                 type="password"
-                @keyup.enter="confirm"
               ></b-form-input>
-            </b-form-group>
 
-            <!-- <b-form-group
-              label-cols-lg="3"
-              label="비밀번호 확인:"
-              label-for="userpwdck"
-            >
               <b-form-input
                 id="userpwdck"
-                v-model="user.userpwdck"
+                v-model="userpwdck"
                 required
-                placeholder="Check your password"
+                placeholder="비밀번호 재입력"
+                :state="pwdckState"
+                aria-describedby="input-live-feedback"
                 type="password"
-                @keyup.enter="confirm"
+                class="mt-2"
               ></b-form-input>
-            </b-form-group> -->
+              <b-form-invalid-feedback id="input-live-feedback">
+                비밀번호가 일치하지 않습니다.
+              </b-form-invalid-feedback>
+              <b-form-valid-feedback id="input-live-feedback">
+                비밀번호가 일치합니다.
+              </b-form-valid-feedback>
+            </b-form-group>
 
-            <b-form-group
-              id="email-group"
-              label-cols-lg="3"
-              label="이메일:"
-              label-for="email"
-            >
+            <b-form-group label-cols-lg="3" label="이메일:" label-for="email">
               <b-form-input
                 id="email"
                 v-model="user.email"
                 required
-                placeholder="Enter your email"
+                placeholder="이메일 입력"
                 type="email"
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group
-              id="username-group"
-              label-cols-lg="3"
-              label="이름:"
-              label-for="username"
-            >
+            <b-form-group label-cols-lg="3" label="이름:" label-for="username">
               <b-form-input
                 id="username"
                 v-model="user.username"
                 required
-                placeholder="Enter your name"
+                placeholder="이름 입력"
               ></b-form-input>
             </b-form-group>
             <b-button type="submit" variant="primary" class="m-1"
@@ -109,45 +95,32 @@ export default {
         userpwd: "",
         email: "",
       },
+      userpwdck: "",
     };
+  },
+  computed: {
+    idState() {
+      if (this.user.userid === "") return null;
+    },
+    pwdckState() {
+      if (this.userpwdck === "") return null;
+      return this.user.userpwd === this.userpwdck ? true : false;
+    },
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
-
-      // let err = true;
-      // let msg = "";
-      // !this.user.userid &&
-      //   ((msg = "아이디를 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.userid.focus());
-      // err &&
-      //   !this.user.password &&
-      //   ((msg = "비밀번호를 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.userpwd.focus());
-      // err &&
-      //   !this.user.email &&
-      //   ((msg = "이메일을 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.email.focus());
-      // err &&
-      //   !this.user.username &&
-      //   ((msg = "이름을 입력해주세요"),
-      //   (err = false),
-      //   this.$refs.username.focus());
-
-      // if (!err) alert(msg);
       this.registUser();
     },
     onReset(event) {
       event.preventDefault();
       this.user.userid = "";
-      this.user.d = "";
+      this.user.userpwd = "";
       this.user.email = "";
       this.user.name = "";
       this.moveList();
     },
+
     registUser() {
       let param = {
         userid: this.user.userid,
