@@ -25,7 +25,7 @@
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseList from "@/components/house/HouseList.vue";
 import HouseDetail from "@/components/house/HouseDetail.vue";
-import {mapState, mapActions} from "vuex";
+import {mapActions} from "vuex";
 
 export default {
   name: "AppHouse",
@@ -37,23 +37,7 @@ export default {
     data()
   {
     return{
-      // map:null,
-      // marker:null,
-      // markers:[],
-      // infowindow:null,
-      // infowindows:[],
-      // locPosition:null,
-      // kakao:null,
     };
-  },
-  computed:
-  {
-    ...mapState("houseStore",{
-      house: "house",
-      map: "map",
-      locPosition: "locPosition",
-      //kakao: "kakao",
-    })
   },
   methods:
   {
@@ -81,7 +65,7 @@ export default {
               const container=document.getElementById("map");
               const options={
                 center: data.locPosition,
-                level:5,
+                level:6,
               };
               data.map=new kakao.maps.Map(container, options);
               console.log(data.map);
@@ -101,14 +85,12 @@ export default {
       const script=document.createElement("script");
       const AppKey=decodeURIComponent(process.env.VUE_APP_KAKAOMAP_KEY);
 
-      script.src=`//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${AppKey}`;
+      script.src=`//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${AppKey}&libraries=services`;
 
       /* global kakao */
       script.addEventListener("load",()=>
       {
         kakao.maps.load(this.initMap);
-          
-        
         console.log("loaded",kakao);  
       });
       document.head.appendChild(script);
