@@ -17,8 +17,15 @@
                 required
                 placeholder="아이디 입력"
                 :state="idState"
-                @keyup.enter="confirm"
+                @keyup="idCheck"
+                aria-describedby="input-live-feedback"
               ></b-form-input>
+              <b-form-invalid-feedback id="input-live-feedback">
+                이미 사용중인 아이디입니다.
+              </b-form-invalid-feedback>
+              <b-form-valid-feedback id="input-live-feedback">
+                사용 가능한 아이디입니다.
+              </b-form-valid-feedback>
             </b-form-group>
 
             <b-form-group
@@ -84,7 +91,9 @@
 
 <script>
 import { registUser } from "@/api/member";
+import { mapState, mapActions } from "vuex";
 
+const memberStore = "memberStore";
 export default {
   name: "UserRegister",
   data() {
@@ -99,8 +108,11 @@ export default {
     };
   },
   computed: {
+    ...mapState(memberStore, ["isValidId"]),
     idState() {
-      if (this.user.userid === "") return null;
+      if (this.user.userid === "") {
+        return null;
+      }
     },
     pwdckState() {
       if (this.userpwdck === "") return null;
@@ -108,6 +120,11 @@ export default {
     },
   },
   methods: {
+    ...mapActions(memberStore, ["idValidCheck"]),
+    async idCheck() {
+      await this.idValidCheck(this.user.userid);
+      console.log(this.isValidId);
+    },
     onSubmit(event) {
       event.preventDefault();
       this.registUser();
@@ -120,7 +137,6 @@ export default {
       this.user.name = "";
       this.moveList();
     },
-
     registUser() {
       let param = {
         userid: this.user.userid,

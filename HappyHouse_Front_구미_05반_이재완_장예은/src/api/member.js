@@ -18,9 +18,13 @@ function deleteUser(userid, success, fail) {
   api.delete(`/user/${userid}`).then(success).catch(fail);
 }
 
-async function findById(userid, success, fail) {
+async function idCheck(userid, success, fail) {
+  await api.get(`/user/${userid}`).then(success).catch(fail);
+}
+
+function findById(userid, success, fail) {
   api.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
-  await api.get(`/user/info/${userid}`).then(success).catch(fail);
+  api.get(`/user/info/${userid}`).then(success).catch(fail);
 }
 
 async function tokenRegeneration(user, success, fail) {
@@ -32,4 +36,4 @@ async function logout(userid, success, fail) {
   await api.get(`/user/logout/${userid}`).then(success).catch(fail);
 }
 
-export { login, registUser, modifyUser, deleteUser, findById, tokenRegeneration, logout };
+export { login, registUser, modifyUser, deleteUser, idCheck, findById, tokenRegeneration, logout };
