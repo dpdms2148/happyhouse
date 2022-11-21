@@ -10,9 +10,9 @@
       <b-col cols="8">
         <b-table-simple hover>
           <colgroup>
-            <col style="width: 130px" />
+            <col style="width: 20%" />
             <col style="" />
-            <col style="width: 140px" />
+            <col style="width: 25%" />
           </colgroup>
           <b-tbody>
             <b-tr>
@@ -46,21 +46,31 @@
               <b-th scope="row">비밀번호</b-th>
               <b-td>
                 <b-input
-                  type="email"
+                  id="userpwd"
+                  v-model="user.userpwd"
+                  type="password"
                   placeholder="변경할 비밀번호를 입력해주세요"
+                  required
                 ></b-input>
+              </b-td>
+              <b-td>
                 <b-button
                   variant="light"
                   type="button"
                   @click="isPwdShow = !isPwdShow"
                   class="m-1"
+                  size="sm"
                   >취소</b-button
                 >
-                <b-button variant="dark" type="button" class="m-1"
+                <b-button
+                  variant="dark"
+                  type="submit"
+                  class="m-1"
+                  size="sm"
+                  @click="modifyUserinfo"
                   >완료</b-button
                 >
               </b-td>
-              <b-td></b-td>
             </b-tr>
 
             <b-tr v-show="isEmailShow">
@@ -81,21 +91,31 @@
               <b-th scope="row">이메일</b-th>
               <b-td>
                 <b-input
+                  id="email"
+                  v-model="user.email"
                   type="email"
                   placeholder="변경할 이메일을 입력해주세요"
+                  required
                 ></b-input>
+              </b-td>
+              <b-td>
                 <b-button
                   variant="light"
                   type="button"
                   @click="isEmailShow = !isEmailShow"
                   class="m-1"
+                  size="sm"
                   >취소</b-button
                 >
-                <b-button variant="dark" type="button" class="m-1"
+                <b-button
+                  variant="dark"
+                  type="submit"
+                  class="m-1"
+                  size="sm"
+                  @click="modifyUserinfo"
                   >완료</b-button
                 >
               </b-td>
-              <b-td></b-td>
             </b-tr>
 
             <b-tr>
@@ -112,6 +132,7 @@
 </template>
 
 <script>
+import { modifyUser } from "@/api/member";
 import { mapState } from "vuex";
 
 const memberStore = "memberStore";
@@ -124,10 +145,37 @@ export default {
   },
   data() {
     return {
-      isNameShow: true,
       isPwdShow: true,
       isEmailShow: true,
+      user: {
+        userpwd: "",
+        email: "",
+      },
     };
+  },
+  methods: {
+    modifyUserinfo() {
+      let param = {
+        userid: this.userInfo.userid,
+        userpwd:
+          this.user.userpwd === "" ? this.userInfo.userpwd : this.user.userpwd,
+        email: this.user.email === "" ? this.userInfo.email : this.user.email,
+      };
+      modifyUser(
+        param,
+        ({ data }) => {
+          let msg = "수정 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "수정이 완료되었습니다.";
+          }
+          alert(msg);
+          this.$router.go();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>

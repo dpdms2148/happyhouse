@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row class="mb-1">
-      <b-col style="text-align: left;">
+      <b-col style="text-align: left">
         <b-form @submit="onSubmit" @reset="onReset">
           <b-form-group id="answer-group" label="답변:" label-for="answer">
             <b-form-textarea
@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import { writeQnaAnswer, modifyQnaAnswer } from '@/api/qna'
+import { writeQnaAnswer, modifyQnaAnswer } from "@/api/qna";
 
 export default {
-  name: 'QnaAnswerWrite',
+  name: "QnaAnswerWrite",
   data() {
     return {
       qna: {
@@ -41,67 +41,69 @@ export default {
         //       userid: '',
         //       subject: '',
         //       content: '',
-        answer: '',
+        answer: "",
       },
-    }
+    };
   },
   props: {
     type: { type: String },
   },
   methods: {
     onSubmit(event) {
-      event.preventDefault()
-      this.type === 'register' ? this.registQnaAnswer() : this.modifyQnaAnswer()
+      event.preventDefault();
+      this.type === "register"
+        ? this.registQnaAnswer()
+        : this.modifyQnaAnswer();
     },
     onReset(event) {
-      event.preventDefault()
-      this.qna.answer = ''
+      event.preventDefault();
+      this.qna.answer = "";
     },
     registQnaAnswer() {
       let param = {
         qnano: this.$route.params.qnano,
         answer: this.qna.answer,
-      }
+      };
       writeQnaAnswer(
         param,
         ({ data }) => {
-          let msg = '등록 처리시 문제가 발생했습니다.'
-          if (data === 'success') {
-            msg = '등록이 완료되었습니다.'
+          let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "등록이 완료되었습니다.";
           }
-          alert(msg)
-          this.moveList()
+          alert(msg);
+          this.moveList();
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     modifyQnaAnswer() {
       let param = {
         qnano: this.$route.params.qnano,
         answer: this.qna.answer,
-      }
+      };
       modifyQnaAnswer(
         param,
         ({ data }) => {
-          let msg = '수정 처리시 문제가 발생했습니다.'
-          if (data === 'success') {
-            msg = '수정이 완료되었습니다.'
+          let msg = "수정 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "수정이 완료되었습니다.";
           }
-          alert(msg)
-          this.moveList()
+          alert(msg);
+          this.moveList();
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     moveList() {
-      this.$router.push({ name: 'qnalist' })
+      this.$router.push({ name: "qnalist" });
     },
   },
-}
+};
 </script>
 
 <style></style>

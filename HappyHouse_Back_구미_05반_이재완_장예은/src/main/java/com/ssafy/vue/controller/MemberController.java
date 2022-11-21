@@ -73,40 +73,42 @@ public class MemberController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 	@ApiOperation(value = "회원 정보 등록", notes = "새로운 게시글 회원 정보를 등록한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
-	public ResponseEntity<String> joinUser(@RequestBody @ApiParam(value = "회원 정보.", required = true) MemberDto memberDto) throws Exception {
+	public ResponseEntity<String> joinUser(
+			@RequestBody @ApiParam(value = "회원 정보.", required = true) MemberDto memberDto) throws Exception {
 		logger.info("joinUser - 호출");
 		if (memberService.registUser(memberDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
-	
+
 	@ApiOperation(value = "회원 정보 수정", notes = "수정할 회원 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = Map.class)
 	@PutMapping
 	public ResponseEntity<?> updateMypage(
 			@RequestBody @ApiParam(value = "수정할 회원 정보.", required = true) MemberDto memberDto) throws Exception {
+		System.out.println(memberDto.getEmail()+ " "+ memberDto.getUserpwd());
 		logger.info("updateMypage - 호출 {}", memberDto);
-		
+
 		if (memberService.updateUser(memberDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "회원 정보 삭제", notes = "아이디에 해당하는 회원 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("/{userid}")
-	public ResponseEntity<?> deleteMember( @PathVariable("userid") @ApiParam(value = "삭제할 회원의 아이디.", required = true) String userid) throws Exception {
+	public ResponseEntity<?> deleteMember(
+			@PathVariable("userid") @ApiParam(value = "삭제할 회원의 아이디.", required = true) String userid) throws Exception {
 		logger.info("deleteMypage - 호출 {}", userid);
-		
+
 		if (memberService.deleteUser(userid)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 	}
-
 
 	@ApiOperation(value = "로그아웃", notes = "회원 정보를 담은 Token을 제거한다.", response = Map.class)
 	@GetMapping("/logout/{userid}")
@@ -125,11 +127,11 @@ public class MemberController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 
 	}
-		
+
 	@GetMapping("/{userid}")
 	public ResponseEntity<?> idCheck(@PathVariable("userid") String userId) throws Exception {
 		logger.debug("idCheck - 호출 {}", userId);
-		if(memberService.idCheck(userId)==0) {
+		if (memberService.idCheck(userId) == 0) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
