@@ -144,7 +144,7 @@ export default {
       );
     },
     moveList() {
-      this.$router.push({ name: "main" });
+      this.$router.push({ name: "login" });
     },
   },
 };

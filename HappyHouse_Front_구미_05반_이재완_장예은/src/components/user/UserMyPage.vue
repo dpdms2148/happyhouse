@@ -125,6 +125,7 @@
             </b-tr>
           </b-tbody>
         </b-table-simple>
+        <b-link @click="deleteUserinfo" style="color: gray">탈퇴하기</b-link>
       </b-col>
       <b-col></b-col>
     </b-row>
@@ -132,8 +133,8 @@
 </template>
 
 <script>
-import { modifyUser } from "@/api/member";
-import { mapState } from "vuex";
+import { modifyUser, deleteUser } from "@/api/member";
+import { mapState, mapActions } from "vuex";
 
 const memberStore = "memberStore";
 
@@ -154,6 +155,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(memberStore, ["userLogout"]),
     modifyUserinfo() {
       let param = {
         userid: this.userInfo.userid,
@@ -176,11 +178,31 @@ export default {
         }
       );
     },
+    deleteUserinfo() {
+      let userid = this.userInfo.userid;
+      deleteUser(
+        userid,
+        ({ data }) => {
+          let msg = "회원탈퇴 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "탈퇴가 완료되었습니다.";
+            this.userLogout(userid);
+            sessionStorage.removeItem("access-token"); //저장된 토큰 없애기
+            sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기
+          }
+          alert(msg);
+          if (this.$route.path != "/") this.$router.push({ name: "main" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
   },
 };
 </script>
 
-<style>
+<style scope>
 table {
   text-align: left;
   border: 20px;
