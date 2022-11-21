@@ -10,7 +10,12 @@
         >
           답변수정
         </b-button> -->
-        <b-button variant="outline-danger" size="sm" @click="deleteQnaAns">
+        <b-button
+          v-if="userInfo.userid === 'admin'"
+          variant="outline-danger"
+          size="sm"
+          @click="deleteQnaAns"
+        >
           답변삭제
         </b-button>
       </b-col>
@@ -36,16 +41,20 @@
 </template>
 
 <script>
-import { deleteQnaAnswer } from '@/api/qna'
+import { deleteQnaAnswer } from "@/api/qna";
+import { mapState } from "vuex";
+
+const memberStore = "memberStore";
 export default {
-  name: 'QnaViewContent',
+  name: "QnaViewContent",
   props: {
     qna: Object,
   },
   computed: {
+    ...mapState(memberStore, ["userInfo"]),
     message() {
-      if (this.qna.answer) return this.qna.answer.split('\n').join('<br>')
-      return ''
+      if (this.qna.answer) return this.qna.answer.split("\n").join("<br>");
+      return "";
     },
   },
   methods: {
@@ -57,30 +66,30 @@ export default {
     //   //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
     // },
     deleteQnaAns() {
-      if (confirm('정말로 삭제?')) {
-        let param = this.$route.params.qnano
+      if (confirm("정말로 삭제?")) {
+        let param = this.$route.params.qnano;
         deleteQnaAnswer(
           param,
           ({ data }) => {
-            let msg = '삭제 처리시 문제가 발생했습니다.'
-            if (data === 'success') {
-              msg = '삭제가 완료되었습니다.'
+            let msg = "삭제 처리시 문제가 발생했습니다.";
+            if (data === "success") {
+              msg = "삭제가 완료되었습니다.";
             }
-            alert(msg)
+            alert(msg);
             // 현재 route를 /list로 변경.
-            this.$router.push({ name: 'qnalist' })
+            this.$router.push({ name: "qnalist" });
           },
           (error) => {
-            console.log(error)
-          },
-        )
+            console.log(error);
+          }
+        );
       }
     },
     moveList() {
-      this.$router.push({ name: 'qnalist' })
+      this.$router.push({ name: "qnalist" });
     },
   },
-}
+};
 </script>
 
 <style></style>

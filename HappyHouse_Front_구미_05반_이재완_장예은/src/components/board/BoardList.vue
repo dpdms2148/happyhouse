@@ -42,30 +42,30 @@
 </template>
 
 <script>
-import { listArticle } from '@/api/board'
-import { mapState } from 'vuex'
+import { listArticle } from "@/api/board";
+import { mapState } from "vuex";
 
-const memberStore = 'memberStore'
+const memberStore = "memberStore";
 export default {
-  name: 'BoardList',
+  name: "BoardList",
   data() {
     return {
       articles: [],
       fields: [
-        { key: 'articleno', label: '글번호', tdClass: 'tdClass' },
-        { key: 'subject', label: '제목', tdClass: 'tdSubject' },
-        { key: 'userid', label: '작성자', tdClass: 'tdClass' },
-        { key: 'regtime', label: '작성일', tdClass: 'tdClass' },
-        { key: 'hit', label: '조회수', tdClass: 'tdClass' },
+        { key: "articleno", label: "글번호", tdClass: "tdClass" },
+        { key: "subject", label: "제목", tdClass: "tdSubject" },
+        { key: "userid", label: "작성자", tdClass: "tdClass" },
+        { key: "regtime", label: "작성일", tdClass: "tdClass" },
+        { key: "hit", label: "조회수", tdClass: "tdClass" },
       ],
-    }
+    };
   },
   computed: {
-    ...mapState(memberStore, ['userInfo']),
+    ...mapState(memberStore, ["userInfo"]),
     message() {
       if (this.article.content)
-        return this.article.content.split('\n').join('<br>')
-      return ''
+        return this.article.content.split("\n").join("<br>");
+      return "";
     },
   },
   created() {
@@ -74,29 +74,29 @@ export default {
       spp: 20,
       key: null,
       word: null,
-    }
+    };
     listArticle(
       param,
       ({ data }) => {
-        this.articles = data
+        this.articles = data;
       },
       (error) => {
-        console.log(error)
-      },
-    )
+        console.log(error);
+      }
+    );
   },
   methods: {
     moveWrite() {
-      this.$router.push({ name: 'boardwrite' })
+      this.$router.push({ name: "boardwrite" });
     },
     viewArticle(article) {
       this.$router.push({
-        name: 'boardview',
+        name: "boardview",
         params: { articleno: article.articleno },
-      })
+      });
     },
   },
-}
+};
 </script>
 
 <style scope>
