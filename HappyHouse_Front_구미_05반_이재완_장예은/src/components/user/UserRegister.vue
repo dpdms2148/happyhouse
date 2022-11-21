@@ -8,7 +8,7 @@
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
-        <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
+        <b-card class="text-center mt-3" style="max-width: 40rem;" align="left">
           <b-form class="text-left" @submit="onSubmit" @reset="onReset">
             <b-form-group label="아이디:" label-for="userid" label-cols-lg="3">
               <b-form-input
@@ -16,14 +16,14 @@
                 v-model="user.userid"
                 required
                 placeholder="아이디 입력"
-                :state="idState"
+                :state="this.useridck"
                 @keyup="idCheck"
-                aria-describedby="input-live-feedback"
+                aria-describedby="idinput-live-feedback"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-live-feedback">
-                이미 사용중인 아이디입니다.
+              <b-form-invalid-feedback id="idinput-live-feedback">
+                {{ msg }}
               </b-form-invalid-feedback>
-              <b-form-valid-feedback id="input-live-feedback">
+              <b-form-valid-feedback id="idinput-live-feedback">
                 사용 가능한 아이디입니다.
               </b-form-valid-feedback>
             </b-form-group>
@@ -47,14 +47,14 @@
                 required
                 placeholder="비밀번호 재입력"
                 :state="pwdckState"
-                aria-describedby="input-live-feedback"
+                aria-describedby="pwdinput-live-feedback"
                 type="password"
                 class="mt-2"
               ></b-form-input>
-              <b-form-invalid-feedback id="input-live-feedback">
+              <b-form-invalid-feedback id="pwdinput-live-feedback">
                 비밀번호가 일치하지 않습니다.
               </b-form-invalid-feedback>
-              <b-form-valid-feedback id="input-live-feedback">
+              <b-form-valid-feedback id="pwdinput-live-feedback">
                 비밀번호가 일치합니다.
               </b-form-valid-feedback>
             </b-form-group>
@@ -77,9 +77,9 @@
                 placeholder="이름 입력"
               ></b-form-input>
             </b-form-group>
-            <b-button type="submit" variant="primary" class="m-1"
-              >등록</b-button
-            >
+            <b-button type="submit" variant="primary" class="m-1">
+              등록
+            </b-button>
             <b-button type="reset" variant="danger" class="m-1">취소</b-button>
           </b-form>
         </b-card>
@@ -90,52 +90,65 @@
 </template>
 
 <script>
-import { registUser } from "@/api/member";
-import { mapState, mapActions } from "vuex";
+import { registUser, idCheck } from '@/api/member'
 
-const memberStore = "memberStore";
 export default {
-  name: "UserRegister",
+  name: 'UserRegister',
   data() {
     return {
       user: {
-        userid: "",
-        username: "",
-        userpwd: "",
-        email: "",
+        userid: '',
+        username: '',
+        userpwd: '',
+        email: '',
       },
-      userpwdck: "",
-    };
+      userpwdck: '',
+      useridck: null,
+      msg: '',
+    }
   },
   computed: {
-    ...mapState(memberStore, ["isValidId"]),
-    idState() {
-      if (this.user.userid === "") {
-        return null;
-      }
-    },
+    // idState() {
+    //   if (this.useridck === '') return null
+    // },
     pwdckState() {
-      if (this.userpwdck === "") return null;
-      return this.user.userpwd === this.userpwdck ? true : false;
+      if (this.userpwdck === '') return null
+      return this.user.userpwd === this.userpwdck ? true : false
     },
   },
   methods: {
-    ...mapActions(memberStore, ["idValidCheck"]),
-    async idCheck() {
-      await this.idValidCheck(this.user.userid);
-      console.log(this.isValidId);
-    },
     onSubmit(event) {
-      event.preventDefault();
-      this.registUser();
+      event.preventDefault()
+      this.registUser()
     },
     onReset(event) {
-      event.preventDefault();
-      this.user.userid = "";
-      this.user.userpwd = "";
-      this.user.email = "";
-      this.user.name = "";
-      this.moveList();
+      event.preventDefault()
+      this.user.userid = ''
+      this.user.userpwd = ''
+      this.user.email = ''
+      this.user.name = ''
+      this.moveList()
+    },
+    idCheck() {
+      idCheck(
+        this.user.userid,
+        ({ data }) => {
+          if (data === 'success') {
+            if (this.user.userid.length < 5) {
+              this.useridck = false
+              this.msg = '아이디는 5자 이상이어야 합니다.'
+            } else {
+              this.useridck = true
+            }
+          } else {
+            this.useridck = false
+            this.msg = '이미 사용중인 아이디입니다.'
+          }
+        },
+        (error) => {
+          console.log(error)
+        },
+      )
     },
     registUser() {
       let param = {
@@ -143,28 +156,27 @@ export default {
         userpwd: this.user.userpwd,
         email: this.user.email,
         username: this.user.username,
-      };
+      }
       registUser(
         param,
         ({ data }) => {
-          let msg = "회원가입 중 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "회원가입이 완료되었습니다.";
+          let msg = '회원가입 중 문제가 발생했습니다.'
+          if (data === 'success') {
+            msg = '회원가입이 완료되었습니다.'
           }
-          alert(msg);
-          this.moveList();
+          alert(msg)
+          this.moveList()
         },
         (error) => {
-          console.log(error);
-        }
-      );
+          console.log(error)
+        },
+      )
     },
     moveList() {
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: 'login' })
     },
   },
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>

@@ -9,7 +9,6 @@ const memberStore = {
     isLoginError: false,
     userInfo: null,
     isValidToken: false,
-    isValidId: false,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -28,9 +27,6 @@ const memberStore = {
     },
     SET_IS_VALID_TOKEN: (state, isValidToken) => {
       state.isValidToken = isValidToken;
-    },
-    SET_IS_VALID_ID: (state, isValidId) => {
-      state.isValidId = isValidId;
     },
     SET_USER_INFO: (state, userInfo) => {
       state.isLogin = true;
@@ -79,21 +75,6 @@ const memberStore = {
           console.log("getUserInfo() error code [토큰 만료되어 사용 불가능.] ::: ", error.response.status);
           commit("SET_IS_VALID_TOKEN", false);
           await dispatch("tokenRegeneration");
-        }
-      );
-    },
-    async idValidCheck({ commit }, userid) {
-      await idCheck(
-        userid,
-        ({ data }) => {
-          if (data.message === "success") {
-            commit("SET_IS_VALID_ID", true);
-          } else {
-            commit("SET_IS_VALID_ID", false);
-          }
-        },
-        (error) => {
-          console.log(error);
         }
       );
     },
