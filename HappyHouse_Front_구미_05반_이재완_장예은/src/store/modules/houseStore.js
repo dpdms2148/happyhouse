@@ -1,6 +1,7 @@
 import { sidoList, gugunList, dongList, yearList, monthList, houseList } from "@/api/house.js";
 //import { HttpStatusCode } from "axios";
 
+// 카카오 정보들 전역변수로 선언
 var map = null;
 var kakao = null;
 var marker = null;
