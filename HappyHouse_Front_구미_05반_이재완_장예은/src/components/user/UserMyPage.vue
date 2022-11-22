@@ -50,7 +50,6 @@
                   v-model="user.userpwd"
                   type="password"
                   placeholder="변경할 비밀번호를 입력해주세요"
-                  required
                 ></b-input>
               </b-td>
               <b-td>
@@ -60,6 +59,7 @@
                   @click="isPwdShow = !isPwdShow"
                   class="m-1"
                   size="sm"
+                  style="width: 40%"
                   >취소</b-button
                 >
                 <b-button
@@ -68,6 +68,7 @@
                   class="m-1"
                   size="sm"
                   @click="modifyUserinfo"
+                  style="width: 40%"
                   >완료</b-button
                 >
               </b-td>
@@ -95,7 +96,6 @@
                   v-model="user.email"
                   type="email"
                   placeholder="변경할 이메일을 입력해주세요"
-                  required
                 ></b-input>
               </b-td>
               <b-td>
@@ -105,6 +105,7 @@
                   @click="isEmailShow = !isEmailShow"
                   class="m-1"
                   size="sm"
+                  style="width: 40%"
                   >취소</b-button
                 >
                 <b-button
@@ -113,6 +114,7 @@
                   class="m-1"
                   size="sm"
                   @click="modifyUserinfo"
+                  style="width: 40%"
                   >완료</b-button
                 >
               </b-td>
