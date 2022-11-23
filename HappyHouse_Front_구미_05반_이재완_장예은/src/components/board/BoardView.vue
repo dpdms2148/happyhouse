@@ -1,7 +1,7 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <hr/>
-    <b-row class="mb-0">
+    <b-row class="mb-1">
       <b-col class="text-left">
         [{{article.articleno}}]
         <span class="title">{{ article.subject }}</span>
@@ -25,7 +25,7 @@
     <hr />
     <b-row class="mb-1">
       <b-col>
-        <div v-html="message" style="text-align: left;"></div>
+        <div v-html="message" class="text-left"></div>
       </b-col>
     </b-row>
     <hr />
