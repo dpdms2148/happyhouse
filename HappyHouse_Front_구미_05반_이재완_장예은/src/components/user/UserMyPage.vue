@@ -1,18 +1,13 @@
 <template>
-  <b-container class="mt-4" v-if="userInfo">
-    <b-row>
-      <b-col>
-        <h2 class="mt-3">MyPage</h2>
-      </b-col>
-    </b-row>
+  <b-container class="mt-5" v-if="userInfo">
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
         <b-table-simple hover>
           <colgroup>
-            <col style="width: 20%" />
+            <col style="width: 20%;" />
             <col style="" />
-            <col style="width: 25%" />
+            <col style="width: 25%;" />
           </colgroup>
           <b-tbody>
             <b-tr>
@@ -59,18 +54,20 @@
                   @click="isPwdShow = !isPwdShow"
                   class="m-1"
                   size="sm"
-                  style="width: 40%"
-                  >취소</b-button
+                  style="width: 40%;"
                 >
+                  취소
+                </b-button>
                 <b-button
                   variant="dark"
                   type="submit"
                   class="m-1"
                   size="sm"
                   @click="modifyUserinfo"
-                  style="width: 40%"
-                  >완료</b-button
+                  style="width: 40%;"
                 >
+                  완료
+                </b-button>
               </b-td>
             </b-tr>
 
@@ -83,8 +80,9 @@
                   size="sm"
                   @click="isEmailShow = !isEmailShow"
                   block
-                  >이메일 변경</b-button
                 >
+                  이메일 변경
+                </b-button>
               </b-td>
             </b-tr>
 
@@ -105,18 +103,20 @@
                   @click="isEmailShow = !isEmailShow"
                   class="m-1"
                   size="sm"
-                  style="width: 40%"
-                  >취소</b-button
+                  style="width: 40%;"
                 >
+                  취소
+                </b-button>
                 <b-button
                   variant="dark"
                   type="submit"
                   class="m-1"
                   size="sm"
                   @click="modifyUserinfo"
-                  style="width: 40%"
-                  >완료</b-button
+                  style="width: 40%;"
                 >
+                  완료
+                </b-button>
               </b-td>
             </b-tr>
 
@@ -135,77 +135,77 @@
 </template>
 
 <script>
-import { modifyUser, deleteUser } from "@/api/member";
-import { mapState, mapActions } from "vuex";
+import { modifyUser, deleteUser } from '@/api/member'
+import { mapState, mapActions } from 'vuex'
 
-const memberStore = "memberStore";
+const memberStore = 'memberStore'
 
 export default {
-  name: "UserMyPage",
+  name: 'UserMyPage',
   components: {},
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(memberStore, ['userInfo']),
   },
   data() {
     return {
       isPwdShow: true,
       isEmailShow: true,
       user: {
-        userpwd: "",
-        email: "",
+        userpwd: '',
+        email: '',
       },
-    };
+    }
   },
   methods: {
-    ...mapActions(memberStore, ["userLogout"]),
+    ...mapActions(memberStore, ['userLogout']),
     modifyUserinfo() {
       let param = {
         userid: this.userInfo.userid,
         userpwd:
-          this.user.userpwd === "" ? this.userInfo.userpwd : this.user.userpwd,
-        email: this.user.email === "" ? this.userInfo.email : this.user.email,
-      };
+          this.user.userpwd === '' ? this.userInfo.userpwd : this.user.userpwd,
+        email: this.user.email === '' ? this.userInfo.email : this.user.email,
+      }
       modifyUser(
         param,
         ({ data }) => {
-          let msg = "수정 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "수정이 완료되었습니다.";
-            this.$alert(msg, "Success", "success");
+          let msg = '수정 처리시 문제가 발생했습니다.'
+          if (data === 'success') {
+            msg = '수정이 완료되었습니다.'
+            this.$alert(msg, 'Success', 'success')
           } else {
-            this.$alert(msg, "Error", "error");
+            this.$alert(msg, 'Error', 'error')
           }
-          this.$router.go();
+          this.$router.go()
         },
         (error) => {
-          console.log(error);
-        }
-      );
+          console.log(error)
+        },
+      )
     },
     deleteUserinfo() {
-      let userid = this.userInfo.userid;
+      let userid = this.userInfo.userid
       deleteUser(
         userid,
         ({ data }) => {
-          let msg = "회원탈퇴 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "탈퇴가 완료되었습니다.";
-            this.userLogout(userid);
-            sessionStorage.removeItem("access-token"); //저장된 토큰 없애기
-            sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기
-            this.$alert(msg, "Success", "success");
+          let msg = '회원탈퇴 처리시 문제가 발생했습니다.'
+          if (data === 'success') {
+            msg = '탈퇴가 완료되었습니다.'
+            this.userLogout(userid)
+            sessionStorage.removeItem('access-token') //저장된 토큰 없애기
+            sessionStorage.removeItem('refresh-token') //저장된 토큰 없애기
+            this.$alert(msg, 'Success', 'success')
           } else {
-            this.$alert(msg, "Error", "error");
+            this.$alert(msg, 'Error', 'error')
           }
-          if (this.$route.path != "/") this.$router.push({ name: "main" });
+          if (this.$route.path != '/') this.$router.push({ name: 'main' })
         },
         (error) => {
-          console.log(error);
-        }
-      );
+          console.log(error)
+        },
+      )
     },
   },
-};
+}
 </script>
 
 <style scope>

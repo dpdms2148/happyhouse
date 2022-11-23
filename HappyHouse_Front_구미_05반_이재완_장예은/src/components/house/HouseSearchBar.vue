@@ -1,5 +1,5 @@
 <template>
-  <b-row class="mt-4 mb-4 text-center">
+  <b-row class="mt-4 mb-4 px-4">
     <!-- <b-col class="sm-3">
       <b-form-input
         v-model.trim="dongCode"
