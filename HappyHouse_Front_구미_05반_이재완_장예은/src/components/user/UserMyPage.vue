@@ -171,8 +171,10 @@ export default {
           let msg = "수정 처리시 문제가 발생했습니다.";
           if (data === "success") {
             msg = "수정이 완료되었습니다.";
+            this.$alert(msg, "Success", "success");
+          } else {
+            this.$alert(msg, "Error", "error");
           }
-          alert(msg);
           this.$router.go();
         },
         (error) => {
@@ -191,8 +193,10 @@ export default {
             this.userLogout(userid);
             sessionStorage.removeItem("access-token"); //저장된 토큰 없애기
             sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기
+            this.$alert(msg, "Success", "success");
+          } else {
+            this.$alert(msg, "Error", "error");
           }
-          alert(msg);
           if (this.$route.path != "/") this.$router.push({ name: "main" });
         },
         (error) => {

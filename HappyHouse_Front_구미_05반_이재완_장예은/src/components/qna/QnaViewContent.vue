@@ -32,43 +32,43 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
-const memberStore = 'memberStore'
+const memberStore = "memberStore";
 
 export default {
-  name: 'QnaViewContent',
+  name: "QnaViewContent",
   props: {
     qna: Object,
   },
   computed: {
-    ...mapState(memberStore, ['userInfo']),
+    ...mapState(memberStore, ["userInfo"]),
     message() {
-      if (this.qna.content) return this.qna.content.split('\n').join('<br>')
-      return ''
+      if (this.qna.content) return this.qna.content.split("\n").join("<br>");
+      return "";
     },
   },
   methods: {
     moveModifyQna() {
       this.$router.replace({
-        name: 'qnamodify',
+        name: "qnamodify",
         params: { qnano: this.qna.qnano },
-      })
+      });
       //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
     },
     deleteQna() {
-      if (confirm('정말로 삭제?')) {
+      this.$confirm("정말로 삭제하시겠습니까?", "Question", "question").then(() => {
         this.$router.replace({
-          name: 'qnadelete',
-          params: { qnano: this.qna.qnano },
-        })
-      }
+          name: "qnadelete",
+          params: { articleno: this.article.articleno },
+        });
+      });
     },
     moveList() {
-      this.$router.push({ name: 'qnalist' })
+      this.$router.push({ name: "qnalist" });
     },
   },
-}
+};
 </script>
 
 <style></style>
