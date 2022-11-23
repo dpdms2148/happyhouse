@@ -2,30 +2,23 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert variant="secondary" show><h3>로그인</h3></b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col></b-col>
-      <b-col cols="8">
-        <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
+        <div class="vue-tempalte">
           <b-form class="text-left">
-            <b-form-group label-cols-lg="3" label="아이디:" label-for="userid">
+            <h3 mt-3>Sign In</h3>
+            <b-form-group label="아이디" label-for="userid">
               <b-form-input
                 id="userid"
                 v-model="user.userid"
                 required
-                placeholder="아이디 입력...."
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
-            <b-form-group label-cols-lg="3" label="비밀번호:" label-for="userpwd">
+            <b-form-group label="비밀번호" label-for="userpwd">
               <b-form-input
                 type="password"
                 id="userpwd"
                 v-model="user.userpwd"
                 required
-                placeholder="비밀번호 입력...."
                 @keyup.enter="confirm"
               ></b-form-input>
             </b-form-group>
@@ -34,24 +27,20 @@
               >아이디 또는 비밀번호를 확인하세요.</b-alert
             >
 
-            <b-button
-              type="button"
-              variant="primary"
-              class="m-1"
-              @click="confirm"
-              >로그인</b-button
+            <b-button type="button" class="btn-dark btn-block" @click="confirm"
+              >Sign In</b-button
             >
-            <b-button
-              type="button"
-              variant="success"
-              class="m-1"
-              @click="movePage"
-              >회원가입</b-button
-            >
+            <p class="text-right mt-2 mb-4">
+              <router-link
+                :to="{ name: 'join' }"
+                class="link"
+                style="color: gray"
+                >회원가입</router-link
+              >
+            </p>
           </b-form>
-        </b-card>
+        </div>
       </b-col>
-      <b-col></b-col>
     </b-row>
   </b-container>
 </template>
@@ -65,7 +54,6 @@ export default {
   name: "UserLogin",
   data() {
     return {
-      // isLoginError: false,
       user: {
         userid: null,
         userpwd: null,
@@ -85,11 +73,14 @@ export default {
         this.$router.push({ name: "main" });
       }
     },
-    movePage() {
-      this.$router.push({ name: "join" });
-    },
   },
 };
 </script>
 
-<style></style>
+<style>
+.vue-tempalte {
+  margin: auto;
+  width: 50%;
+  height: 100%;
+}
+</style>

@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <the-header-navbar></the-header-navbar>
+    <the-sidebar-menu></the-sidebar-menu>
     <router-view></router-view>
     <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
-import TheHeaderNavbar from "@/components/TheHeaderNavbar";
-import AppFooter from "@/components/AppFooter";
 
+import TheSidebarMenu from "@/components/TheSidebarMenu";
+import AppFooter from "@/components/AppFooter";
 export default {
   name: "App",
   components: {
-    TheHeaderNavbar,
+    TheSidebarMenu,
     AppFooter,
   },
 };

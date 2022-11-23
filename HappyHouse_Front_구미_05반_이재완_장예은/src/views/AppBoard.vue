@@ -1,8 +1,9 @@
 <template>
   <b-container class="bv-example-row mt-3 text-center">
-    <h3 class="underline-hotpink">
-      <b-icon icon="list-ul"></b-icon> Board Service
-    </h3>
+    <div>
+      <b-img :src="require('@/assets/happyhouse.png')" fluid alt="res image"></b-img>
+    </div>
+    <h2 class="mt-3">Notice</h2>
     <router-view></router-view>
   </b-container>
 </template>
@@ -11,13 +12,5 @@ export default {
   name: "AppBoard",
 };
 </script>
-<style scoped>
-.underline-hotpink {
-  display: inline-block;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 70%,
-    rgba(231, 27, 139, 0.3) 30%
-  );
-}
+<style>
 </style>

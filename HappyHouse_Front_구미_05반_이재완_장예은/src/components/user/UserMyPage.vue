@@ -2,7 +2,7 @@
   <b-container class="mt-4" v-if="userInfo">
     <b-row>
       <b-col>
-        <b-alert variant="secondary" show><h3>내정보</h3></b-alert>
+        <h2 class="mt-3">MyPage</h2>
       </b-col>
     </b-row>
     <b-row>
@@ -127,7 +127,7 @@
             </b-tr>
           </b-tbody>
         </b-table-simple>
-        <b-link @click="deleteUserinfo" style="color: gray">탈퇴하기</b-link>
+        <!-- <b-link @click="deleteUserinfo" style="color: gray">탈퇴하기</b-link> -->
       </b-col>
       <b-col></b-col>
     </b-row>

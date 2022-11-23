@@ -1,9 +1,6 @@
 <template>
   <b-container class="bv-example-row mt-3">
     <b-row>
-      <b-col>
-        <b-alert show><h3>QnA</h3></b-alert>
-      </b-col>
       <qna-view-content :qna="qna"></qna-view-content>
       <qna-answer-view v-if="qna.answer != null" :qna="qna"></qna-answer-view>
       <qna-answer-write

@@ -1,13 +1,10 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row>
-      <b-col>
-        <b-alert show><h3>QnA</h3></b-alert>
-      </b-col>
-    </b-row>
     <b-row class="mb-1">
       <b-col class="text-right">
-        <b-button variant="outline-primary" @click="writeQna()"
+        <b-button v-if="userInfo == null" style="display: none"></b-button>
+        <b-button v-else variant="outline-dark" @click="writeQna()">
+          <i class="bx" :class="'bx-pencil' || 'bx-square-rounded'"></i
           >글쓰기</b-button
         >
       </b-col>
@@ -23,6 +20,7 @@
         >
           <template #cell(subject)="data">
             <router-link
+              style="color: black"
               :to="{
                 name: 'qnaview',
                 params: { qnano: data.item.qnano },
@@ -45,7 +43,9 @@
 
 <script>
 import { listQna } from "@/api/qna";
+import { mapState } from "vuex";
 
+const memberStore = "memberStore";
 export default {
   name: "QnaList",
   data() {
@@ -60,6 +60,9 @@ export default {
         { key: "answer", label: "상태", tdClass: "tdState" },
       ],
     };
+  },
+  computed: {
+    ...mapState(memberStore, ["userInfo"]),
   },
   created() {
     let param = {

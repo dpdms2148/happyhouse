@@ -2,20 +2,14 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert variant="secondary" show><h3>회원가입</h3></b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col></b-col>
-      <b-col cols="8">
-        <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
+        <div class="vue-tempalte">
           <b-form class="text-left" @submit="onSubmit" @reset="onReset">
-            <b-form-group label="아이디:" label-for="userid" label-cols-lg="3">
+            <h3 mt-3>Sign Up</h3>
+            <b-form-group label="아이디" label-for="userid">
               <b-form-input
                 id="userid"
+                ref="userid"
                 v-model="user.userid"
-                required
-                placeholder="아이디 입력"
                 :state="this.useridck"
                 @keyup="idCheck"
                 aria-describedby="idinput-live-feedback"
@@ -28,28 +22,23 @@
               </b-form-valid-feedback>
             </b-form-group>
 
-            <b-form-group
-              label="비밀번호:"
-              label-for="userpwd"
-              label-cols-lg="3"
-            >
+            <b-form-group label="비밀번호" label-for="userpwd">
               <b-form-input
                 id="userpwd"
+                ref="userpwd"
                 v-model="user.userpwd"
-                required
-                placeholder="비밀번호 입력"
                 type="password"
               ></b-form-input>
+            </b-form-group>
 
+            <b-form-group label="비밀번호 재확인" label-for="userpwd">
               <b-form-input
                 id="userpwdck"
+                ref="userpwdck"
                 v-model="userpwdck"
-                required
-                placeholder="비밀번호 재입력"
                 :state="pwdckState"
                 aria-describedby="pwdinput-live-feedback"
                 type="password"
-                class="mt-2"
               ></b-form-input>
               <b-form-invalid-feedback id="pwdinput-live-feedback">
                 비밀번호가 일치하지 않습니다.
@@ -59,32 +48,37 @@
               </b-form-valid-feedback>
             </b-form-group>
 
-            <b-form-group label-cols-lg="3" label="이메일:" label-for="email">
+            <b-form-group label="이메일" label-for="email">
               <b-form-input
                 id="email"
+                ref="email"
                 v-model="user.email"
-                required
-                placeholder="이메일 입력"
                 type="email"
               ></b-form-input>
             </b-form-group>
 
-            <b-form-group label-cols-lg="3" label="이름:" label-for="username">
+            <b-form-group label="이름" label-for="username">
               <b-form-input
                 id="username"
+                ref="username"
                 v-model="user.username"
-                required
-                placeholder="이름 입력"
               ></b-form-input>
             </b-form-group>
-            <b-button type="submit" variant="primary" class="m-1">
-              등록
-            </b-button>
-            <b-button type="reset" variant="danger" class="m-1">취소</b-button>
+            <b-button type="submit" class="btn-dark btn-block"
+              >Sign Up</b-button
+            >
+            <p class="text-right mt-2 mb-4">
+              Already have an account?
+              <router-link
+                :to="{ name: 'login' }"
+                class="link"
+                style="color: gray"
+                >로그인</router-link
+              >
+            </p>
           </b-form>
-        </b-card>
+        </div>
       </b-col>
-      <b-col></b-col>
     </b-row>
   </b-container>
 </template>
@@ -108,9 +102,6 @@ export default {
     };
   },
   computed: {
-    // idState() {
-    //   if (this.useridck === '') return null
-    // },
     pwdckState() {
       if (this.userpwdck === "") return null;
       return this.user.userpwd === this.userpwdck ? true : false;
@@ -119,7 +110,37 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      this.registUser();
+      let err = true;
+      let msg = "";
+      !this.user.userid &&
+        ((msg = "아이디 입력해주세요"),
+        (err = false),
+        this.$refs.userid.focus());
+      err &&
+        !this.user.userpwd &&
+        ((msg = "비밀번호 입력해주세요"),
+        (err = false),
+        this.$refs.userpwd.focus());
+      err &&
+        !this.userpwdck &&
+        ((msg = "비밀번호 확인 입력해주세요"),
+        (err = false),
+        this.$refs.userpwdck.focus());
+      err &&
+        !this.user.email &&
+        ((msg = "이메일 입력해주세요"),
+        (err = false),
+        this.$refs.email.focus());
+      err &&
+        !this.user.username &&
+        ((msg = "이름 입력해주세요"),
+        (err = false),
+        this.$refs.username.focus());
+
+      if (!err) this.$alert(msg, "Warning", "warning");
+      else {
+        this.registUser();
+      }
     },
     onReset(event) {
       event.preventDefault();
@@ -127,7 +148,6 @@ export default {
       this.user.userpwd = "";
       this.user.email = "";
       this.user.name = "";
-      this.moveList();
     },
     idCheck() {
       idCheck(
@@ -181,4 +201,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.vue-tempalte {
+  margin: auto;
+  width: 50%;
+  height: 100%;
+}
+</style>
