@@ -3,8 +3,6 @@
     <!-- <b-img :src="require('@/assets/roof.jpg')" fluid-grow></b-img> -->
     <!-- <b-row><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img></b-row> -->
     <div :style="{'backgroundImage':'url(https://www.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=24068&fileTy=MEDIA&fileNo=1)'}"> </div>
-    <!-- <b-row><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img></b-row> -->
-    <div :style="{'backgroundImage':'url(https://www.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=24068&fileTy=MEDIA&fileNo=1)'}"> </div>
    
     <b-row>
       <b-col></b-col>
