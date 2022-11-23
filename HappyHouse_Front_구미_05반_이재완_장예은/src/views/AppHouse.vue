@@ -1,5 +1,5 @@
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
+  <b-container fluid class="px-0">
     <b-row>
       <b-col>
         <div id="map"></div>

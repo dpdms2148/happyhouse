@@ -4,7 +4,7 @@
       <b-col class="text-right">
         <b-button v-if="userInfo == null" style="display: none"></b-button>
         <b-button v-else variant="outline-dark" @click="writeQna()">
-          <i class="bx" :class="'bx-pencil' || 'bx-square-rounded'"></i
+          <i class="bx" :class="'bx-edit' || 'bx-square-rounded'"></i
           >글쓰기</b-button
         >
       </b-col>
@@ -33,7 +33,7 @@
             <b-button v-if="data.item.answer == null" variant="light" size="sm"
               >답변 대기</b-button
             >
-            <b-button v-else variant="success" size="sm">답변 완료</b-button>
+            <b-button v-else variant="info" size="sm">답변 완료</b-button>
           </template>
         </b-table>
       </b-col>

@@ -1,8 +1,14 @@
 <template>
   <b-row class="mb-1">
-    <b-col style="text-align: left">
-      <b-form @submit="onSubmit" @reset="onReset">
-        <b-form-group id="userid-group" label="작성자:" label-for="userid">
+    <b-col style="text-align: left;">
+      <b-form @submit="onSubmit">
+        <hr />
+        <b-form-group
+          id="userid-group"
+          label="작성자"
+          label-for="userid"
+          label-cols-lg="1"
+        >
           <b-form-input
             id="userid"
             v-model="userInfo.userid"
@@ -10,133 +16,142 @@
             readonly
           ></b-form-input>
         </b-form-group>
-
-        <b-form-group id="subject-group" label="제목:" label-for="subject">
+        <hr />
+        <b-form-group
+          id="subject-group"
+          label="제목"
+          label-for="subject"
+          label-cols-lg="1"
+        >
           <b-form-input
             id="subject"
             ref="subject"
             v-model="qna.subject"
             type="text"
-            required
-            placeholder="제목 입력..."
           ></b-form-input>
         </b-form-group>
-
-        <b-form-group id="content-group" label="내용:" label-for="content">
+        <hr />
+        <b-form-group
+          id="content-group"
+          label="내용"
+          label-for="content"
+          label-cols-lg="1"
+        >
           <b-form-textarea
             id="content"
             ref="content"
             v-model="qna.content"
-            placeholder="내용 입력..."
             rows="10"
             max-rows="15"
           ></b-form-textarea>
         </b-form-group>
-
+        <hr />
         <b-button
           type="submit"
-          variant="primary"
+          variant="dark"
           class="m-1"
+          style="float: right;"
           v-if="this.type === 'register'"
         >
-          글작성
+          등록
         </b-button>
-        <b-button type="submit" variant="primary" class="m-1" v-else>
-          글수정
+        <b-button
+          type="submit"
+          variant="dark"
+          class="m-1"
+          style="float: right;"
+          v-else
+        >
+          수정
         </b-button>
-        <b-button type="reset" variant="danger" class="m-1">초기화</b-button>
       </b-form>
     </b-col>
   </b-row>
 </template>
 
 <script>
-import { writeQna, modifyQna, getQna } from "@/api/qna";
-import { mapState } from "vuex";
+import { writeQna, modifyQna, getQna } from '@/api/qna'
+import { mapState } from 'vuex'
 
-const memberStore = "memberStore";
+const memberStore = 'memberStore'
 
 export default {
-  name: "QnaInputItem",
+  name: 'QnaInputItem',
   data() {
     return {
       qna: {
         qnano: 0,
-        userid: "",
-        subject: "",
-        content: "",
+        userid: '',
+        subject: '',
+        content: '',
       },
-    };
+    }
   },
   props: {
     type: { type: String },
   },
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(memberStore, ['userInfo']),
   },
   created() {
-    if (this.type === "modify") {
-      let param = this.$route.params.qnano;
+    if (this.type === 'modify') {
+      let param = this.$route.params.qnano
       getQna(
         param,
         ({ data }) => {
-          this.qna = data;
+          this.qna = data
         },
         (error) => {
-          console.log(error);
-        }
-      );
+          console.log(error)
+        },
+      )
     }
   },
   methods: {
     onSubmit(event) {
-      event.preventDefault();
-      let err = true;
-      let msg = "";
+      event.preventDefault()
+      let err = true
+      let msg = ''
       !this.qna.subject &&
-        ((msg = "제목 입력해주세요"),
-        (err = false),
-        this.$refs.subject.focus());
+        ((msg = '제목 입력해주세요'), (err = false), this.$refs.subject.focus())
       err &&
         !this.qna.content &&
-        ((msg = "내용 입력해주세요"),
-        (err = false),
-        this.$refs.content.focus());
+        ((msg = '내용 입력해주세요'), (err = false), this.$refs.content.focus())
 
-      if (!err) this.$alert(msg, "Warning", "warning");
+      if (!err) this.$alert(msg, 'Warning', 'warning')
       else {
-        this.qna.userid = this.userInfo.userid;
-        this.type === "register" ? this.registQna() : this.modifyQna();
+        this.qna.userid = this.userInfo.userid
+        this.type === 'register' ? this.registQna() : this.modifyQna()
       }
     },
     onReset(event) {
-      event.preventDefault();
-      this.qna.qnano = 0;
-      this.qna.subject = "";
-      this.qna.content = "";
+      event.preventDefault()
+      this.qna.qnano = 0
+      this.qna.subject = ''
+      this.qna.content = ''
     },
     registQna() {
       let param = {
         userid: this.qna.userid,
         subject: this.qna.subject,
         content: this.qna.content,
-      };
+      }
       writeQna(
         param,
         ({ data }) => {
-          let msg = "등록 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "등록이 완료되었습니다.";
-            this.$alert(msg, "Success", "success");
+          let msg = '등록 처리시 문제가 발생했습니다.'
+          if (data === 'success') {
+            msg = '등록이 완료되었습니다.'
+            this.$alert(msg, 'Success', 'success')
           } else {
-            this.$alert(msg, "Error", "error");
+            this.$alert(msg, 'Error', 'error')
           }
-          this.moveList();
+          this.moveList()
         },
         (error) => {
-          console.log(error);
-        }
-      );
+          console.log(error)
+        },
+      )
     },
     modifyQna() {
       let param = {
@@ -144,30 +159,30 @@ export default {
         userid: this.qna.userid,
         subject: this.qna.subject,
         content: this.qna.content,
-      };
+      }
       modifyQna(
         param,
         ({ data }) => {
-          let msg = "수정 처리시 문제가 발생했습니다.";
-          if (data === "success") {
-            msg = "수정이 완료되었습니다.";
-            this.$alert(msg, "Success", "success");
+          let msg = '수정 처리시 문제가 발생했습니다.'
+          if (data === 'success') {
+            msg = '수정이 완료되었습니다.'
+            this.$alert(msg, 'Success', 'success')
           } else {
-            this.$alert(msg, "Error", "error");
+            this.$alert(msg, 'Error', 'error')
           }
           // 현재 route를 /list로 변경.
-          this.moveList();
+          this.moveList()
         },
         (error) => {
-          console.log(error);
-        }
-      );
+          console.log(error)
+        },
+      )
     },
     moveList() {
-      this.$router.push({ name: "qnalist" });
+      this.$router.push({ name: 'qnalist' })
     },
   },
-};
+}
 </script>
 
 <style></style>

@@ -1,7 +1,8 @@
 <template>
-  
   <b-container class="bv-example-row mt-3 text-center">
     <!-- <b-img :src="require('@/assets/roof.jpg')" fluid-grow></b-img> -->
+    <!-- <b-row><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img></b-row> -->
+    <div :style="{'backgroundImage':'url(https://www.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=24068&fileTy=MEDIA&fileNo=1)'}"> </div>
     <!-- <b-row><b-img :src="require('@/assets/apt.png')" fluid-grow></b-img></b-row> -->
     <div :style="{'backgroundImage':'url(https://www.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=24068&fileTy=MEDIA&fileNo=1)'}"> </div>
    
@@ -26,6 +27,7 @@
         <!-- <b-col> -->
           
           <b-jumbotron bg-variant="light" text-variant="dark" border-variant="dark">
+            
             <b-input-group size="sm" class="mb-2">
       <b-input-group-prepend is-text>
         <b-icon icon="search"></b-icon>
@@ -44,17 +46,20 @@
             
         </b-jumbotron>
         <!-- </b-col> -->
+            
         </b-jumbotron>
+        
+        <!-- </b-col> -->
+        
       </b-col>
       <b-col></b-col>
     </b-row>
-    
   </b-container>
 </template>
 
 <script>
 export default {
-  name: "AppMain",
+  name: 'AppMain',
   props: {
     msg: String,
   },
@@ -80,8 +85,13 @@ export default {
 </script>
 
 <style scoped>
-.underline-steelblue {
-  display: inline-block;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(72, 190, 233, 0.3) 30%);
+
+.background {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  background-image: url('@/assets/happyhousemain.png');
+  background-size: cover;
+  background-position: center;
 }
 </style>

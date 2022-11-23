@@ -2,7 +2,7 @@
   <div id="app">
     <the-sidebar-menu></the-sidebar-menu>
     <router-view></router-view>
-    <AppFooter></AppFooter>
+    <app-footer></app-footer>
   </div>
 </template>
 
