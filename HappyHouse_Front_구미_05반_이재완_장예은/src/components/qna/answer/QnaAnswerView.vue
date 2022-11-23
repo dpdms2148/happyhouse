@@ -1,8 +1,9 @@
 <template>
   <b-container>
-    <hr style="border:solid 1px"/>
+    <hr style="border: solid 1px;" />
     <b-row class="mb-1">
       <b-col class="text-left">
+        <i class="bx" :class="'bx-message' || 'bx-square-rounded'" />
         <span class="title">답변</span>
       </b-col>
     </b-row>
@@ -92,4 +93,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.title {
+  font-size: 30px;
+}
+</style>
