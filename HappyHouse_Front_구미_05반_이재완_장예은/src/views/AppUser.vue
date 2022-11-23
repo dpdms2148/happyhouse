@@ -6,7 +6,6 @@
         fluid
         alt="res image"
       ></b-img>
-      <h1 class="mt-3" style="color: white;">MyPage</h1>
     </div>
     <router-view></router-view>
   </b-container>

@@ -7,7 +7,7 @@
           v-else-if="userInfo.userid === 'admin'"
           variant="outline-dark"
           @click="moveWrite()"
-          ><i class="bx" :class="'bx-pencil' || 'bx-square-rounded'"></i>
+          ><i class="bx" :class="'bx-edit' || 'bx-square-rounded'"></i>
           글쓰기
         </b-button>
       </b-col>

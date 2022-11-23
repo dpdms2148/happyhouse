@@ -1,36 +1,52 @@
 <template>
   <b-container class="bv-example-row mt-3">
-    <b-row class="mb-1">
+    <hr/>
+    <b-row class="mb-0">
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
-      </b-col>
-      <b-col class="text-right" v-if="userInfo.userid === article.userid">
-        <b-button
-          variant="outline-info"
-          size="sm"
-          @click="moveModifyArticle"
-          class="mr-2"
-        >
-          글수정
-        </b-button>
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle">
-          글삭제
-        </b-button>
+        [{{article.articleno}}]
+        <span class="title">{{ article.subject }}</span>
       </b-col>
     </b-row>
     <b-row class="mb-1">
       <b-col>
-        <b-card
-          :header-html="`<h3>${article.articleno}.
-          ${article.subject} [${article.hit}]</h3><div><h6>${article.userid}</div><div>${article.regtime}</h6></div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
+        <div class="d-inline-block float-left">
+          <i class="bx" :class="'bx-face' || 'bx-square-rounded'" />
+          <span>{{ article.userid }}</span>
+          |
+          <i class="bx" :class="'bx-time-five' || 'bx-square-rounded'" />
+          <span>{{ article.regtime }}</span>
+        </div>
+        <div class="d-inline-block float-right">
+          <i class="bx" :class="'bx-show' || 'bx-square-rounded'" />
+          <span>{{ article.hit }}</span>
+        </div>
+      </b-col>
+    </b-row>
+    <hr />
+    <b-row class="mb-1">
+      <b-col>
+        <div v-html="message" style="text-align: left;"></div>
+      </b-col>
+    </b-row>
+    <hr />
+    <b-row class="mb-1">
+      <b-col class="text-left">
+        <b-button variant="outline-dark" @click="moveList" squared>
+          목록
+        </b-button>
+      </b-col>
+      <b-col class="text-right" v-if="userInfo.userid === article.userid">
+        <b-button
+          variant="outline-info"
+          @click="moveModifyArticle"
+          class="mr-2"
+          squared
         >
-          <b-card-body class="text-left">
-            <div v-html="message"></div>
-          </b-card-body>
-        </b-card>
+          수정
+        </b-button>
+        <b-button variant="outline-danger" @click="deleteArticle" squared>
+          삭제
+        </b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -108,4 +124,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.title{
+  font-size: 30px;
+}
+</style>
