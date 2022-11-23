@@ -7,9 +7,13 @@
     :class="{ 'mouse-over-bgcolor': isColor }"
   >
     <b-col cols="2" class="text-center align-self-center">
-      <b-img thumbnail src="https://picsum.photos/250/250/?image=299" alt="Image 1"></b-img>
+      <b-img thumbnail src="https://picsum.photos/50/50/?image=299" alt="Image 1"></b-img>
     </b-col>
-    <b-col cols="10" class="test-center align-self-center"> {{ house.apartmentName }} </b-col>
+    <b-col cols="2" class="test-center align-self-center">{{ house.apartmentName }}</b-col>
+    <b-col cols="2" class="test-center align-self-center">{{ house.dong }}</b-col>
+    <b-col cols="2" class="test-center align-self-center">{{ house.area }}㎡</b-col>
+    <b-col cols="2" class="test-center align-self-center">{{ house.floor }}층</b-col>
+    <b-col cols="2" class="test-center align-self-center">{{ (parseInt(house.dealAmount.replace(",", "")) * 10000) | price }}원</b-col>
   </b-row>
 </template>
 
@@ -39,6 +43,12 @@ export default {
     },
     colorChange(flag) {
       this.isColor = flag;
+    },
+  },
+  filters: {
+    price(value) {
+      if (!value) return value;
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
 };

@@ -12,12 +12,12 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col cols="6" align="left">
+      <b-col align="center">
         <house-list />
       </b-col>
-      <b-col cols="6">
+      <!-- <b-col cols="6">
         <house-detail />
-      </b-col>
+      </b-col> -->
     </b-row>
   </b-container>
 </template>
@@ -105,7 +105,7 @@ export default {
 </script>
 <style scoped>
 #map{
-  width:1110px;
+  width:100%;
   height:400px;
 }
 .underline-orange {

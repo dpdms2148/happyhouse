@@ -36,6 +36,8 @@ public class HouseInfoDto {
 	private String dealMonth;
 	@ApiModelProperty(value = "층")
 	private String floor;
+	@ApiModelProperty(value = "면적")
+	private String area;
 	
 	public HouseInfoDto() {
 		super();
@@ -49,7 +51,7 @@ public class HouseInfoDto {
 
 	public HouseInfoDto(String aptCode, String apartmentName, String dongCode, String dong, String sidoName,
 			String gugunName, int buildYear, String jibun, String lat, String lng, String img, String dealAmount,
-			String dealYear, String dealMonth, String floor) {
+			String dealYear, String dealMonth, String floor,String area) {
 		super();
 		this.aptCode = aptCode;
 		this.apartmentName = apartmentName;
@@ -66,6 +68,7 @@ public class HouseInfoDto {
 		this.dealYear = dealYear;
 		this.dealMonth = dealMonth;
 		this.floor=floor;
+		this.area=area;
 	}
 
 	public String getFloor() {
@@ -186,6 +189,14 @@ public class HouseInfoDto {
 
 	public void setDealMonth(String dealMonth) {
 		this.dealMonth = dealMonth;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 	
 	

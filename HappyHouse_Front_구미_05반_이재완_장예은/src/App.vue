@@ -2,16 +2,19 @@
   <div id="app">
     <the-header-navbar></the-header-navbar>
     <router-view></router-view>
+    <AppFooter></AppFooter>
   </div>
 </template>
 
 <script>
 import TheHeaderNavbar from "@/components/TheHeaderNavbar";
+import AppFooter from "@/components/AppFooter";
 
 export default {
   name: "App",
   components: {
     TheHeaderNavbar,
+    AppFooter,
   },
 };
 </script>
