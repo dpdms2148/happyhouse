@@ -7,14 +7,14 @@
         alt="menu-logo"
         class="menu-logo icon"
       /> -->
-      <i class="bx icon" :class="menuIcon" />
+      <i class="bx icon" :class="menuIcon"></i>
       <div class="logo_name">HAPPY HOUSE</div>
       <i
         class="bx"
         :class="isOpened ? 'bx-menu-alt-right' : 'bx-menu'"
         id="btn"
         @click="isOpened = !isOpened"
-      />
+      ></i>
     </div>
 
     <div
@@ -30,52 +30,51 @@
         <ul class="nav-list" style="overflow: visible">
           <li>
             <router-link :to="{ name: 'main' }" class="link">
-              <i class="bx" :class="'bx-grid-alt' || 'bx-square-rounded'" />
+              <i class="bx" :class="'bx-grid-alt' || 'bx-square-rounded'"></i>
               <span class="links_name">Main</span>
             </router-link>
-            <span class="tooltip">Main || Main</span>
+            <span class="tooltip">Main||Main</span>
           </li>
           <li>
             <router-link :to="{ name: 'house' }" class="link">
               <i
                 class="bx"
                 :class="'bx-building-house' || 'bx-square-rounded'"
-              />
+              ></i>
               <span class="links_name">House</span>
             </router-link>
-            <span class="tooltip">House || House</span>
+            <span class="tooltip">House</span>
           </li>
           <li>
             <router-link :to="{ name: 'board' }" class="link">
-              <i class="bx" :class="'bx-list-ul' || 'bx-square-rounded'" />
+              <i class="bx" :class="'bx-list-ul' || 'bx-square-rounded'"></i>
               <span class="links_name">board</span>
             </router-link>
-            <span class="tooltip">board || board</span>
+            <span class="tooltip">Board</span>
           </li>
           <li>
             <router-link :to="{ name: 'qna' }" class="link">
               <i
                 class="bx"
                 :class="'bx-question-mark' || 'bx-square-rounded'"
-              />
+              ></i>
               <span class="links_name">Qna</span>
             </router-link>
-            <span class="tooltip">Qna || Qna</span>
+            <span class="tooltip">QnA</span>
           </li>
-          <li>
+          <li v-if="userInfo">
             <router-link :to="{ name: 'mypage' }" class="link">
               <i class="bx" :class="'bx-user-pin' || 'bx-square-rounded'" />
               <span class="links_name">MyPage</span>
             </router-link>
-            <span class="tooltip">MyPage || MyPage</span>
+            <span class="tooltip">MyPage</span>
           </li>
         </ul>
       </div>
 
       <div v-if="userInfo" class="profile">
         <div class="profile-details">
-          <img v-if="profileImg" :src="profileImg" alt="profileImg" />
-          <i v-else class="bx bxs-user-rectangle" />
+          <i class="bx bxs-user-rectangle"></i>
           <div class="name_job">
             <div class="name">{{ userInfo.userid }}</div>
             <div class="job">{{ userInfo.username }}님 환영합니다.</div>
@@ -83,18 +82,31 @@
         </div>
         <i
           v-if="isExitButton"
-          class="bx bx-log-out"
+          class="bx bx-log-out-circle"
           id="log_out"
           @click.prevent="onClickLogout"
-        />
+        ></i>
       </div>
-      <div v-else>
-        <router-link :to="{ name: 'join' }" class="link">
-          <b-icon icon="person-circle"></b-icon> 회원가입
-        </router-link>
-        <router-link :to="{ name: 'login' }" class="link">
-          <b-icon icon="key"></b-icon> 로그인
-        </router-link>
+      <div v-else style="margin: 6px 14px 0 14px">
+        <ul class="nav-list" style="overflow: visible">
+          <li>
+            <router-link :to="{ name: 'login' }" class="link">
+              <i
+                class="bx"
+                :class="'bx-log-in-circle' || 'bx-square-rounded'"
+              ></i>
+              <span class="links_name">로그인</span>
+            </router-link>
+            <span class="tooltip">Login</span>
+          </li>
+          <li>
+            <router-link :to="{ name: 'join' }" class="link">
+              <i class="bx" :class="'bx-user-plus' || 'bx-square-rounded'"></i>
+              <span class="links_name">회원가입</span>
+            </router-link>
+            <span class="tooltip">Join</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -131,6 +143,11 @@ export default {
     menuClosedPaddingLeftBody: {
       type: String,
       default: "78px",
+    },
+
+    isExitButton: {
+      type: Boolean,
+      default: true,
     },
 
     //! Styles
