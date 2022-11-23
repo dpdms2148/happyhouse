@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <hr style="border:solid 1px"/>
     <b-row class="mb-1">
       <b-col class="text-left">
         <span class="title">답변</span>
@@ -20,7 +21,7 @@
       </b-col>
     </b-row>
     <hr />
-    <b-row class="mb-1">
+    <b-row class="mb-1" v-if="userInfo.userid === 'admin'">
       <b-col class="text-left">
         <b-button variant="outline-dark" @click="moveList" squared>
           목록

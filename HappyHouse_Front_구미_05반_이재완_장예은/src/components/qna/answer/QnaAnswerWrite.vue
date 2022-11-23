@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <hr style="border:solid 1px"/>
     <b-row class="mb-1">
       <b-col style="text-align: left;">
         <b-form @submit="onSubmit" @reset="onReset">

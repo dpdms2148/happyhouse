@@ -49,7 +49,6 @@
         </b-button>
       </b-col>
     </b-row>
-    <hr style="border:solid 1px"/>
   </b-container>
 </template>
 
