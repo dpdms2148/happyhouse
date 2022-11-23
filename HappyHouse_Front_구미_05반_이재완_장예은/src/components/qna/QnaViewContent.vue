@@ -28,7 +28,7 @@
         <div v-html="message" class="text-left"></div>
       </b-col>
     </b-row>
-    <hr/>
+    <hr />
     <b-row class="mb-1">
       <b-col class="text-left">
         <b-button variant="outline-dark" @click="moveList" squared>
@@ -113,4 +113,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.title {
+  font-size: 30px;
+}
+</style>
