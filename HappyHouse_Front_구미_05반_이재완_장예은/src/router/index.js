@@ -4,7 +4,10 @@ import AppMain from "@/views/AppMain";
 import AppHouse from "@/views/AppHouse";
 
 import store from "@/store";
-import "@/api/util/vueUtil.js";
+import VueSimpleAlert from "vue-simple-alert";
+//import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
+
+Vue.use(VueSimpleAlert);
 Vue.use(VueRouter);
 
 // https://v3.router.vuejs.org/kr/guide/advanced/navigation-guards.html
@@ -16,7 +19,7 @@ const onlyAuthUser = async (to, from, next) => {
     await store.dispatch("memberStore/getUserInfo", token);
   }
   if (!checkToken || checkUserInfo === null) {
-    this.$alert("로그인이 필요한 페이지입니다..", "Warning", "warning");
+    VueSimpleAlert.alert("로그인이 필요한 페이지입니다..", "Warning", "warning");
     router.push({ name: "login" });
   } else {
     next();
