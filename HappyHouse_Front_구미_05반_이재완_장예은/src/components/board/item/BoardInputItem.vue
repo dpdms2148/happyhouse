@@ -4,7 +4,6 @@
       <b-form @submit="onSubmit">
         <hr />
         <b-form-group
-          id="subject-group"
           label="제목"
           label-for="subject"
           label-cols-lg="1"
@@ -18,7 +17,6 @@
         </b-form-group>
         <hr />
         <b-form-group
-          id="content-group"
           label="내용"
           label-for="content"
           label-cols-lg="1"
@@ -43,7 +41,13 @@
         >
           등록
         </b-button>
-        <b-button type="submit" variant="outline-dark" class="m-1 float-right" squared v-else>
+        <b-button
+          type="submit"
+          variant="outline-dark"
+          class="m-1 float-right"
+          squared
+          v-else
+        >
           수정
         </b-button>
       </b-form>

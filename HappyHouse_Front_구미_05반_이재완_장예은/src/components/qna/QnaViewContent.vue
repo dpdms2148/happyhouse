@@ -1,33 +1,55 @@
 <template>
   <b-container class="bv-example-row mt-3">
+    <hr />
     <b-row>
       <b-col class="text-left">
-        <b-button variant="outline-primary" @click="moveList">목록</b-button>
-      </b-col>
-      <b-col class="text-right" v-if="userInfo.userid === qna.userid">
-        <b-button variant="outline-info" @click="moveModifyQna" class="mr-2">
-          글수정
-        </b-button>
-        <b-button variant="outline-danger" @click="deleteQna">
-          글삭제
-        </b-button>
+        [{{ qna.qnano }}]
+        <span class="title">{{ qna.subject }}</span>
       </b-col>
     </b-row>
     <b-row class="mb-1">
       <b-col>
-        <b-card
-          :header-html="`<h3>${qna.qnano}.
-          ${qna.subject} [${qna.hit}]</h3><div><h6>${qna.userid}</div><div>${qna.regtime}</h6></div>`"
-          class="mb-2"
-          border-variant="dark"
-          no-body
-        >
-          <b-card-body class="text-left">
-            <div v-html="message"></div>
-          </b-card-body>
-        </b-card>
+        <div class="d-inline-block float-left">
+          <i class="bx" :class="'bx-face' || 'bx-square-rounded'" />
+          <span>{{ qna.userid }}</span>
+          |
+          <i class="bx" :class="'bx-time-five' || 'bx-square-rounded'" />
+          <span>{{ qna.regtime }}</span>
+        </div>
+        <div class="d-inline-block float-right">
+          <i class="bx" :class="'bx-show' || 'bx-square-rounded'" />
+          <span>{{ qna.hit }}</span>
+        </div>
       </b-col>
     </b-row>
+    <hr />
+    <b-row class="mb-1">
+      <b-col>
+        <div v-html="message" class="text-left"></div>
+      </b-col>
+    </b-row>
+    <hr/>
+    <b-row class="mb-1">
+      <b-col class="text-left">
+        <b-button variant="outline-dark" @click="moveList" squared>
+          목록
+        </b-button>
+      </b-col>
+      <b-col class="text-right" v-if="userInfo.userid === qna.userid">
+        <b-button
+          variant="outline-info"
+          @click="moveModifyQna"
+          class="mr-2"
+          squared
+        >
+          수정
+        </b-button>
+        <b-button variant="outline-danger" @click="deleteQna" squared>
+          삭제
+        </b-button>
+      </b-col>
+    </b-row>
+    <hr style="border:solid 1px"/>
   </b-container>
 </template>
 

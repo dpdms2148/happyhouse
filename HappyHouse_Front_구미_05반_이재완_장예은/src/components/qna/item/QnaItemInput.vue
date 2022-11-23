@@ -42,24 +42,26 @@
             ref="content"
             v-model="qna.content"
             rows="10"
-            max-rows="15"
           ></b-form-textarea>
         </b-form-group>
         <hr />
+        <b-button variant="outline-dark" class="m-1" @click="moveList" squared>
+          목록
+        </b-button>
         <b-button
           type="submit"
-          variant="dark"
-          class="m-1"
-          style="float: right;"
+          variant="outline-dark"
+          class="m-1 float-right"
+          squared
           v-if="this.type === 'register'"
         >
           등록
         </b-button>
         <b-button
           type="submit"
-          variant="dark"
-          class="m-1"
-          style="float: right;"
+          variant="outline-dark"
+          class="m-1 float-right"
+          squared
           v-else
         >
           수정
