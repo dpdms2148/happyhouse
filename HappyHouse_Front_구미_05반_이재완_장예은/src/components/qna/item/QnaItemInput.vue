@@ -1,6 +1,6 @@
 <template>
   <b-row class="mb-1">
-    <b-col style="text-align: left;">
+    <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group id="userid-group" label="작성자:" label-for="userid">
           <b-form-input
@@ -49,75 +49,77 @@
 </template>
 
 <script>
-import { writeQna, modifyQna, getQna } from '@/api/qna'
-import { mapState } from 'vuex'
+import { writeQna, modifyQna, getQna } from "@/api/qna";
+import { mapState } from "vuex";
 
-const memberStore = 'memberStore'
+const memberStore = "memberStore";
 
 export default {
-  name: 'QnaInputItem',
+  name: "QnaInputItem",
   data() {
     return {
       qna: {
         qnano: 0,
-        userid: '',
-        subject: '',
-        content: '',
+        userid: "",
+        subject: "",
+        content: "",
       },
-    }
+    };
   },
   props: {
     type: { type: String },
   },
   computed: {
-    ...mapState(memberStore, ['userInfo']),
+    ...mapState(memberStore, ["userInfo"]),
   },
   created() {
-    if (this.type === 'modify') {
-      let param = this.$route.params.qnano
+    if (this.type === "modify") {
+      let param = this.$route.params.qnano;
       getQna(
         param,
         ({ data }) => {
-          this.qna = data
+          this.qna = data;
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     }
   },
   methods: {
     onSubmit(event) {
-      event.preventDefault()
+      event.preventDefault();
       this.qna.userid = this.userInfo.userid;
-      this.type === 'register' ? this.registQna() : this.modifyQna()
+      this.type === "register" ? this.registQna() : this.modifyQna();
     },
     onReset(event) {
-      event.preventDefault()
-      this.qna.qnano = 0
-      this.qna.subject = ''
-      this.qna.content = ''
+      event.preventDefault();
+      this.qna.qnano = 0;
+      this.qna.subject = "";
+      this.qna.content = "";
     },
     registQna() {
       let param = {
         userid: this.qna.userid,
         subject: this.qna.subject,
         content: this.qna.content,
-      }
+      };
       writeQna(
         param,
         ({ data }) => {
-          let msg = '등록 처리시 문제가 발생했습니다.'
-          if (data === 'success') {
-            msg = '등록이 완료되었습니다.'
+          let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "등록이 완료되었습니다.";
+            this.$alert(msg, "Success", "success");
+          } else {
+            this.$alert(msg, "Error", "error");
           }
-          alert(msg)
-          this.moveList()
+          this.moveList();
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     modifyQna() {
       let param = {
@@ -125,28 +127,30 @@ export default {
         userid: this.qna.userid,
         subject: this.qna.subject,
         content: this.qna.content,
-      }
+      };
       modifyQna(
         param,
         ({ data }) => {
-          let msg = '수정 처리시 문제가 발생했습니다.'
-          if (data === 'success') {
-            msg = '수정이 완료되었습니다.'
+          let msg = "수정 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "수정이 완료되었습니다.";
+            this.$alert(msg, "Success", "success");
+          } else {
+            this.$alert(msg, "Error", "error");
           }
-          alert(msg)
           // 현재 route를 /list로 변경.
-          this.moveList()
+          this.moveList();
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     moveList() {
-      this.$router.push({ name: 'qnalist' })
+      this.$router.push({ name: "qnalist" });
     },
   },
-}
+};
 </script>
 
 <style></style>

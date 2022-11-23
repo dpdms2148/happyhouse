@@ -103,7 +103,7 @@ const memberStore = {
                 } else {
                   console.log("리프레시 토큰 제거 실패");
                 }
-                alert("RefreshToken 기간 만료!!! 다시 로그인해 주세요.");
+                this.$alert("세션이 만료되었습니다. 다시 로그인해 주세요.", "Warning", "warning");
                 commit("SET_IS_LOGIN", false);
                 commit("SET_USER_INFO", null);
                 commit("SET_IS_VALID_TOKEN", false);

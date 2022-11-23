@@ -1,6 +1,6 @@
 <template>
   <b-row class="mb-1">
-    <b-col style="text-align: left;">
+    <b-col style="text-align: left">
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group
           id="subject-group"
@@ -10,6 +10,7 @@
         >
           <b-form-input
             id="subject"
+            ref="subject"
             v-model="article.subject"
             type="text"
             required
@@ -20,6 +21,7 @@
         <b-form-group id="content-group" label="내용:" label-for="content">
           <b-form-textarea
             id="content"
+            ref="content"
             v-model="article.content"
             placeholder="내용 입력..."
             rows="10"
@@ -45,81 +47,87 @@
 </template>
 
 <script>
-import { writeArticle, modifyArticle, getArticle } from '@/api/board'
+import { writeArticle, modifyArticle, getArticle } from "@/api/board";
 
 export default {
-  name: 'BoardInputItem',
+  name: "BoardInputItem",
   data() {
     return {
       article: {
         articleno: 0,
-        userid: '',
-        subject: '',
-        content: '',
+        userid: "",
+        subject: "",
+        content: "",
       },
-    }
+    };
   },
   props: {
     type: { type: String },
   },
   created() {
-    if (this.type === 'modify') {
-      let param = this.$route.params.articleno
+    if (this.type === "modify") {
+      let param = this.$route.params.articleno;
       getArticle(
         param,
         ({ data }) => {
-          this.article = data
+          this.article = data;
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     }
   },
   methods: {
     onSubmit(event) {
-      event.preventDefault()
+      event.preventDefault();
 
-      let err = true
-      let msg = ''
+      let err = true;
+      let msg = "";
       !this.article.subject &&
-        ((msg = '제목 입력해주세요'), (err = false), this.$refs.subject.focus())
+        ((msg = "제목 입력해주세요"),
+        (err = false),
+        this.$refs.subject.focus());
       err &&
         !this.article.content &&
-        ((msg = '내용 입력해주세요'), (err = false), this.$refs.content.focus())
+        ((msg = "내용 입력해주세요"),
+        (err = false),
+        this.$refs.content.focus());
 
-      if (!err) alert(msg)
+      if (!err) this.$alert(msg, "Warning", "warning");
       else {
-        this.article.userid = 'admin'
-        this.type === 'register' ? this.registArticle() : this.modifyArticle()
+        this.article.userid = "admin";
+        this.type === "register" ? this.registArticle() : this.modifyArticle();
       }
     },
     onReset(event) {
-      event.preventDefault()
-      this.article.articleno = 0
-      this.article.subject = ''
-      this.article.content = ''
+      event.preventDefault();
+      this.article.articleno = 0;
+      this.article.subject = "";
+      this.article.content = "";
     },
     registArticle() {
       let param = {
         userid: this.article.userid,
         subject: this.article.subject,
         content: this.article.content,
-      }
+      };
       writeArticle(
         param,
         ({ data }) => {
-          let msg = '등록 처리시 문제가 발생했습니다.'
-          if (data === 'success') {
-            msg = '등록이 완료되었습니다.'
+          let msg = "등록 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "등록이 완료되었습니다.";
+            this.$alert(msg, "Success", "success");
+          } else {
+            this.$alert(msg, "Error", "error");
           }
-          alert(msg)
-          this.moveList()
+          this.moveList();
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     modifyArticle() {
       let param = {
@@ -127,28 +135,30 @@ export default {
         userid: this.article.userid,
         subject: this.article.subject,
         content: this.article.content,
-      }
+      };
       modifyArticle(
         param,
         ({ data }) => {
-          let msg = '수정 처리시 문제가 발생했습니다.'
-          if (data === 'success') {
-            msg = '수정이 완료되었습니다.'
+          let msg = "수정 처리시 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "수정이 완료되었습니다.";
+            this.$alert(msg, "Success", "success");
+          } else {
+            this.$alert(msg, "Error", "error");
           }
-          alert(msg)
           // 현재 route를 /list로 변경.
-          this.moveList()
+          this.moveList();
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     moveList() {
-      this.$router.push({ name: 'boardlist' })
+      this.$router.push({ name: "boardlist" });
     },
   },
-}
+};
 </script>
 
 <style></style>

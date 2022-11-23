@@ -66,24 +66,28 @@ export default {
     //   //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
     // },
     deleteQnaAns() {
-      if (confirm("정말로 삭제?")) {
-        let param = this.$route.params.qnano;
-        deleteQnaAnswer(
-          param,
-          ({ data }) => {
-            let msg = "삭제 처리시 문제가 발생했습니다.";
-            if (data === "success") {
-              msg = "삭제가 완료되었습니다.";
+      this.$confirm("정말로 삭제하시겠습니까?", "Question", "question").then(
+        () => {
+          let param = this.$route.params.qnano;
+          deleteQnaAnswer(
+            param,
+            ({ data }) => {
+              let msg = "삭제 처리시 문제가 발생했습니다.";
+              if (data === "success") {
+                msg = "삭제가 완료되었습니다.";
+                this.$alert(msg, "Success", "success");
+              } else {
+                this.$alert(msg, "Error", "error");
+              }
+              // 현재 route를 /list로 변경.
+              this.$router.push({ name: "qnalist" });
+            },
+            (error) => {
+              console.log(error);
             }
-            alert(msg);
-            // 현재 route를 /list로 변경.
-            this.$router.push({ name: "qnalist" });
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
+          );
+        }
+      );
     },
     moveList() {
       this.$router.push({ name: "qnalist" });

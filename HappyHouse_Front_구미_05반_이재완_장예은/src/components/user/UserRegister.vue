@@ -8,7 +8,7 @@
     <b-row>
       <b-col></b-col>
       <b-col cols="8">
-        <b-card class="text-center mt-3" style="max-width: 40rem;" align="left">
+        <b-card class="text-center mt-3" style="max-width: 40rem" align="left">
           <b-form class="text-left" @submit="onSubmit" @reset="onReset">
             <b-form-group label="아이디:" label-for="userid" label-cols-lg="3">
               <b-form-input
@@ -90,65 +90,65 @@
 </template>
 
 <script>
-import { registUser, idCheck } from '@/api/member'
+import { registUser, idCheck } from "@/api/member";
 
 export default {
-  name: 'UserRegister',
+  name: "UserRegister",
   data() {
     return {
       user: {
-        userid: '',
-        username: '',
-        userpwd: '',
-        email: '',
+        userid: "",
+        username: "",
+        userpwd: "",
+        email: "",
       },
-      userpwdck: '',
+      userpwdck: "",
       useridck: null,
-      msg: '',
-    }
+      msg: "",
+    };
   },
   computed: {
     // idState() {
     //   if (this.useridck === '') return null
     // },
     pwdckState() {
-      if (this.userpwdck === '') return null
-      return this.user.userpwd === this.userpwdck ? true : false
+      if (this.userpwdck === "") return null;
+      return this.user.userpwd === this.userpwdck ? true : false;
     },
   },
   methods: {
     onSubmit(event) {
-      event.preventDefault()
-      this.registUser()
+      event.preventDefault();
+      this.registUser();
     },
     onReset(event) {
-      event.preventDefault()
-      this.user.userid = ''
-      this.user.userpwd = ''
-      this.user.email = ''
-      this.user.name = ''
-      this.moveList()
+      event.preventDefault();
+      this.user.userid = "";
+      this.user.userpwd = "";
+      this.user.email = "";
+      this.user.name = "";
+      this.moveList();
     },
     idCheck() {
       idCheck(
         this.user.userid,
         ({ data }) => {
-          if (data === 'success') {
+          if (data === "success") {
             if (this.user.userid.length < 5) {
-              this.useridck = false
-              this.msg = '아이디는 5자 이상이어야 합니다.'
+              this.useridck = false;
+              this.msg = "아이디는 5자 이상이어야 합니다.";
             } else {
-              this.useridck = true
+              this.useridck = true;
             }
           } else {
-            this.useridck = false
-            this.msg = '이미 사용중인 아이디입니다.'
+            this.useridck = false;
+            this.msg = "이미 사용중인 아이디입니다.";
           }
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     registUser() {
       let param = {
@@ -156,27 +156,29 @@ export default {
         userpwd: this.user.userpwd,
         email: this.user.email,
         username: this.user.username,
-      }
+      };
       registUser(
         param,
         ({ data }) => {
-          let msg = '회원가입 중 문제가 발생했습니다.'
-          if (data === 'success') {
-            msg = '회원가입이 완료되었습니다.'
+          let msg = "회원가입 중 문제가 발생했습니다.";
+          if (data === "success") {
+            msg = "회원가입이 완료되었습니다.";
+            this.$alert(msg, "Success", "success");
+          } else {
+            this.$alert(msg, "Error", "error");
           }
-          alert(msg)
-          this.moveList()
+          this.moveList();
         },
         (error) => {
-          console.log(error)
-        },
-      )
+          console.log(error);
+        }
+      );
     },
     moveList() {
-      this.$router.push({ name: 'login' })
+      this.$router.push({ name: "login" });
     },
   },
-}
+};
 </script>
 
 <style></style>

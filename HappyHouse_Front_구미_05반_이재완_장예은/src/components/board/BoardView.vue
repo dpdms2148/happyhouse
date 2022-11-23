@@ -10,8 +10,16 @@
         <b-button variant="outline-primary" @click="moveList">목록</b-button>
       </b-col>
       <b-col class="text-right" v-if="userInfo.userid === article.userid">
-        <b-button variant="outline-info" size="sm" @click="moveModifyArticle" class="mr-2">글수정</b-button>
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle">글삭제</b-button>
+        <b-button
+          variant="outline-info"
+          size="sm"
+          @click="moveModifyArticle"
+          class="mr-2"
+          >글수정</b-button
+        >
+        <b-button variant="outline-danger" size="sm" @click="deleteArticle"
+          >글삭제</b-button
+        >
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -49,7 +57,8 @@ export default {
   computed: {
     ...mapState(memberStore, ["userInfo"]),
     message() {
-      if (this.article.content) return this.article.content.split("\n").join("<br>");
+      if (this.article.content)
+        return this.article.content.split("\n").join("<br>");
       return "";
     },
   },
@@ -71,25 +80,21 @@ export default {
         name: "boardmodify",
         params: { articleno: this.article.articleno },
       });
-      //   this.$router.push({ path: `/board/modify/${this.article.articleno}` });
     },
     deleteArticle() {
-      if (confirm("정말로 삭제?")) {
-        this.$router.replace({
-          name: "boarddelete",
-          params: { articleno: this.article.articleno },
-        });
-      }
+      this.$confirm("정말로 삭제하시겠습니까?", "Question", "question").then(
+        () => {
+          this.$router.replace({
+            name: "boarddelete",
+            params: { articleno: this.article.articleno },
+          });
+        }
+      );
     },
     moveList() {
       this.$router.push({ name: "boardlist" });
     },
   },
-  // filters: {
-  //   dateFormat(regtime) {
-  //     return moment(new Date(regtime)).format("YY.MM.DD hh:mm:ss");
-  //   },
-  // },
 };
 </script>
 
