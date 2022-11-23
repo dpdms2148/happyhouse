@@ -13,7 +13,6 @@
             ref="subject"
             v-model="article.subject"
             type="text"
-            required
             placeholder="제목 입력..."
           ></b-form-input>
         </b-form-group>

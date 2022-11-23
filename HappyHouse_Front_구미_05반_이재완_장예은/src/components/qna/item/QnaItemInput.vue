@@ -14,6 +14,7 @@
         <b-form-group id="subject-group" label="제목:" label-for="subject">
           <b-form-input
             id="subject"
+            ref="subject"
             v-model="qna.subject"
             type="text"
             required
@@ -24,6 +25,7 @@
         <b-form-group id="content-group" label="내용:" label-for="content">
           <b-form-textarea
             id="content"
+            ref="content"
             v-model="qna.content"
             placeholder="내용 입력..."
             rows="10"
@@ -89,8 +91,23 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      this.qna.userid = this.userInfo.userid;
-      this.type === "register" ? this.registQna() : this.modifyQna();
+      let err = true;
+      let msg = "";
+      !this.qna.subject &&
+        ((msg = "제목 입력해주세요"),
+        (err = false),
+        this.$refs.subject.focus());
+      err &&
+        !this.qna.content &&
+        ((msg = "내용 입력해주세요"),
+        (err = false),
+        this.$refs.content.focus());
+
+      if (!err) this.$alert(msg, "Warning", "warning");
+      else {
+        this.qna.userid = this.userInfo.userid;
+        this.type === "register" ? this.registQna() : this.modifyQna();
+      }
     },
     onReset(event) {
       event.preventDefault();

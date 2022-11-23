@@ -4,7 +4,7 @@ import AppMain from "@/views/AppMain";
 import AppHouse from "@/views/AppHouse";
 
 import store from "@/store";
-
+import "@/api/util/vueUtil.js";
 Vue.use(VueRouter);
 
 // https://v3.router.vuejs.org/kr/guide/advanced/navigation-guards.html

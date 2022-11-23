@@ -6,6 +6,7 @@
           <b-form-group id="answer-group" label="답변:" label-for="answer">
             <b-form-textarea
               id="answer"
+              ref="answer"
               placeholder="답변 입력..."
               v-model="qna.answer"
               rows="10"
@@ -51,9 +52,17 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      this.type === "register"
-        ? this.registQnaAnswer()
-        : this.modifyQnaAnswer();
+      let err = true;
+      let msg = "";
+      !this.qna.answer &&
+        ((msg = "답변 입력해주세요"), (err = false), this.$refs.answer.focus());
+
+      if (!err) this.$alert(msg, "Warning", "warning");
+      else {
+        this.type === "register"
+          ? this.registQnaAnswer()
+          : this.modifyQnaAnswer();
+      }
     },
     onReset(event) {
       event.preventDefault();

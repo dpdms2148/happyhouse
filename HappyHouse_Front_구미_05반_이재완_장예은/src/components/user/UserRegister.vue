@@ -13,8 +13,8 @@
             <b-form-group label="아이디:" label-for="userid" label-cols-lg="3">
               <b-form-input
                 id="userid"
+                ref="userid"
                 v-model="user.userid"
-                required
                 placeholder="아이디 입력"
                 :state="this.useridck"
                 @keyup="idCheck"
@@ -35,16 +35,16 @@
             >
               <b-form-input
                 id="userpwd"
+                ref="userpwd"
                 v-model="user.userpwd"
-                required
                 placeholder="비밀번호 입력"
                 type="password"
               ></b-form-input>
 
               <b-form-input
                 id="userpwdck"
+                ref="userpwdck"
                 v-model="userpwdck"
-                required
                 placeholder="비밀번호 재입력"
                 :state="pwdckState"
                 aria-describedby="pwdinput-live-feedback"
@@ -62,8 +62,8 @@
             <b-form-group label-cols-lg="3" label="이메일:" label-for="email">
               <b-form-input
                 id="email"
+                ref="email"
                 v-model="user.email"
-                required
                 placeholder="이메일 입력"
                 type="email"
               ></b-form-input>
@@ -72,8 +72,8 @@
             <b-form-group label-cols-lg="3" label="이름:" label-for="username">
               <b-form-input
                 id="username"
+                ref="username"
                 v-model="user.username"
-                required
                 placeholder="이름 입력"
               ></b-form-input>
             </b-form-group>
@@ -119,7 +119,37 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      this.registUser();
+      let err = true;
+      let msg = "";
+      !this.user.userid &&
+        ((msg = "아이디 입력해주세요"),
+        (err = false),
+        this.$refs.userid.focus());
+      err &&
+        !this.user.userpwd &&
+        ((msg = "비밀번호 입력해주세요"),
+        (err = false),
+        this.$refs.userpwd.focus());
+      err &&
+        !this.userpwdck &&
+        ((msg = "비밀번호 확인 입력해주세요"),
+        (err = false),
+        this.$refs.userpwdck.focus());
+      err &&
+        !this.user.email &&
+        ((msg = "이메일 입력해주세요"),
+        (err = false),
+        this.$refs.email.focus());
+      err &&
+        !this.user.username &&
+        ((msg = "이름 입력해주세요"),
+        (err = false),
+        this.$refs.username.focus());
+
+      if (!err) this.$alert(msg, "Warning", "warning");
+      else {
+        this.registUser();
+      }
     },
     onReset(event) {
       event.preventDefault();
