@@ -1,6 +1,4 @@
 <template>
-<!-- <div style="width:100%; height:20px; overflow:auto"> -->
-<!-- <b-table :sticky-header="true">  -->
   <b-row
     class="m-2"
     @click="selectHouse"
@@ -13,8 +11,6 @@
     </b-col>
     <b-col cols="10" class="test-center align-self-center"> {{ house.apartmentName }} </b-col>
   </b-row>
-<!-- </b-table> -->
-<!-- </div> -->
 </template>
 
 <script>
@@ -31,6 +27,7 @@ export default {
   },
   props: {
     house: Object,
+    
   },
   methods: {
     ...mapActions(houseStore, ["detailHouse","displayMarker2"]),
