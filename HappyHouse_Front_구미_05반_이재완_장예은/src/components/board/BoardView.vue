@@ -10,11 +10,12 @@
           size="sm"
           @click="moveModifyArticle"
           class="mr-2"
-          >글수정</b-button
         >
-        <b-button variant="outline-danger" size="sm" @click="deleteArticle"
-          >글삭제</b-button
-        >
+          글수정
+        </b-button>
+        <b-button variant="outline-danger" size="sm" @click="deleteArticle">
+          글삭제
+        </b-button>
       </b-col>
     </b-row>
     <b-row class="mb-1">
@@ -37,60 +38,74 @@
 
 <script>
 // import moment from "moment";
-import { getArticle } from "@/api/board";
-import { mapState } from "vuex";
+import { getArticle, deleteArticle } from '@/api/board'
+import { mapState } from 'vuex'
 
-const memberStore = "memberStore";
+const memberStore = 'memberStore'
 
 export default {
-  name: "BoardDetail",
+  name: 'BoardDetail',
   data() {
     return {
       article: {},
-    };
+    }
   },
   computed: {
-    ...mapState(memberStore, ["userInfo"]),
+    ...mapState(memberStore, ['userInfo']),
     message() {
       if (this.article.content)
-        return this.article.content.split("\n").join("<br>");
-      return "";
+        return this.article.content.split('\n').join('<br>')
+      return ''
     },
   },
   created() {
-    let param = this.$route.params.articleno;
+    let param = this.$route.params.articleno
     getArticle(
       param,
       ({ data }) => {
-        this.article = data;
+        this.article = data
       },
       (error) => {
-        console.log(error);
-      }
-    );
+        console.log(error)
+      },
+    )
   },
   methods: {
     moveModifyArticle() {
       this.$router.replace({
-        name: "boardmodify",
+        name: 'boardmodify',
         params: { articleno: this.article.articleno },
-      });
+      })
     },
     deleteArticle() {
-      this.$confirm("정말로 삭제하시겠습니까?", "Question", "question").then(
+      this.$confirm('정말로 삭제하시겠습니까?', 'Question', 'question').then(
         () => {
-          this.$router.replace({
-            name: "boarddelete",
-            params: { articleno: this.article.articleno },
-          });
-        }
-      );
+          let param = this.$route.params.articleno
+          deleteArticle(
+            param,
+            ({ data }) => {
+              let msg = '삭제 처리시 문제가 발생했습니다.'
+              if (data === 'success') {
+                msg = '삭제가 완료되었습니다.'
+                this.$alert(msg, 'Success', 'success')
+              } else {
+                this.$alert(msg, 'Error', 'error')
+              }
+              // 현재 route를 /list로 변경.
+              this.$router.push({ name: 'boardlist' })
+            },
+            (error) => {
+              console.log(error)
+            },
+          )
+        },
+      )
     },
     moveList() {
-      this.$router.push({ name: "boardlist" });
+      this.$router.push({ name: 'boardlist' })
     },
   },
-};
+}
 </script>
 
 <style></style>

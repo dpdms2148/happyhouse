@@ -5,7 +5,7 @@
         <b-button v-if="userInfo == null" style="display: none"></b-button>
         <b-button
           v-else-if="userInfo.userid === 'admin'"
-          variant="outline-primary"
+          variant="outline-dark"
           @click="moveWrite()"
           ><i class="bx" :class="'bx-pencil' || 'bx-square-rounded'"></i>
           글쓰기

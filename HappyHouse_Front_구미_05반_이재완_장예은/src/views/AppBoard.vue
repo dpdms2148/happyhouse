@@ -1,5 +1,5 @@
 <template>
-  <b-container class="bv-example-row mt-3 text-center">
+  <b-container fluid class="px-0">
     <div>
       <b-img :src="require('@/assets/happyhouse.png')" fluid alt="res image"></b-img>
     </div>

@@ -33,7 +33,7 @@
             <b-button v-if="data.item.answer == null" variant="light" size="sm"
               >답변 대기</b-button
             >
-            <b-button v-else variant="success" size="sm">답변 완료</b-button>
+            <b-button v-else variant="info" size="sm">답변 완료</b-button>
           </template>
         </b-table>
       </b-col>

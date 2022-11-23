@@ -89,12 +89,6 @@ const routes = [
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/board/BoardModify"),
       },
-      {
-        path: "delete/:articleno",
-        name: "boarddelete",
-        beforeEnter: onlyAuthUser,
-        component: () => import("@/components/board/BoardDelete"),
-      },
     ],
   },
   {
@@ -132,12 +126,6 @@ const routes = [
         name: "qnamodify",
         beforeEnter: onlyAuthUser,
         component: () => import("@/components/qna/QnaModify"),
-      },
-      {
-        path: "delete/:qnano",
-        name: "qnadelete",
-        beforeEnter: onlyAuthUser,
-        component: () => import("@/components/qna/QnaDelete"),
       },
     ],
   },
