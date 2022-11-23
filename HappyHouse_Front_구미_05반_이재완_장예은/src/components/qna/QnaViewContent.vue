@@ -57,12 +57,14 @@ export default {
       //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
     },
     deleteQna() {
-      this.$confirm("정말로 삭제하시겠습니까?", "Question", "question").then(() => {
-        this.$router.replace({
-          name: "qnadelete",
-          params: { articleno: this.article.articleno },
-        });
-      });
+      this.$confirm("정말로 삭제하시겠습니까?", "Question", "question").then(
+        () => {
+          this.$router.replace({
+            name: "qnadelete",
+            params: { articleno: this.qna.qnano },
+          });
+        }
+      );
     },
     moveList() {
       this.$router.push({ name: "qnalist" });

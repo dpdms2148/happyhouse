@@ -2,14 +2,9 @@
   <b-container class="bv-example-row mt-3">
     <b-row>
       <b-col>
-        <b-alert variant="secondary" show><h3>로그인</h3></b-alert>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
         <div class="vue-tempalte">
           <b-form class="text-left">
-            <h3>Sign In</h3>
+            <h3 mt-3>Sign In</h3>
             <b-form-group label="아이디" label-for="userid">
               <b-form-input
                 id="userid"

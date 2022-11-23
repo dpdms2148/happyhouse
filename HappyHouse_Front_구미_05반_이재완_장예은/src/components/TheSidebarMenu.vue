@@ -1,12 +1,6 @@
 <template>
   <div class="sidebar" :class="isOpened ? 'open' : ''" :style="cssVars">
     <div class="logo-details" style="margin: 6px 14px 0 14px">
-      <!-- <img
-        v-if="menuLogo"
-        :src="menuLogo"
-        alt="menu-logo"
-        class="menu-logo icon"
-      /> -->
       <i class="bx icon" :class="menuIcon"></i>
       <div class="logo_name">HAPPY HOUSE</div>
       <i
@@ -48,9 +42,9 @@
           <li>
             <router-link :to="{ name: 'board' }" class="link">
               <i class="bx" :class="'bx-list-ul' || 'bx-square-rounded'"></i>
-              <span class="links_name">board</span>
+              <span class="links_name">Notice</span>
             </router-link>
-            <span class="tooltip">Board</span>
+            <span class="tooltip">Notice</span>
           </li>
           <li>
             <router-link :to="{ name: 'qna' }" class="link">
@@ -432,7 +426,7 @@ body {
   width: 78px;
   /* left: 0;
     bottom: 0; */
-  padding: 10px 14px;
+  padding: 0px 14px;
   background: var(--secondary-color);
   transition: all 0.5s ease;
   overflow: hidden;
