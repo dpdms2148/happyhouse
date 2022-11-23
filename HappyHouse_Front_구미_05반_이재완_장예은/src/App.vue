@@ -1,17 +1,20 @@
 <template>
   <div id="app">
+    <the-sidebar-menu></the-sidebar-menu>
     <the-header-navbar></the-header-navbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import TheSidebarMenu from "@/components/TheSidebarMenu";
 import TheHeaderNavbar from "@/components/TheHeaderNavbar";
 
 export default {
   name: "App",
   components: {
     TheHeaderNavbar,
+    TheSidebarMenu,
   },
 };
 </script>

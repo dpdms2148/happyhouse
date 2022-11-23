@@ -5,6 +5,7 @@ import AppHouse from "@/views/AppHouse";
 
 import store from "@/store";
 
+
 Vue.use(VueRouter);
 
 // https://v3.router.vuejs.org/kr/guide/advanced/navigation-guards.html
