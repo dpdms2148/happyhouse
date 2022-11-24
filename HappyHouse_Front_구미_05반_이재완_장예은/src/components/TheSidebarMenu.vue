@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar" :class="isOpened ? 'open' : ''" :style="cssVars">
-    <div class="logo-details" style="margin: 6px 14px 0 14px;">
+    <div class="logo-details" style="margin: 6px 14px 0 14px">
       <i class="bx icon" :class="menuIcon"></i>
       <div class="logo_name">HAPPY HOUSE</div>
       <i
@@ -20,8 +20,8 @@
         max-height: calc(100% - 60px);
       "
     >
-      <div style="margin: 6px 14px 0 14px;">
-        <ul class="nav-list" style="overflow: visible;">
+      <div style="margin: 6px 14px 0 14px">
+        <ul class="nav-list" style="overflow: visible">
           <li>
             <router-link :to="{ name: 'main' }" class="link">
               <i class="bx" :class="'bx-grid-alt' || 'bx-square-rounded'"></i>
@@ -81,8 +81,8 @@
           @click.prevent="onClickLogout"
         ></i>
       </div>
-      <div v-else style="margin: 6px 14px 0 14px;">
-        <ul class="nav-list" style="overflow: visible;">
+      <div v-else style="margin: 6px 14px 0 14px">
+        <ul class="nav-list" style="overflow: visible">
           <li>
             <router-link :to="{ name: 'login' }" class="link">
               <i
@@ -107,11 +107,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
-const memberStore = 'memberStore'
+const memberStore = "memberStore";
 export default {
-  name: 'SidebarMenuAkahon',
+  name: "SidebarMenuAkahon",
   props: {
     //! Menu settings
     isMenuOpen: {
@@ -120,11 +120,11 @@ export default {
     },
     menuLogo: {
       type: String,
-      default: '',
+      default: "",
     },
     menuIcon: {
       type: String,
-      default: 'bxl-c-plus-plus',
+      default: "bx-home",
     },
     isPaddingLeft: {
       type: Boolean,
@@ -132,11 +132,11 @@ export default {
     },
     menuOpenedPaddingLeftBody: {
       type: String,
-      default: '250px',
+      default: "250px",
     },
     menuClosedPaddingLeftBody: {
       type: String,
-      default: '78px',
+      default: "78px",
     },
 
     isExitButton: {
@@ -147,78 +147,78 @@ export default {
     //! Styles
     bgColor: {
       type: String,
-      default: '#11101d',
+      default: "#11101d",
     },
     secondaryColor: {
       type: String,
-      default: '#1d1b31',
+      default: "#1d1b31",
     },
     homeSectionColor: {
       type: String,
-      default: '#e4e9f7',
+      default: "#e4e9f7",
     },
     logoTitleColor: {
       type: String,
-      default: '#fff',
+      default: "#fff",
     },
     iconsColor: {
       type: String,
-      default: '#fff',
+      default: "#fff",
     },
     itemsTooltipColor: {
       type: String,
-      default: '#e4e9f7',
+      default: "#e4e9f7",
     },
     searchInputTextColor: {
       type: String,
-      default: '#fff',
+      default: "#fff",
     },
     menuItemsHoverColor: {
       type: String,
-      default: '#fff',
+      default: "#fff",
     },
     menuItemsTextColor: {
       type: String,
-      default: '#fff',
+      default: "#fff",
     },
     menuFooterTextColor: {
       type: String,
-      default: '#fff',
+      default: "#fff",
     },
   },
   data() {
     return {
       isOpened: false,
-    }
+    };
   },
   mounted() {
-    this.isOpened = this.isMenuOpen
+    this.isOpened = this.isMenuOpen;
   },
   computed: {
-    ...mapState(memberStore, ['userInfo']),
+    ...mapState(memberStore, ["userInfo"]),
     cssVars() {
       return {
         // '--padding-left-body': this.isOpened ? this.menuOpenedPaddingLeftBody : this.menuClosedPaddingLeftBody,
-        '--bg-color': this.bgColor,
-        '--secondary-color': this.secondaryColor,
-        '--home-section-color': this.homeSectionColor,
-        '--logo-title-color': this.logoTitleColor,
-        '--icons-color': this.iconsColor,
-        '--items-tooltip-color': this.itemsTooltipColor,
-        '--serach-input-text-color': this.searchInputTextColor,
-        '--menu-items-hover-color': this.menuItemsHoverColor,
-        '--menu-items-text-color': this.menuItemsTextColor,
-        '--menu-footer-text-color': this.menuFooterTextColor,
-      }
+        "--bg-color": this.bgColor,
+        "--secondary-color": this.secondaryColor,
+        "--home-section-color": this.homeSectionColor,
+        "--logo-title-color": this.logoTitleColor,
+        "--icons-color": this.iconsColor,
+        "--items-tooltip-color": this.itemsTooltipColor,
+        "--serach-input-text-color": this.searchInputTextColor,
+        "--menu-items-hover-color": this.menuItemsHoverColor,
+        "--menu-items-text-color": this.menuItemsTextColor,
+        "--menu-footer-text-color": this.menuFooterTextColor,
+      };
     },
   },
   methods: {
-    ...mapActions(memberStore, ['userLogout']),
+    ...mapActions(memberStore, ["userLogout"]),
     onClickLogout() {
-      this.userLogout(this.userInfo.userid)
-      sessionStorage.removeItem('access-token') //저장된 토큰 없애기
-      sessionStorage.removeItem('refresh-token') //저장된 토큰 없애기
-      if (this.$route.path != '/') this.$router.push({ name: 'main' })
+      this.userLogout(this.userInfo.userid);
+      sessionStorage.removeItem("access-token"); //저장된 토큰 없애기
+      sessionStorage.removeItem("refresh-token"); //저장된 토큰 없애기
+      if (this.$route.path != "/") this.$router.push({ name: "main" });
     },
   },
   watch: {
@@ -226,21 +226,21 @@ export default {
       window.document.body.style.paddingLeft =
         this.isOpened && this.isPaddingLeft
           ? this.menuOpenedPaddingLeftBody
-          : this.menuClosedPaddingLeftBody
+          : this.menuClosedPaddingLeftBody;
     },
   },
-}
+};
 </script>
 
 <style>
 /* Google Font Link */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-@import url('https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 body {
   transition: all 0.5s ease;

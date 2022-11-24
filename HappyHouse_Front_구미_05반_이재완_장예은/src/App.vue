@@ -2,19 +2,16 @@
   <div id="app">
     <the-sidebar-menu></the-sidebar-menu>
     <router-view></router-view>
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 
 import TheSidebarMenu from "@/components/TheSidebarMenu";
-import AppFooter from "@/components/AppFooter";
 export default {
   name: "App",
   components: {
     TheSidebarMenu,
-    AppFooter,
   },
 };
 </script>
