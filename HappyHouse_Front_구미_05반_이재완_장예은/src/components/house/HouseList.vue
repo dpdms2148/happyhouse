@@ -21,26 +21,21 @@
       </b-col>
     </b-row>
   </b-container>
-  <b-container v-else class="bv-example-row mt-3 align-self-center">
-    <b-img
-      :src="require('@/assets/happyhousemini.png')"
-      alt="res image"
-    ></b-img>
-    <h3>Find Happy House!</h3>
+  <b-container v-else class="bv-example-row mt-5">
+    <h2>
+      <i class="bx" :class="'bx-building-house'"></i>검색하고 싶은 지역을
+      선택하세요!
+    </h2>
   </b-container>
 </template>
 
 <script>
-import HouseListItem from "@/components/house/HouseListItem";
 import { mapState, mapActions } from "vuex";
 
 const houseStore = "houseStore";
 
 export default {
   name: "HouseList",
-  components: {
-    HouseListItem,
-  },
   data() {
     return {
       isColor: false,

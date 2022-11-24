@@ -37,7 +37,7 @@
                   @click="isPwdShow = !isPwdShow"
                   block
                 >
-                  비밀번호 변경
+                  <i class="bx" :class="'bx-edit-alt'"></i>비밀번호 변경
                 </b-button>
               </b-td>
             </b-tr>
@@ -83,7 +83,8 @@
                   size="sm"
                   @click="isEmailShow = !isEmailShow"
                   block
-                  >이메일 변경</b-button
+                  ><i class="bx" :class="'bx-edit-alt'"></i>이메일
+                  변경</b-button
                 >
               </b-td>
             </b-tr>
@@ -127,7 +128,7 @@
             </b-tr>
           </b-tbody>
         </b-table-simple>
-        <!-- <b-link @click="deleteUserinfo" style="color: gray">탈퇴하기</b-link> -->
+        <b-link @click="deleteUserinfo" style="color: gray">탈퇴하기</b-link>
       </b-col>
       <b-col></b-col>
     </b-row>

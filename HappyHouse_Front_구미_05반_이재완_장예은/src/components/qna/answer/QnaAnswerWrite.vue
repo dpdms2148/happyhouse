@@ -15,7 +15,7 @@
           <hr />
           <b-button
             type="submit"
-            variant="outline-dark"
+            variant="outline-info"
             class="m-1 float-right"
             squared
             v-if="this.type === 'register'"

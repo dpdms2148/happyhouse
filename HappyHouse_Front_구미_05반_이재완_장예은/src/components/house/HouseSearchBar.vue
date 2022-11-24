@@ -1,41 +1,43 @@
 <template>
-  <b-row class="m-4">
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="sidoCode"
-        :options="sidos"
-        @change="gugunList"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="gugunCode"
-        :options="guguns"
-        @change="dongList"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="dongCode"
-        :options="dongs"
-        @change="yearList"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="dealYear"
-        :options="years"
-        @change="monthList"
-      ></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select
-        v-model="dealMonth"
-        :options="monthes"
-        @change="searchApt"
-      ></b-form-select>
-    </b-col>
-  </b-row>
+  <b-container class="bv-example-row mt-3">
+    <b-row>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="sidoCode"
+          :options="sidos"
+          @change="gugunList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="gugunCode"
+          :options="guguns"
+          @change="dongList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="dongCode"
+          :options="dongs"
+          @change="yearList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="dealYear"
+          :options="years"
+          @change="monthList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="dealMonth"
+          :options="monthes"
+          @change="searchApt"
+        ></b-form-select>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
