@@ -2,7 +2,7 @@
   <b-container fluid class="px-0">
     <div>
       <b-img
-        :src="require('@/assets/happyhousesm.png')"
+        :src="require('@/assets/happyhousesub.png')"
         alt="res image"
       ></b-img>
       <h1 class="mt-3 text-white">Notice</h1>
@@ -15,7 +15,7 @@ export default {
   name: 'AppBoard',
 }
 </script>
-<style scope>
+<style scoped>
 div {
   position: relative;
 }

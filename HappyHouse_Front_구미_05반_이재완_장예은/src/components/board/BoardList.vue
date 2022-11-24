@@ -7,6 +7,7 @@
           v-else-if="userInfo.userid === 'admin'"
           variant="outline-dark"
           @click="moveWrite()"
+          squared
           ><i class="bx" :class="'bx-edit' || 'bx-square-rounded'"></i>
           글쓰기
         </b-button>
@@ -96,7 +97,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .tdClass {
   width: 50px;
   text-align: center;

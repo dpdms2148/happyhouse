@@ -52,7 +52,7 @@
                 class="bx"
                 :class="'bx-question-mark' || 'bx-square-rounded'"
               ></i>
-              <span class="links_name">Qna</span>
+              <span class="links_name">QnA</span>
             </router-link>
             <span class="tooltip">QnA</span>
           </li>

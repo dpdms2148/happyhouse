@@ -1,28 +1,38 @@
 <template>
   <b-container v-if="houses && houses.length != 0" class="bv-example-row mt-3">
-    <b-row class="m-2" style="background-color: lightgray;">
-      <b-col cols="2" class="test-center align-self-center"><h3><b-icon icon="house-fill"></b-icon></h3></b-col>
-      <b-col cols="2" class="test-center align-self-center"><h4>아파트</h4></b-col>
-      <b-col cols="2" class="test-center align-self-center"><h4>행정동</h4></b-col>
-      <b-col cols="2" class="test-center align-self-center"><h4>면적&emsp;</h4></b-col>
-      <b-col cols="2" class="test-center align-self-center"><h4>층&emsp;</h4></b-col>
-      <b-col cols="2" class="test-center align-self-center"><h4>거래금액&emsp;</h4></b-col>
-    </b-row>
-    <div style="width:100%; height:350px; overflow-y: scroll;">
-    <house-list-item v-for="(house, index) in houses" :key="index" :house="house" />
-    </div>
-  </b-container>
-  <b-container v-else class="bv-example-row mt-3">
     <b-row>
-      <b-col><b-alert show>주택 목록이 없습니다.</b-alert></b-col>
+      <b-col>
+        <b-table
+          hover
+          :items="houses"
+          :fields="fields"
+          @row-clicked="selectHouse"
+        >
+          <template #cell(apartmentName)="data">
+            {{ data.item.apartmentName }}
+          </template>
+          <template #cell(area)="data"> {{ data.item.area }}㎡ </template>
+          <template #cell(dealAmount)="data">
+            {{
+              (parseInt(data.item.dealAmount.replace(",", "")) * 10000) | price
+            }}원
+          </template>
+        </b-table>
+      </b-col>
     </b-row>
   </b-container>
-  
+  <b-container v-else class="bv-example-row mt-3 align-self-center">
+    <b-img
+      :src="require('@/assets/happyhousemini.png')"
+      alt="res image"
+    ></b-img>
+    <h3>Find Happy House!</h3>
+  </b-container>
 </template>
 
 <script>
 import HouseListItem from "@/components/house/HouseListItem";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 const houseStore = "houseStore";
 
@@ -32,17 +42,66 @@ export default {
     HouseListItem,
   },
   data() {
-    return {};
+    return {
+      isColor: false,
+      fields: [
+        {
+          key: "apartmentName",
+          label: "아파트",
+          sortable: false,
+        },
+        {
+          key: "dong",
+          label: "동",
+          sortable: false,
+        },
+        {
+          key: "area",
+          label: "면적",
+          sortable: true,
+        },
+        {
+          key: "floor",
+          label: "층",
+          sortable: false,
+        },
+        {
+          key: "dealAmount",
+          label: "가격",
+          sortable: true,
+        },
+      ],
+      items: [],
+      house: null,
+    };
   },
   computed: {
-    ...mapState(houseStore, {houses: "houses"}),
-    // houses() {
-    //   return this.$store.state.houses;
-    // },
+    ...mapState(houseStore, { houses: "houses" }),
   },
-  
+  created() {
+    this.items = this.houses;
+  },
+  methods: {
+    ...mapActions(houseStore, ["displayMarker2"]),
+    selectHouse(house) {
+      this.displayMarker2(house);
+    },
+    colorChange(flag) {
+      this.isColor = flag;
+    },
+  },
+  filters: {
+    price(value) {
+      if (!value) return value;
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
+img {
+  width: 150px;
+  height: 150px;
+}
 </style>

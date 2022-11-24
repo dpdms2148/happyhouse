@@ -3,7 +3,7 @@
     <b-row class="mb-1">
       <b-col class="text-right">
         <b-button v-if="userInfo == null" style="display: none"></b-button>
-        <b-button v-else variant="outline-dark" @click="writeQna()">
+        <b-button v-else variant="outline-dark" @click="writeQna()" squared>
           <i class="bx" :class="'bx-edit' || 'bx-square-rounded'"></i
           >글쓰기</b-button
         >

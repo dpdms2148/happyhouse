@@ -1,29 +1,13 @@
 <template>
   <b-container fluid class="px-0">
-    <b-row>
-      <b-col>
-        <div id="map"></div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <house-search-bar></house-search-bar>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col align="center">
-        <house-list />
-      </b-col>
-      <!-- <b-col cols="6">
-        <house-detail />
-      </b-col> -->
-    </b-row>
+    <div id="map"></div>
+    <house-search-bar></house-search-bar>
+    <house-list />
   </b-container>
 </template>
 <script>
 import HouseSearchBar from "@/components/house/HouseSearchBar.vue";
 import HouseList from "@/components/house/HouseList.vue";
-import HouseDetail from "@/components/house/HouseDetail.vue";
 import { mapActions } from "vuex";
 
 export default {
@@ -31,7 +15,6 @@ export default {
   components: {
     HouseSearchBar,
     HouseList,
-    HouseDetail,
   },
   data() {
     return {};
@@ -93,9 +76,8 @@ export default {
 };
 </script>
 <style scoped>
-#map{
-  width:100%;
-  height:500px;
+#map {
+  width: 100%;
+  height: 500px;
 }
-
 </style>

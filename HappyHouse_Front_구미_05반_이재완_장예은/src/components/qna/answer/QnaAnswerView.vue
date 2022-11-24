@@ -23,11 +23,6 @@
     </b-row>
     <hr />
     <b-row class="mb-1" v-if="userInfo.userid === 'admin'">
-      <b-col class="text-left">
-        <b-button variant="outline-dark" @click="moveList" squared>
-          목록
-        </b-button>
-      </b-col>
       <b-col class="text-right">
         <b-button variant="outline-danger" @click="deleteQnaAns" squared>
           삭제

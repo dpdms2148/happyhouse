@@ -208,7 +208,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 table {
   text-align: left;
   border: 20px;

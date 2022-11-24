@@ -1,5 +1,6 @@
 <template>
-  <b-row
+  <b-row></b-row>
+  <!-- <b-row
     class="m-2"
     @click="selectHouse"
     @mouseover="colorChange(true)"
@@ -14,7 +15,7 @@
     <b-col cols="2" class="test-center align-self-center">{{ house.area }}㎡</b-col>
     <b-col cols="2" class="test-center align-self-center">{{ house.floor }}층</b-col>
     <b-col cols="2" class="test-center align-self-center">{{ (parseInt(house.dealAmount.replace(",", "")) * 10000) | price }}원</b-col>
-  </b-row>
+  </b-row> -->
 </template>
 
 <script>
@@ -31,14 +32,10 @@ export default {
   },
   props: {
     house: Object,
-    
   },
   methods: {
-    ...mapActions(houseStore, ["detailHouse","displayMarker2"]),
+    ...mapActions(houseStore, ["displayMarker2"]),
     selectHouse() {
-      // console.log("listRow : ", this.house);
-      // this.$store.dispatch("getHouse", this.house);
-      this.detailHouse(this.house);
       this.displayMarker2(this.house);
     },
     colorChange(flag) {

@@ -2,7 +2,7 @@
   <b-container fluid class="px-0">
     <div>
       <b-img
-        :src="require('@/assets/happyhousesm.png')"
+        :src="require('@/assets/happyhousesub.png')"
         alt="res image"
       ></b-img>
     </div>
@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 div {
   position: relative;
 }
