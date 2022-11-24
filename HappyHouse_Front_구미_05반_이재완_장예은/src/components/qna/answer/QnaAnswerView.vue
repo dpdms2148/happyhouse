@@ -1,57 +1,57 @@
 <template>
   <b-container>
-    <hr style="border: solid 1px;" />
-    <b-row class="mb-1">
-      <b-col class="text-left">
-        <i class="bx" :class="'bx-message' || 'bx-square-rounded'" />
-        <span class="title">답변</span>
-      </b-col>
-    </b-row>
-    <b-row class="mb-1">
-      <b-col>
-        <div class="d-inline-block float-left">
-          <i class="bx" :class="'bx-time-five' || 'bx-square-rounded'" />
-          <span>{{ qna.anstime }}</span>
-        </div>
-      </b-col>
-    </b-row>
-    <hr />
-    <b-row class="mb-1">
-      <b-col>
-        <div v-html="message" class="text-left"></div>
-      </b-col>
-    </b-row>
-    <hr />
-    <b-row class="mb-1" v-if="userInfo.userid === 'admin'">
-      <b-col class="text-left">
-        <b-button variant="outline-dark" @click="moveList" squared>
-          목록
-        </b-button>
-      </b-col>
-      <b-col class="text-right">
-        <b-button variant="outline-danger" @click="deleteQnaAns" squared>
-          삭제
-        </b-button>
-      </b-col>
-    </b-row>
+    <div class="answer">
+      <b-row class="mb-1">
+        <b-col class="text-left">
+          <span class="title"
+            ><i
+              class="bx"
+              :class="'bx-message' || 'bx-square-rounded'"
+            />답변</span
+          >
+        </b-col>
+      </b-row>
+      <b-row class="mb-1">
+        <b-col>
+          <div class="d-inline-block float-left">
+            <i class="bx" :class="'bx-time-five' || 'bx-square-rounded'" />
+            <span>{{ qna.anstime }}</span>
+          </div>
+        </b-col>
+      </b-row>
+      <hr />
+      <b-row class="mb-1">
+        <b-col>
+          <div v-html="message" class="text-left"></div>
+        </b-col>
+      </b-row>
+      <hr />
+      <b-row class="mb-1" v-if="userInfo.userid === 'admin'">
+        <b-col class="text-right">
+          <b-button variant="outline-danger" @click="deleteQnaAns" squared>
+            삭제
+          </b-button>
+        </b-col>
+      </b-row>
+    </div>
   </b-container>
 </template>
 
 <script>
-import { deleteQnaAnswer } from '@/api/qna'
-import { mapState } from 'vuex'
+import { deleteQnaAnswer } from "@/api/qna";
+import { mapState } from "vuex";
 
-const memberStore = 'memberStore'
+const memberStore = "memberStore";
 export default {
-  name: 'QnaViewContent',
+  name: "QnaViewContent",
   props: {
     qna: Object,
   },
   computed: {
-    ...mapState(memberStore, ['userInfo']),
+    ...mapState(memberStore, ["userInfo"]),
     message() {
-      if (this.qna.answer) return this.qna.answer.split('\n').join('<br>')
-      return ''
+      if (this.qna.answer) return this.qna.answer.split("\n").join("<br>");
+      return "";
     },
   },
   methods: {
@@ -63,38 +63,43 @@ export default {
     //   //   this.$router.push({ path: `/qna/modify/${this.qna.qnano}` });
     // },
     deleteQnaAns() {
-      this.$confirm('정말로 삭제하시겠습니까?', 'Question', 'question').then(
+      this.$confirm("정말로 삭제하시겠습니까?", "Question", "question").then(
         () => {
-          let param = this.$route.params.qnano
+          let param = this.$route.params.qnano;
           deleteQnaAnswer(
             param,
             ({ data }) => {
-              let msg = '삭제 처리시 문제가 발생했습니다.'
-              if (data === 'success') {
-                msg = '삭제가 완료되었습니다.'
-                this.$alert(msg, 'Success', 'success')
+              let msg = "삭제 처리시 문제가 발생했습니다.";
+              if (data === "success") {
+                msg = "삭제가 완료되었습니다.";
+                this.$alert(msg, "Success", "success");
               } else {
-                this.$alert(msg, 'Error', 'error')
+                this.$alert(msg, "Error", "error");
               }
               // 현재 route를 /list로 변경.
-              this.$router.push({ name: 'qnalist' })
+              this.$router.push({ name: "qnalist" });
             },
             (error) => {
-              console.log(error)
-            },
-          )
-        },
-      )
+              console.log(error);
+            }
+          );
+        }
+      );
     },
     moveList() {
-      this.$router.push({ name: 'qnalist' })
+      this.$router.push({ name: "qnalist" });
     },
   },
-}
+};
 </script>
 
-<style>
+<style scoped>
 .title {
   font-size: 30px;
+}
+.answer {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgb(240, 240, 240);
 }
 </style>

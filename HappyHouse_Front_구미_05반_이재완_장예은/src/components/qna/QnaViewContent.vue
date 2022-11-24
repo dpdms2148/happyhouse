@@ -1,5 +1,25 @@
 <template>
-  <b-container class="bv-example-row mt-3">
+  <b-container class="bv-example-row">
+    <b-row class="mb-1">
+      <b-col class="text-left">
+        <b-button variant="outline-dark" @click="moveList" squared>
+          목록
+        </b-button>
+      </b-col>
+      <b-col class="text-right" v-if="userInfo.userid === qna.userid">
+        <b-button
+          variant="outline-info"
+          @click="moveModifyQna"
+          class="mr-2"
+          squared
+        >
+          수정
+        </b-button>
+        <b-button variant="outline-danger" @click="deleteQna" squared>
+          삭제
+        </b-button>
+      </b-col>
+    </b-row>  
     <hr />
     <b-row>
       <b-col class="text-left">
@@ -29,26 +49,6 @@
       </b-col>
     </b-row>
     <hr />
-    <b-row class="mb-1">
-      <b-col class="text-left">
-        <b-button variant="outline-dark" @click="moveList" squared>
-          목록
-        </b-button>
-      </b-col>
-      <b-col class="text-right" v-if="userInfo.userid === qna.userid">
-        <b-button
-          variant="outline-info"
-          @click="moveModifyQna"
-          class="mr-2"
-          squared
-        >
-          수정
-        </b-button>
-        <b-button variant="outline-danger" @click="deleteQna" squared>
-          삭제
-        </b-button>
-      </b-col>
-    </b-row>
   </b-container>
 </template>
 

@@ -4,7 +4,7 @@
       <b-col>
         <div class="vue-tempalte">
           <b-form class="text-left">
-            <h3 mt-3>Sign In</h3>
+            <h3 mt-3>Login</h3>
             <b-form-group label="아이디" label-for="userid">
               <b-form-input
                 id="userid"
@@ -28,7 +28,7 @@
             >
 
             <b-button type="button" class="btn-dark btn-block" @click="confirm"
-              >Sign In</b-button
+              >Login</b-button
             >
             <p class="text-right mt-2 mb-4">
               <router-link

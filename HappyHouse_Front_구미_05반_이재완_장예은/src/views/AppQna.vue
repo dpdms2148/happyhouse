@@ -3,10 +3,9 @@
     <div>
       <b-img
         :src="require('@/assets/happyhousesub.png')"
-        fluid
         alt="res image"
       ></b-img>
-      <h1 class="mt-3" style="color: white;">QnA</h1>
+      <h1 class="mt-3" style="color: white">QnA</h1>
     </div>
     <router-view></router-view>
   </b-container>
@@ -16,13 +15,16 @@ export default {
   name: "AppQna",
 };
 </script>
-<style scope>
+<style scoped>
 div {
   position: relative;
 }
+img {
+  width: 100%;
+}
 h1 {
   position: absolute;
-  top: 90%;
+  top: 80%;
   left: 50%;
   width: 100%;
   transform: translate(-50%, -50%);

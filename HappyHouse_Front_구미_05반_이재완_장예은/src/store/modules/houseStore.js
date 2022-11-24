@@ -11,13 +11,13 @@ var infowindows = [];
 const houseStore = {
   namespaced: true,
   state: {
-    sidos: [{ value: null, text: "선택하세요" }],
-    guguns: [{ value: null, text: "선택하세요" }],
-    dongs: [{ value: null, text: "선택하세요" }],
+    sidos: [{ value: null, text: "시/도" }],
+    guguns: [{ value: null, text: "구/군" }],
+    dongs: [{ value: null, text: "동" }],
     houses: [],
     house: null,
-    years:[{ value: null, text: "선택하세요" }],
-    monthes:[{ value: null, text: "선택하세요" }],
+    years: [{ value: null, text: "년" }],
+    monthes: [{ value: null, text: "월" }],
     kakao: null,
     map: null,
     marker: marker,
@@ -29,19 +29,19 @@ const houseStore = {
   getters: {},
   mutations: {
     CLEAR_SIDO_LIST(state) {
-      state.sidos = [{ value: null, text: "선택하세요" }];
+      state.sidos = [{ value: null, text: "시/도" }];
     },
     CLEAR_GUGUN_LIST(state) {
-      state.guguns = [{ value: null, text: "선택하세요" }];
+      state.guguns = [{ value: null, text: "구/군" }];
     },
     CLEAR_DONG_LIST(state) {
-      state.dongs = [{ value: null, text: "선택하세요" }];
+      state.dongs = [{ value: null, text: "동" }];
     },
     CLEAR_YEAR_LIST(state) {
-      state.years = [{ value: null, text: "선택하세요" }];
+      state.years = [{ value: null, text: "년" }];
     },
     CLEAR_MONTH_LIST(state) {
-      state.monthes = [{ value: null, text: "선택하세요" }];
+      state.monthes = [{ value: null, text: "월" }];
     },
     CLEAR_APT_LIST(state) {
       state.houses = [];
@@ -80,17 +80,16 @@ const houseStore = {
     SET_DETAIL_HOUSE(state, house) {
       state.house = house;
     },
-    SET_MARKER_AND_INFO(state, data)
-    {
+    SET_MARKER_AND_INFO(state, data) {
       map = data["map"];
-      kakao=data["kakao"];
+      kakao = data["kakao"];
 
-      marker=(data["marker"]);
+      marker = data["marker"];
       markers.push(marker);
 
-      infowindow = (data["infowindow"]);
+      infowindow = data["infowindow"];
       infowindows.push(infowindow);
-    }
+    },
   },
   actions: {
     getSido: ({ commit }) => {
@@ -129,8 +128,8 @@ const houseStore = {
         }
       );
     },
-    getYear: ({ commit },dongCode) => {
-      const params={dong:dongCode};
+    getYear: ({ commit }, dongCode) => {
+      const params = { dong: dongCode };
       yearList(
         params,
         ({ data }) => {
@@ -141,10 +140,10 @@ const houseStore = {
         }
       );
     },
-    getMonth: ({ commit },dealYear) => {
-      const params={
-        dong:dealYear.dongCode,
-        deal_year:dealYear.dealYear,
+    getMonth: ({ commit }, dealYear) => {
+      const params = {
+        dong: dealYear.dongCode,
+        deal_year: dealYear.dealYear,
       };
       monthList(
         params,
@@ -176,77 +175,73 @@ const houseStore = {
           map.setCenter(coords);
 
           data.forEach((house) => {
-              if (kakao.maps.services.Status.OK) {
-                var coords = new kakao.maps.LatLng(house.lat, house.lng);
-                
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao.maps.Marker({
-                  map: map,
-                  position: coords
-                });
-                console.log(marker);
-                markers.push(marker);
-              }
+            if (kakao.maps.services.Status.OK) {
+              var coords = new kakao.maps.LatLng(house.lat, house.lng);
+
+              // 결과값으로 받은 위치를 마커로 표시합니다
+              var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords,
+              });
+              console.log(marker);
+              markers.push(marker);
+            }
           });
         },
         (error) => {
           console.log(error);
         }
       );
-      
-      
     },
     detailHouse: ({ commit }, house) => {
       // 나중에 house.일련번호를 이용하여 API 호출
       commit("SET_DETAIL_HOUSE", house);
     },
     //초기 내 위치로 이동해서 마커 찍음
-    displayMarker({commit},params)
-    {
-      var data=
-          {
-            kakao: params.kakao,
-            map: params.map,
-            locPosition:params.locPosition,
-            marker: null,
-            infowindow: null,
-          };
+    displayMarker({ commit }, params) {
+      var data = {
+        kakao: params.kakao,
+        map: params.map,
+        locPosition: params.locPosition,
+        marker: null,
+        infowindow: null,
+      };
       // 마커를 생성합니다
-        data.marker = new data.kakao.maps.Marker({
-          map: data.map,
-          position: data.locPosition,
-        });
-        data.infowindow = new data.kakao.maps.InfoWindow({
-          content: '<div style="width:150px;text-align:center;padding:6px 0;">내 위치</div>',
-        });
-        data.infowindow.open(data.map, data.marker);
-        // 지도 중심좌표를 접속위치로 변경합니다
-        data.map.setCenter(data.locPosition);
+      data.marker = new data.kakao.maps.Marker({
+        map: data.map,
+        position: data.locPosition,
+      });
+      data.infowindow = new data.kakao.maps.InfoWindow({
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">내 위치</div>',
+      });
+      data.infowindow.open(data.map, data.marker);
+      // 지도 중심좌표를 접속위치로 변경합니다
+      data.map.setCenter(data.locPosition);
 
-        commit("SET_MARKER_AND_INFO",data);
+      commit("SET_MARKER_AND_INFO", data);
     },
     //특정 마커의 설명 띄움 (인포윈도우)
-    displayMarker2({commit},house) {
+    displayMarker2({ commit }, house) {
       for (var i = 0; i < infowindows.length; i++) infowindows[i].close();
-        // 정상적으로 검색이 완료됐으면 
-        if ( kakao.maps.services.Status.OK) {
-          console.log("success");
-          var coords = new kakao.maps.LatLng(house.lat, house.lng);
+      // 정상적으로 검색이 완료됐으면
+      if (kakao.maps.services.Status.OK) {
+        console.log("success");
+        var coords = new kakao.maps.LatLng(house.lat, house.lng);
 
-          // 결과값으로 받은 위치를 마커로 표시합니다
-          var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-          });
-          // 인포윈도우로 장소에 대한 설명을 표시합니다
-          var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;"> '+ house.apartmentName + '</div>'
-          });
-          infowindow.open(map, marker);
-          infowindows.push(infowindow);
-          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-          map.setCenter(coords);
-        }
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords,
+        });
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+          content: '<div style="width:150px;text-align:center;padding:6px 0;"> ' + house.apartmentName + "</div>",
+        });
+        infowindow.open(map, marker);
+        infowindows.push(infowindow);
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+      }
     },
   },
 };

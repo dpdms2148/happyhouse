@@ -3,7 +3,6 @@
     <div>
       <b-img
         :src="require('@/assets/happyhousesub.png')"
-        fluid
         alt="res image"
       ></b-img>
     </div>
@@ -13,19 +12,15 @@
 
 <script>
 export default {
-  name: 'AppUser',
-}
+  name: "AppUser",
+};
 </script>
 
-<style scope>
+<style scoped>
 div {
   position: relative;
 }
-h1 {
-  position: absolute;
-  top: 90%;
-  left: 50%;
+img {
   width: 100%;
-  transform: translate(-50%, -50%);
 }
 </style>

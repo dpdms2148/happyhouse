@@ -1,31 +1,43 @@
 <template>
-  <b-row class="mt-4 mb-4 px-4">
-    <!-- <b-col class="sm-3">
-      <b-form-input
-        v-model.trim="dongCode"
-        placeholder="동코드 입력...(예 : 11110)"
-        @keypress.enter="sendKeyword"
-      ></b-form-input>
-    </b-col>
-    <b-col class="sm-3" align="left">
-      <b-button variant="outline-primary" @click="sendKeyword">검색</b-button>
-    </b-col> -->
-    <b-col class="sm-3">
-      <b-form-select v-model="sidoCode" :options="sidos" @change="gugunList"></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select v-model="gugunCode" :options="guguns" @change="dongList"></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select v-model="dongCode" :options="dongs" @change="yearList"></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select v-model="dealYear" :options="years" @change="monthList"></b-form-select>
-    </b-col>
-    <b-col class="sm-3">
-      <b-form-select v-model="dealMonth" :options="monthes" @change="searchApt"></b-form-select>
-    </b-col>
-  </b-row>
+  <b-container class="bv-example-row mt-3">
+    <b-row>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="sidoCode"
+          :options="sidos"
+          @change="gugunList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="gugunCode"
+          :options="guguns"
+          @change="dongList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="dongCode"
+          :options="dongs"
+          @change="yearList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="dealYear"
+          :options="years"
+          @change="monthList"
+        ></b-form-select>
+      </b-col>
+      <b-col class="sm-2">
+        <b-form-select
+          v-model="dealMonth"
+          :options="monthes"
+          @change="searchApt"
+        ></b-form-select>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
@@ -50,58 +62,72 @@ export default {
       sidoCode: null,
       gugunCode: null,
       dongCode: null,
-      dealYear:null,
-      dealMonth:null,
+      dealYear: null,
+      dealMonth: null,
     };
   },
   computed: {
-    ...mapState(houseStore, ["sidos", "guguns", "dongs","years","monthes","houses"]),
-    // sidos() {
-    //   return this.$store.state.sidos;
-    // },
+    ...mapState(houseStore, [
+      "sidos",
+      "guguns",
+      "dongs",
+      "years",
+      "monthes",
+      "houses",
+    ]),
   },
   created() {
-    // this.$store.dispatch("getSido");
-    // this.sidoList();
     this.CLEAR_SIDO_LIST();
     this.CLEAR_APT_LIST();
     this.getSido();
   },
   methods: {
-    ...mapActions(houseStore, ["getSido", "getGugun", "getDong","getYear","getMonth","getHouseList","displayMarker3"]),
-    ...mapMutations(houseStore, ["CLEAR_SIDO_LIST", "CLEAR_GUGUN_LIST", "CLEAR_DONG_LIST", "CLEAR_YEAR_LIST","CLEAR_MONTH_LIST", "CLEAR_APT_LIST"]),
-    // sidoList() {
-    //   this.getSido();
-    // },
+    ...mapActions(houseStore, [
+      "getSido",
+      "getGugun",
+      "getDong",
+      "getYear",
+      "getMonth",
+      "getHouseList",
+      "displayMarker3",
+    ]),
+    ...mapMutations(houseStore, [
+      "CLEAR_SIDO_LIST",
+      "CLEAR_GUGUN_LIST",
+      "CLEAR_DONG_LIST",
+      "CLEAR_YEAR_LIST",
+      "CLEAR_MONTH_LIST",
+      "CLEAR_APT_LIST",
+    ]),
     gugunList() {
-      // console.log(this.sidoCode);
       this.CLEAR_GUGUN_LIST();
       this.gugunCode = null;
       if (this.sidoCode) this.getGugun(this.sidoCode);
     },
     dongList() {
-      // console.log(this.sidoCode);
       this.CLEAR_DONG_LIST();
       this.dongCode = null;
       if (this.gugunCode) this.getDong(this.gugunCode);
     },
-    yearList()
-    {
+    yearList() {
       this.CLEAR_YEAR_LIST();
       this.dealYear = null;
       if (this.dongCode) this.getYear(this.dongCode);
     },
-    monthList()
-    {
+    monthList() {
       this.CLEAR_MONTH_LIST();
       this.dealMonth = null;
-      if (this.dealYear) this.getMonth({dongCode: this.dongCode,dealYear: this.dealYear});
+      if (this.dealYear)
+        this.getMonth({ dongCode: this.dongCode, dealYear: this.dealYear });
     },
     searchApt() {
-      console.log(this.dealYear+" "+this.dealMonth)
-      if (this.dealMonth) 
-      {
-        this.getHouseList({dongCode: this.dongCode ,dealYear: this.dealYear, dealMonth: this.dealMonth});
+      console.log(this.dealYear + " " + this.dealMonth);
+      if (this.dealMonth) {
+        this.getHouseList({
+          dongCode: this.dongCode,
+          dealYear: this.dealYear,
+          dealMonth: this.dealMonth,
+        });
       }
     },
   },
